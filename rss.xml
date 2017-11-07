@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Marcos Schroh</title><link>https://example.com/</link><description>Personal Blog</description><atom:link href="https://example.com/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Tue, 07 Nov 2017 10:55:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Creating your own framework with React</title><link>https://example.com/posts/creating-your-own-framework-with-react/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;&lt;a href="https://reactjs.org/"&gt;React&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;First we should know the basics of React:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Is the view layer. &lt;/li&gt;
+&lt;li&gt;Based on components.&lt;/li&gt;
+&lt;li&gt;A component must have a render method. The method must return a valid html tag (In React 16 you can return an array).&lt;/li&gt;
+&lt;li&gt;Each component can have props and state.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;Difference between state and props&lt;/strong&gt;:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Props&lt;/strong&gt;: props (short for properties) are a Component's configuration, its options if you may. Props are received from above and are immutable as far as the Component which receives them is concerned.
+A Component cannot change its props, but it is responsible for putting together the props of its child Components.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;State&lt;/strong&gt;: The state starts with a default value when a Component is mounted, and then suffers from mutations in time (mostly generated from user events). It's a [*]serializable representation of one point in time a snapshot.&lt;/p&gt;
+&lt;p&gt;A Component manages its own state internally, but besides setting an initial state has no business fiddling with the state of its children. You could say that the state is private.&lt;/p&gt;
+&lt;p&gt;[*] We didn't say props are also serializable because it's pretty common to pass down callback functions through props.&lt;/p&gt;
+&lt;p&gt;The state is optional. Since state increases complexity and reduces predictability, a Component without state is preferable. Even though you clearly can't do without state in an interactive app, you should avoid having too many Stateful Components.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;&lt;em&gt;Resume of props ans state&lt;/em&gt;&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;-&lt;/th&gt;
+&lt;th&gt;&lt;em&gt;props&lt;/em&gt;&lt;/th&gt;
+&lt;th&gt;&lt;em&gt;state&lt;/em&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Can get initial value from parent Component?&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Can be changed by parent Component?&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Can set default values inside Component?&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Can change inside Component?&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Can set initial value for child Components?&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Can change in child Components?&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://redux.js.org/"&gt;Redux&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Redux is a predictable state container for JavaScript apps.
+It helps you to write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. You can use Redux together with React, or with any other view library. It is tiny (2kB, including dependencies).&lt;/p&gt;
+&lt;p&gt;  &lt;/p&gt;
+&lt;h3&gt;Creating the framework&lt;/h3&gt;
+&lt;h4&gt;Architecture&lt;/h4&gt;
+&lt;p&gt;&lt;img alt="simple image1" src="https://example.com/react-own-framework/framework-architecture.png"&gt;&lt;/p&gt;
+&lt;p&gt;The main key here is that exists only one store (one big Javascript object), that can be stored, usually in the local storage. This is a big immutable object . You must be familiar with the concept of immutability in Javascript. You can’t change any value of the store object.&lt;/p&gt;
+&lt;p&gt;Basically when something happens you might want to modify part of this big object, but don’t change it, just create a new object, change it, and return it. Where we do this functionality? In a reducer.&lt;/p&gt;
+&lt;p&gt;One big change is that you have to wrap the entire react application in a provider component. The provider component is listening at the store, and when it changes, a react component can be re-rendered.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/routes.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the image we can see how to wrap the Application in the Provider component imported from react-redux.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Smart Components or Containers&lt;/strong&gt;: Components that are connected to a portion of the store. They can trigger or fire actions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dumb Components&lt;/strong&gt;: They are just normal components, can receive data as props from smart components.&lt;/p&gt;
+&lt;p&gt;The following piece of code is the LoginPage component. This is a smart component. Maybe you are wondering why… &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image1" src="https://example.com/react-own-framework/login-page.png"&gt;&lt;/p&gt;
+&lt;p&gt;Well... because we are connecting it with part of the store, also it can trigger actions. 
+Actions are just javascript functions that dispatch an action. Actions are listened by reducers. &lt;/p&gt;
+&lt;p&gt;In the image below there is a login function (ES6 arrow function =&amp;gt; ). The login receives data and dispatch something… an action with type equal to LOGIN_REQUESTED&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/login-index.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can see a couple of things:&lt;/p&gt;
+&lt;p&gt;First of all we are importing connect. This allows us to connect a react component with the state object (store) and trigger actions. &lt;/p&gt;
+&lt;p&gt;The second is that we are importing a react component (LoginPage) and we are connecting it. So, now the component have access to part of the store (user) and we can trigger actions (login). &lt;/p&gt;
+&lt;p&gt;Now inside the LoginPage component we can use this.props.user, because we have access to a part of the store, in this case only the user. Also we can trigger the login action by doing this.props.login(). Then, this is a &lt;strong&gt;Smart Component&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;Now the Dumb Component… and it is the LoginForm component. We are importing it in the LoginPage component. &lt;/p&gt;
+&lt;p&gt;It looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/login-form.png"&gt; &lt;/p&gt;
+&lt;p&gt;If you take a look, when the button is clicked, we execute the function handleSubmit, and this function executes this.props.handleSubmit(). Yes, this is a props that was passed from the smart component. In other words, we are triggering the action login() that is listened by a reducer or a middleware.&lt;/p&gt;
+&lt;p&gt;In this case, the login function makes an AJAX request and it is intercepted by sagas middleware (User Sagas): &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/sagas.png"&gt;&lt;/p&gt;
+&lt;p&gt;Sometimes actions are intercepted by a middleware. Here is saying: when the action LOGIN_REQUESTED is fired, execute the login generator (make an API call). If the api call was successful, then execute the loginSuccessful generator, that it triggers another action, in this case SET_TOKEN. Finally, the token is set in the reducer. &lt;/p&gt;
+&lt;p&gt;The following piece of code belongs to the user reducer.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/reducer.png"&gt;&lt;/p&gt;
+&lt;p&gt;Before dispatching the login action, the store object looks like: &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/console-1.png"&gt;&lt;/p&gt;
+&lt;p&gt;After triggering the login() action, the store object looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/console-2.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can see how the store has been changed. Of course we have access to the user object in the LoginPage component via this.props.user. We can do cool things like verifying whether the user object has token or not. In case that has one, redirect our visitor to the Home Page, otherwise redirect to the Login Page again.&lt;/p&gt;
+&lt;p&gt;This is how we connect Sagas middleware, the store and the reducers:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://example.com/react-own-framework/store-index.png"&gt;&lt;/p&gt;
+&lt;p&gt;We are exporting the store, and we are using it with the Provider Component. :-). Take a look at the step where I talk about the provider and you can see how we use the store&lt;/p&gt;
+&lt;p&gt;A special recommendation is that should have a balance between Smart Components and Dumb Components. You don’t want to have too many smart components because it implies to connect them to the store or a portion of it. At the same time if you have too many dumb components it means that you are passing props everywhere and it can be extremely hard to follow, especially because you can pass data through many levels (component 1--&amp;gt;component 2….---&amp;gt;component n)&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Create your own framework with React can be a hard task at the beginning, but if you undestarnd the concept behind that
+you could replace the differents layers as much as you like according to your needs.&lt;/p&gt;
+&lt;p&gt;For example here I am using &lt;a href="https://redux.js.org/"&gt;Redux&lt;/a&gt; for the data layer, but you can go for &lt;a href="https://facebook.github.io/flux/"&gt;Flux&lt;/a&gt; or &lt;a href="https://mobx.js.org/"&gt;MobX&lt;/a&gt;. Also, an alternative for &lt;a href="https://redux-saga.js.org/"&gt;redux-sagas&lt;/a&gt; is &lt;a href="https://redux.js.org"&gt;redux-thunk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This world is growing really fast with React, React Native, React VR, so be prepared...&lt;/p&gt;&lt;/div&gt;</description><category>react</category><category>redux</category><guid>https://example.com/posts/creating-your-own-framework-with-react/</guid><pubDate>Tue, 07 Nov 2017 08:32:24 GMT</pubDate></item><item><title>Static, Class and Abstract Decorators</title><link>https://example.com/posts/static-class-and-abstract-decorators/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;The first thing that we have to ak ourselves is: What is a Python decorator? Well, in a formal way “A decorator is the name used for a software design pattern. Decorators dynamically alter the functionality of a function, method, or class without having to directly use subclasses or change the source code of the function being decorated”, but my favourite definition is “Factory of functions”. 
+The second thing that we need to know is the concept of bound and unbound methods in Python. Methods in Python are objects too, so in runtime the methods are instantiated and they are bound to a class or an instance of a class.&lt;/p&gt;
+&lt;h3&gt;Static Method&lt;/h3&gt;
+&lt;p&gt;The best way to understand the concept is with the code:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;motor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chasis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chasis&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_total_weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt;  &lt;span class="nf"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weigth&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The question is, is this code working?: The answer is yes, but if you take a look at the get_total_weigth method, the first argument is self and we never use it inside. But what is really happen? Well, remember that the methods are object too, so Python create objects related to the methods and bound them to a Car instance, this is the reason why we pass self like first argument. &lt;/p&gt;
+&lt;p&gt;Suppose that car is a Car instance, then:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;bound&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Car&lt;/span&gt; &lt;span class="nb"&gt;object&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mh"&gt;0x7f72d7dbb750&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;This is expensive because every time that we instantiate a Car, Python must create new methods objects,  and  we know that we don’t need the “self” reference. So the solution is to use staticmethod. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@staticmethod&lt;/span&gt;    
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_total_weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+       &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+
+
+&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;29&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="n"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now we see that the method is not bound to the instance.&lt;/p&gt;
+&lt;p&gt;With this approach we have the following advantages:&lt;/p&gt;
+&lt;p&gt;Python doesn’t have to instantiate a bound-method for each Car object.
+We know that the methods don’t  depend on the internal object state
+If we have a subclass, we can override the get_total_weight without ovewrite the weight method&lt;/p&gt;
+&lt;p&gt;One thing that we mention is that a method that is decorated with @staticmethod is callable by a class or by an instance.&lt;/p&gt;
+&lt;p&gt;REMEMBER: If a method doesn’t use the self reference, it is probably a static method.  &lt;/p&gt;
+&lt;h3&gt;Class Method&lt;/h3&gt;
+&lt;p&gt;Class methods are methods that are bound to the class instead of the instance of the class, so in the following code we can see that the get_market method receive cls as first argument. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;    
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;car_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;consumption&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+             &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;car_component_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c3&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;span class="n"&gt;car_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;car&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;car_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;bound&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="nc"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="s1"&gt;'&amp;gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;methods&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="n"&gt;used&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="s2"&gt;"Factory Methods"&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt; &lt;span class="n"&gt;need&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;do&lt;/span&gt; &lt;span class="n"&gt;special&lt;/span&gt; &lt;span class="n"&gt;operations&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;instance&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;has&lt;/span&gt; &lt;span class="n"&gt;been&lt;/span&gt; &lt;span class="n"&gt;decorated&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;staticmethod&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Abstract Method&lt;/h3&gt;
+&lt;p&gt;Abstract method are used in inheritance, are defined in a Base Class but are not implemented. See the following example:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;    
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chasis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chasis&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;turn_on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;NotIplementedError&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Any class that inherited from Car must be implement turn_on method, otherwise an exception will be raised.
+One thing that you should know is that if you forget to implement the method in a subclass an error will be raised when you try to call the method. A solution to this problem is to use the ABC module that is Python provide.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;abc&lt;/span&gt;
+
+&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="vm"&gt;__metaclass__&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ABCMetaclass&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@abc.abstractmethod&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;turn_on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="sd"&gt;"""&lt;/span&gt;
+&lt;span class="sd"&gt;        This method should be implemented by the subclass&lt;/span&gt;
+&lt;span class="sd"&gt;        """&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now, if we try to create an instance of BaseCar we have the following error:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="ne"&gt;TypeError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Can&lt;/span&gt;&lt;span class="s1"&gt;'t instantiate abstract class BaseCar with abstract methods turn_on&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Conclusion:&lt;/h3&gt;
+&lt;p&gt;If you have a method and inside it you never use the self reference, probably the method should be decorated with @staticmethod.
+Remember that @classmethod in general is used by ‘Factory’, and always the first argument must be a reference to the class. We use cls for it. Of course you should use the cls inside the method!!
+A static method can be called by any kind of methods.
+If you have inheritance and you want to overwrite a method always decorate it with @abc.abstractmethod. It avoid problems. &lt;/p&gt;&lt;/div&gt;</description><category>python</category><guid>https://example.com/posts/static-class-and-abstract-decorators/</guid><pubDate>Tue, 07 Nov 2017 08:17:04 GMT</pubDate></item></channel></rss>
