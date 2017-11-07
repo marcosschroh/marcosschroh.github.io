@@ -9,6 +9,10 @@
 .. type: text
 -->
 
-I am System Engineer graduated from National Technological University of La Plata 
-(UTN FRLP). I like the Technology and computers, specially Open Source technologies, 
-web development and PYTHON!!. my hobbies are basketball, running and swimming
+![simple image1](/personal/profile.jpg)
+
+I am Marcos Schroh from Argentina. I was graduated as System Engineer graduated from National Technological University of La Plata 
+(UTN FRLP) Buenos Aires, Argentina. I am living and working in Netherldans since 216. 
+
+I like the Technology and computers, specially Open Source, web development and PYTHON!!. 
+My hobbies are basketball, running and swimming
