@@ -37,14 +37,47 @@ The state is optional. Since state increases complexity and reduces predictabili
 
 ### *Resume of props ans state*
 
-|    -  |  *props*  |  *state*  |
-| ---------- |  ----------  |  ----------  |
-| Can get initial value from parent Component? | Yes | Yes |
-| Can be changed by parent Component? | Yes | No |
-| Can set default values inside Component? | Yes | No |
-| Can change inside Component? | No | Yes |
-| Can set initial value for child Components? | yes | yes |
-| Can change in child Components? | Yes | No |
+<table class='table table-bordered table-hover'>
+	<thead>
+		<tr>
+			<td>-</td>
+			<td>Props</td>
+			<td>State</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Can get initial value from parent Component?</td>
+			<td>Yes</td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td>Can be changed by parent Component?</td>
+			<td>Yes</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>Can set default values inside Component?</td>
+			<td>Yes</td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td>Can change inside Component?</td>
+			<td>No</td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td>Can set initial value for child Components?</td>
+			<td>Yes</td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td>Can change in child Components?</td>
+			<td>Yes</td>
+			<td>No</td>
+		</tr>
+	</tbody>
+</table>
 
 &nbsp;
 
@@ -57,9 +90,15 @@ It helps you to write applications that behave consistently, run in different en
 
 ## Creating the framework
 
+&nbsp;
 
-### Architecture
+<h3>The Architecture:</h3>
+
+&nbsp;
+
 ![simple image1](/react-own-framework/framework-architecture.png)
+
+&nbsp;
 
 The main key here is that exists only one store (one big Javascript object), that can be stored, usually in the local storage. This is a big immutable object . You must be familiar with the concept of immutability in Javascript. You can’t change any value of the store object.
 
@@ -149,4 +188,3 @@ you could replace the differents layers as much as you like according to your ne
 For example here I am using [Redux](https://redux.js.org/) for the data layer, but you can go for [Flux](https://facebook.github.io/flux/) or [MobX](https://mobx.js.org/). Also, an alternative for [redux-sagas](https://redux-saga.js.org/) is [redux-thunk](https://redux.js.org).
 
 This world is growing really fast with React, React Native, React VR, so be prepared...
-

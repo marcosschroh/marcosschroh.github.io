@@ -118,43 +118,43 @@ A Component cannot change its props, but it is responsible for putting together 
 <p>The state is optional. Since state increases complexity and reduces predictability, a Component without state is preferable. Even though you clearly can't do without state in an interactive app, you should avoid having too many Stateful Components.</p>
 <p> </p>
 <h4><em>Resume of props ans state</em></h4>
-<table>
+<table class="table table-bordered table-hover">
 <thead><tr>
-<th>-</th>
-<th><em>props</em></th>
-<th><em>state</em></th>
-</tr></thead>
+<td>-</td>
+            <td>Props</td>
+            <td>State</td>
+        </tr></thead>
 <tbody>
 <tr>
 <td>Can get initial value from parent Component?</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
+            <td>Yes</td>
+            <td>Yes</td>
+        </tr>
 <tr>
 <td>Can be changed by parent Component?</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
+            <td>Yes</td>
+            <td>No</td>
+        </tr>
 <tr>
 <td>Can set default values inside Component?</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
+            <td>Yes</td>
+            <td>Yes</td>
+        </tr>
 <tr>
 <td>Can change inside Component?</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
+            <td>No</td>
+            <td>Yes</td>
+        </tr>
 <tr>
 <td>Can set initial value for child Components?</td>
-<td>yes</td>
-<td>yes</td>
-</tr>
+            <td>Yes</td>
+            <td>Yes</td>
+        </tr>
 <tr>
 <td>Can change in child Components?</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
+            <td>Yes</td>
+            <td>No</td>
+        </tr>
 </tbody>
 </table>
 <p> </p>
@@ -163,8 +163,12 @@ A Component cannot change its props, but it is responsible for putting together 
 It helps you to write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. You can use Redux together with React, or with any other view library. It is tiny (2kB, including dependencies).</p>
 <p>  </p>
 <h3>Creating the framework</h3>
-<h4>Architecture</h4>
+<p> </p>
+<h4>The Architecture:</h4>
+
+<p> </p>
 <p><img alt="simple image1" src="../../react-own-framework/framework-architecture.png"></p>
+<p> </p>
 <p>The main key here is that exists only one store (one big Javascript object), that can be stored, usually in the local storage. This is a big immutable object . You must be familiar with the concept of immutability in Javascript. You can’t change any value of the store object.</p>
 <p>Basically when something happens you might want to modify part of this big object, but don’t change it, just create a new object, change it, and return it. Where we do this functionality? In a reducer.</p>
 <p>One big change is that you have to wrap the entire react application in a provider component. The provider component is listening at the store, and when it changes, a react component can be re-rendered.</p>

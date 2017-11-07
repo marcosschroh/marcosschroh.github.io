@@ -147,4 +147,3 @@ If you have a method and inside it you never use the self reference, probably th
 Remember that @classmethod in general is used by ‘Factory’, and always the first argument must be a reference to the class. We use cls for it. Of course you should use the cls inside the method!!
 A static method can be called by any kind of methods.
 If you have inheritance and you want to overwrite a method always decorate it with @abc.abstractmethod. It avoid problems. 
-
