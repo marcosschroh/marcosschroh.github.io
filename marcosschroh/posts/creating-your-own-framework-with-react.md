@@ -80,7 +80,7 @@ In the image we can see how to wrap the Application in the Provider component im
 
 The following piece of code is the LoginPage component. This is a smart component. Maybe you are wondering why… 
 
-![simple image1](/react-own-framework/login-page.png)
+![simple login](/react-own-framework/login-page.png)
 
 
 Well... because we are connecting it with part of the store, also it can trigger actions. 
@@ -105,7 +105,7 @@ Now the Dumb Component… and it is the LoginForm component. We are importing it
 It looks like:
 
 
-![simple image-routes](/react-own-framework/login-form.png) 
+![simple image-login-form](/react-own-framework/login-form.png) 
 
 
 If you take a look, when the button is clicked, we execute the function handleSubmit, and this function executes this.props.handleSubmit(). Yes, this is a props that was passed from the smart component. In other words, we are triggering the action login() that is listened by a reducer or a middleware.
@@ -113,28 +113,28 @@ If you take a look, when the button is clicked, we execute the function handleSu
 In this case, the login function makes an AJAX request and it is intercepted by sagas middleware (User Sagas): 
 
 
-![simple image-routes](/react-own-framework/sagas.png)
+![simple image-sagas](/react-own-framework/sagas.png)
 
 Sometimes actions are intercepted by a middleware. Here is saying: when the action LOGIN_REQUESTED is fired, execute the login generator (make an API call). If the api call was successful, then execute the loginSuccessful generator, that it triggers another action, in this case SET_TOKEN. Finally, the token is set in the reducer. 
 
 The following piece of code belongs to the user reducer.
 
-![simple image-routes](/react-own-framework/reducer.png)
+![simple image-reducer](/react-own-framework/reducer.png)
 
 Before dispatching the login action, the store object looks like: 
 
-![simple image-routes](/react-own-framework/console-1.png)
+![simple image-console-1](/react-own-framework/console-1.png)
 
 After triggering the login() action, the store object looks like:
 
-![simple image-routes](/react-own-framework/console-2.png)
+![simple image-console-2](/react-own-framework/console-2.png)
 
 We can see how the store has been changed. Of course we have access to the user object in the LoginPage component via this.props.user. We can do cool things like verifying whether the user object has token or not. In case that has one, redirect our visitor to the Home Page, otherwise redirect to the Login Page again.
 
 
 This is how we connect Sagas middleware, the store and the reducers:
 
-![simple image-routes](/react-own-framework/store-index.png)
+![simple image-store-index](/react-own-framework/store-index.png)
 
 We are exporting the store, and we are using it with the Provider Component. :-). Take a look at the step where I talk about the provider and you can see how we use the store
 
