@@ -26,10 +26,6 @@
   <lastmod>2017-11-07T10:55:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/reduxjsorg.xml</loc>
-  <lastmod>2017-11-07T10:53:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://example.com/galleries/rss.xml</loc>
   <lastmod>2017-11-07T08:07:00Z</lastmod>
  </sitemap>
@@ -39,6 +35,6 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2017-11-07T10:55:00Z</lastmod>
+  <lastmod>2017-11-07T12:18:00Z</lastmod>
  </sitemap>
 </sitemapindex>
