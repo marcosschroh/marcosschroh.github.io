@@ -980,19 +980,19 @@ RSS_COPYRIGHT_FORMATS = CONTENT_FOOTER_FORMATS
 # systems.  The following comment systems are supported by Nikola:
 #   disqus, facebook, googleplus, intensedebate, isso, livefyre, muut
 # You can leave this option blank to disable comments.
-COMMENT_SYSTEM = ""
+COMMENT_SYSTEM = "disqus"
 # And you also need to add your COMMENT_SYSTEM_ID which
 # depends on what comment system you use. The default is
 # "nikolademo" which is a test account for Disqus. More information
 # is in the manual.
-COMMENT_SYSTEM_ID = ""
+COMMENT_SYSTEM_ID = "marcosschroh-github-io"
 
 # Enable annotations using annotateit.org?
 # If set to False, you can still enable them for individual posts and pages
 # setting the "annotations" metadata.
 # If set to True, you can disable them for individual posts and pages using
 # the "noannotations" metadata.
-# ANNOTATIONS = False
+ANNOTATIONS = True
 
 # Create index.html for page folders?
 # WARNING: if a page would conflict with the index file (usually
