@@ -6,12 +6,20 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://marcosschroh.github.io/categories/bot.xml</loc>
+  <lastmod>2017-12-14T15:13:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml</loc>
+  <lastmod>2017-12-14T15:13:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators.xml</loc>
   <lastmod>2017-11-07T14:04:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-django-test.xml</loc>
-  <lastmod>2017-11-30T10:03:00Z</lastmod>
+  <lastmod>2017-11-30T10:19:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_react.xml</loc>
@@ -19,7 +27,7 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
-  <lastmod>2017-11-30T10:03:00Z</lastmod>
+  <lastmod>2017-12-14T15:13:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
@@ -31,14 +39,14 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/galleries/rss.xml</loc>
-  <lastmod>2017-11-08T08:29:00Z</lastmod>
+  <lastmod>2017-12-14T13:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2017-11-30T10:03:00Z</lastmod>
+  <lastmod>2017-12-14T15:13:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2017-11-30T10:03:00Z</lastmod>
+  <lastmod>2017-12-14T15:13:00Z</lastmod>
  </sitemap>
 </sitemapindex>
