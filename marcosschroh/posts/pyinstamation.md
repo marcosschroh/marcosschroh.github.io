@@ -16,7 +16,7 @@ Pyinstamation is a Python Bot for Instagram. I have developed this project with 
 
 Features:
 
-* You can configure as you want the bot.
+* You can configure **however** you want the bot.
 * Works in Linux and MacOS.
 * Works in Chrome and Firefox. 
 * Upload pictures.
@@ -26,10 +26,10 @@ Features:
 * Logging.
 * Comment generator.
 
-Everything looks great but here I want to tell you about the results that I had with this bot.
-I run this bot for 5 days in row, once a day at the same time, and I the results were quiet good. 
+Everything looks great so far, but here, I want to show you about the results I had with this bot. 
+I've been running this bot for 5 days in a row, once a day at the same time, and the results were quite good.
 
-First I will show you the configuration that I used for teh 5 days:
+First I will show you the configuration I used for teh 5 days:
 
 ```yaml
 username: yourusername
@@ -157,7 +157,7 @@ followers:
 
 &nbsp;
 
-Ok, I was wondering whether the bot has achieved its goal or not? Well, the main goal is:
+Ok. So I was wondering whether the bot has achieved its goal or not? Well, my main goal was:
 *have more followers with the follow/unfollow technique*
 
 If we analize the bot from the goal perpective, we can say that it's working because I have more Followers, actually **47**.
@@ -168,7 +168,7 @@ So, the FR = 58/70 = **0.8285**
 
 We have more followers, but at the same time I'm following more users (bad rate) and I can guess that in the most of the cases a person wants to have a lot of followers but with a good rate (following << followers).
 
-When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot to the infinite we can reach this number, but the good thing is that we don’t have any limit about followers.
+When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot indefinetely we can reach this number, but the good thing is that we don’t have any limit about followers.
 
 Let’s suppose that we start with 100 followers and 100 users following.
 
