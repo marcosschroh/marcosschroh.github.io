@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Marcos Schroh (Posts about python, bot, instagram)</title><link>https://marcosschroh.github.io</link><description></description><atom:link href="https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Thu, 14 Dec 2017 15:28:08 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Marcos Schroh (Posts about python, bot, instagram)</title><link>https://marcosschroh.github.io</link><description></description><atom:link href="https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Fri, 15 Dec 2017 08:07:34 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
 &lt;p&gt;Pyinstamation is a Python Bot for Instagram. I have developed this project with &lt;a href="https://woile.github.io"&gt;Santiago Fraire&lt;/a&gt;. You can take a look of the source code of Pyinstamation &lt;a href="https://github.com/dscovr/pyinstamation"&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Features:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;You can configure as you want the bot.&lt;/li&gt;
+&lt;li&gt;You can configure &lt;strong&gt;however&lt;/strong&gt; you want the bot.&lt;/li&gt;
 &lt;li&gt;Works in Linux and MacOS.&lt;/li&gt;
 &lt;li&gt;Works in Chrome and Firefox. &lt;/li&gt;
 &lt;li&gt;Upload pictures.&lt;/li&gt;
@@ -13,9 +13,9 @@
 &lt;li&gt;Logging.&lt;/li&gt;
 &lt;li&gt;Comment generator.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Everything looks great but here I want to tell you about the results that I had with this bot.
-I run this bot for 5 days in row, once a day at the same time, and I the results were quiet good. &lt;/p&gt;
-&lt;p&gt;First I will show you the configuration that I used for teh 5 days:&lt;/p&gt;
+&lt;p&gt;Everything looks great so far, but here, I want to show you about the results I had with this bot. 
+I've been running this bot for 5 days in a row, once a day at the same time, and the results were quite good.&lt;/p&gt;
+&lt;p&gt;First I will show you the configuration I used for teh 5 days:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;username&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;yourusername&lt;/span&gt;
 &lt;span class="l l-Scalar l-Scalar-Plain"&gt;password&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;yourpassword&lt;/span&gt;
 &lt;span class="l l-Scalar l-Scalar-Plain"&gt;hide_browser&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;false&lt;/span&gt;
@@ -132,14 +132,14 @@ I run this bot for 5 days in row, once a day at the same time, and I the results
 &lt;p&gt;&lt;strong&gt;New Users Following:&lt;/strong&gt; (15 + 23 + 15 + 47 + 10) - (0 + 0 + 15 + 10 + 15) = 70&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Is important to note that we only unfollow the users that have been  followed by the bot&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
-&lt;p&gt;Ok, I was wondering whether the bot has achieved its goal or not? Well, the main goal is:
+&lt;p&gt;Ok. So I was wondering whether the bot has achieved its goal or not? Well, my main goal was:
 &lt;em&gt;have more followers with the follow/unfollow technique&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;If we analize the bot from the goal perpective, we can say that it's working because I have more Followers, actually &lt;strong&gt;47&lt;/strong&gt;.
 Of course this result also dependes on the configuration that I've set: likes per days, comments, probabilities. etc.&lt;/p&gt;
 &lt;p&gt;But if we define the FR (Follow Rate) as followers/following, that is not good because I'm following more users than before, to be exact &lt;strong&gt;70&lt;/strong&gt;. 
 So, the FR = 58/70 = &lt;strong&gt;0.8285&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;We have more followers, but at the same time I'm following more users (bad rate) and I can guess that in the most of the cases a person wants to have a lot of followers but with a good rate (following &amp;lt;&amp;lt; followers).&lt;/p&gt;
-&lt;p&gt;When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot to the infinite we can reach this number, but the good thing is that we don’t have any limit about followers.&lt;/p&gt;
+&lt;p&gt;When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot indefinetely we can reach this number, but the good thing is that we don’t have any limit about followers.&lt;/p&gt;
 &lt;p&gt;Let’s suppose that we start with 100 followers and 100 users following.&lt;/p&gt;
 &lt;p&gt;Regarding the results that we had, we can say that:&lt;/p&gt;
 &lt;p&gt;Followers average per running: 58 / 5 = &lt;strong&gt;11.6&lt;/strong&gt;&lt;/p&gt;
