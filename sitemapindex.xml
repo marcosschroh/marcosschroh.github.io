@@ -23,7 +23,11 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_react.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/formik.xml</loc>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
@@ -31,11 +35,11 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/redux.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/galleries/rss.xml</loc>
@@ -43,10 +47,10 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-01-06T17:46:00Z</lastmod>
  </sitemap>
 </sitemapindex>
