@@ -2,8 +2,8 @@
 .. title: Manage asynchronous errors with React and Formik
 .. slug: async-errors-in-react-with-formik
 .. date: 2018-01-06 15:07:09 UTC+01:00
-.. tags: 
-.. category: 
+.. tags: react, redux, formik
+.. category: react
 .. link: 
 .. description: 
 .. type: text
