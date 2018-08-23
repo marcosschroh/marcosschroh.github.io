@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Thu, 23 Aug 2018 17:52:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Thu, 23 Aug 2018 18:25:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
 &lt;p&gt;Pyinstamation is a Python Bot for Instagram. I have developed this project with &lt;a href="https://woile.github.io"&gt;Santiago Fraire&lt;/a&gt;. You can take a look of the source code of Pyinstamation &lt;a href="https://github.com/dscovr/pyinstamation"&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Features:&lt;/p&gt;
 &lt;ul&gt;
@@ -246,7 +246,7 @@ So, let's go to the real example.&lt;/p&gt;
 &lt;p&gt;For example for our TicketsInfo Form:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data_tickets_info_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="s1"&gt;'Ticket Information-limit'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s1"&gt;'Ticket Information-name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'My first Pool'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'Ticket Information-name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'My first Ticket Info'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="s1"&gt;'Ticket Information-pub_data'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'2017-11-30T12:00:00'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="s1"&gt;'ticket_wizard_form_view-current_step'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Ticket Information'&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -277,7 +277,7 @@ So, let's go to the real example.&lt;/p&gt;
         &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Awesome Tickets'&lt;/span&gt;
         &lt;span class="n"&gt;limit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
 
-        &lt;span class="n"&gt;data_pool_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;data_ticket_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
             &lt;span class="s1"&gt;'Ticket Information-limit'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
             &lt;span class="s1"&gt;'Ticket Information-name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
             &lt;span class="s1"&gt;'Ticket Information-pub_data'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'2020-11-30T12:00:00'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -292,18 +292,18 @@ So, let's go to the real example.&lt;/p&gt;
             &lt;span class="s1"&gt;'ticket_wizard_form_view-current_step'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Address'&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
 
-        &lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;data_pool_form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data_address_form&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;data_ticket_form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data_address_form&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 
         &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data_step&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
             &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_request'&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;data_step&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
             &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-                &lt;span class="c1"&gt;# make sure that after the create pool we are redirected to Pool List Page&lt;/span&gt;
+                &lt;span class="c1"&gt;# make sure that after the create ticket we are redirected to Ticket List Page&lt;/span&gt;
                 &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;assertRedirects&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_list'&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
             &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                 &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;assertEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-        &lt;span class="c1"&gt;# get the pool&lt;/span&gt;
+        &lt;span class="c1"&gt;# get the ticket&lt;/span&gt;
         &lt;span class="n"&gt;TicketInfo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
             &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
             &lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;

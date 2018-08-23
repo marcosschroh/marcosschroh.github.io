@@ -100,7 +100,7 @@ For example for our TicketsInfo Form:
 ```python
 data_tickets_info_form = {
 	'Ticket Information-limit': 10,
-	'Ticket Information-name': 'My first Pool',
+	'Ticket Information-name': 'My first Ticket Info',
 	'Ticket Information-pub_data': '2017-11-30T12:00:00',
 	'ticket_wizard_form_view-current_step': 'Ticket Information'
 }
@@ -136,7 +136,7 @@ class TestViews(TestCase):
         name = 'Awesome Tickets'
         limit = 10
 
-        data_pool_form = {
+        data_ticket_form = {
 			'Ticket Information-limit': limit,
 			'Ticket Information-name': name,
 			'Ticket Information-pub_data': '2020-11-30T12:00:00',
@@ -151,18 +151,18 @@ class TestViews(TestCase):
 			'ticket_wizard_form_view-current_step': 'Address'
 		}
 
-        TICKETS_STEPS_DATA = [data_pool_form, data_address_form]
+        TICKETS_STEPS_DATA = [data_ticket_form, data_address_form]
 
         for step, data_step in enumerate(TICKETS_STEPS_DATA, 1):
             response = self.client.post(reverse('tickets_info_request'), data_step)
 
             if step == len(TICKETS_STEPS_DATA):
-                # make sure that after the create pool we are redirected to Pool List Page
+                # make sure that after the create ticket we are redirected to Ticket List Page
                 self.assertRedirects(response, reverse('tickets_info_list'))
             else:
                 self.assertEqual(response.status_code, 200)
 
-        # get the pool
+        # get the ticket
         TicketInfo.objects.get(
             name=name,
             limit=limit,

@@ -590,7 +590,7 @@ So, let's go to the real example.</p>
 <p>For example for our TicketsInfo Form:</p>
 <pre class="code literal-block"><span></span><span class="n">data_tickets_info_form</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="s1">'My first Pool'</span><span class="p">,</span>
+    <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="s1">'My first Ticket Info'</span><span class="p">,</span>
     <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2017-11-30T12:00:00'</span><span class="p">,</span>
     <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Ticket Information'</span>
 <span class="p">}</span>
@@ -621,7 +621,7 @@ So, let's go to the real example.</p>
         <span class="n">name</span> <span class="o">=</span> <span class="s1">'Awesome Tickets'</span>
         <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
 
-        <span class="n">data_pool_form</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">data_ticket_form</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
             <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
             <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2020-11-30T12:00:00'</span><span class="p">,</span>
@@ -636,18 +636,18 @@ So, let's go to the real example.</p>
             <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Address'</span>
         <span class="p">}</span>
 
-        <span class="n">TICKETS_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_pool_form</span><span class="p">,</span> <span class="n">data_address_form</span><span class="p">]</span>
+        <span class="n">TICKETS_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_ticket_form</span><span class="p">,</span> <span class="n">data_address_form</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">data_step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_request'</span><span class="p">),</span> <span class="n">data_step</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">):</span>
-                <span class="c1"># make sure that after the create pool we are redirected to Pool List Page</span>
+                <span class="c1"># make sure that after the create ticket we are redirected to Ticket List Page</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">assertRedirects</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_list'</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 
-        <span class="c1"># get the pool</span>
+        <span class="c1"># get the ticket</span>
         <span class="n">TicketInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
