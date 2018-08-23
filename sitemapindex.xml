@@ -7,50 +7,50 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/bot.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://marcosschroh.github.io/categories/cat_python-django-test.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <loc>https://marcosschroh.github.io/categories/cat_python-django-test-wizard.xml</loc>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_react.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/formik.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-08-23T17:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/redux.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/galleries/rss.xml</loc>
-  <lastmod>2018-01-06T14:44:00Z</lastmod>
+  <lastmod>2018-08-23T17:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2018-01-06T17:46:00Z</lastmod>
+  <lastmod>2018-08-23T17:56:00Z</lastmod>
  </sitemap>
 </sitemapindex>

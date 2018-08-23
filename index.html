@@ -32,7 +32,7 @@
             </a>
         </div>
 <!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+        <div class="collapse navbar-collapse" id="bs-navbar" role="navigation" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
 <a href="archive.html">Archive</a>
@@ -522,7 +522,7 @@ ValidationError: <span class="o">[</span>u<span class="s1">'ManagementForm data 
 Basically, I was makeing a post with the data for each form but of course teh Wizard needs to know wich step are you refering to.
 So, let's go to the real example.</p>
 <p>Let's imagine that these are my Forms.</p>
-<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">PoolForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">TicketInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
     <span class="n">limit</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
     <span class="n">pub_date</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
@@ -541,29 +541,29 @@ So, let's go to the real example.</p>
 
 <span class="kn">from</span> <span class="nn">formtools.wizard.views</span> <span class="kn">import</span> <span class="n">SessionWizardView</span>
 
-<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">PoolForm</span><span class="p">,</span> <span class="n">AddressForm</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">TicketInfoForm</span><span class="p">,</span> <span class="n">AddressForm</span>
 
-<span class="n">POOL_WIZARD_FORMS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="s2">"Pool Information"</span><span class="p">,</span> <span class="n">PoolForm</span><span class="p">),</span>
+<span class="n">TICKETS_INFO_WIZARD_FORMS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">"Ticket Information"</span><span class="p">,</span> <span class="n">TicketInfoForm</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"Address"</span><span class="p">,</span> <span class="n">AddressForm</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">PoolWizardFormView</span><span class="p">(</span><span class="n">SessionWizardView</span><span class="p">):</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">'pool.html'</span>
+<span class="k">class</span> <span class="nc">TicketWizardFormView</span><span class="p">(</span><span class="n">SessionWizardView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">'tickets_info.html'</span>
 
     <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_list</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">pool_form</span><span class="p">,</span> <span class="n">address_form</span> <span class="o">=</span> <span class="n">form_list</span>
+        <span class="n">ticket_info_form</span><span class="p">,</span> <span class="n">address_form</span> <span class="o">=</span> <span class="n">form_list</span>
 
         <span class="n">address</span> <span class="o">=</span> <span class="n">address_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="n">address</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">BUYER_ADDRESS</span>
         <span class="n">address</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-        <span class="n">pool</span> <span class="o">=</span> <span class="n">pool_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="n">pool</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
-        <span class="n">pool</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
-        <span class="n">pool</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
+        <span class="n">tickets_info</span> <span class="o">=</span> <span class="n">tickets_info_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
 
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'pool_list'</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_list'</span><span class="p">))</span>
 </pre>
 
 
@@ -572,11 +572,11 @@ So, let's go to the real example.</p>
 <pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">patterns</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
 
-<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">PoolWizardFormView</span><span class="p">,</span> <span class="n">POOL_WIZARD_FORMS</span>
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">TicketsWizardFormView</span><span class="p">,</span> <span class="n">TICKETS_INFO_WIZARD_FORMS</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
     <span class="o">...</span>
-    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^pool/request/$'</span><span class="p">,</span> <span class="n">login_required</span><span class="p">(</span><span class="n">RequestPoolWizardFormView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">POOL_WIZARD_FORMS</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'pool_request'</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^tickets-info/request/$'</span><span class="p">,</span> <span class="n">login_required</span><span class="p">(</span><span class="n">TicketsWizardFormView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">TICKETS_INFO_WIZARD_FORMS</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tickets_info_request'</span><span class="p">),</span>
 <span class="p">)</span>
 </pre>
 
@@ -587,12 +587,12 @@ So, let's go to the real example.</p>
    form, we also need to send the current step: [wizard_name]-current_step: [current_step]</li>
 <li>We need to change the fields name to: [step_name]-[field_name]: [value]</li>
 </ol>
-<p>For example for our Pool Form:</p>
-<pre class="code literal-block"><span></span><span class="n">data_pool_form</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'Pool Information-limit'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s1">'Pool Information-name'</span><span class="p">:</span> <span class="s1">'My first Pool'</span><span class="p">,</span>
-    <span class="s1">'Pool Information-pub_data'</span><span class="p">:</span> <span class="s1">'2017-11-30T12:00:00'</span><span class="p">,</span>
-    <span class="s1">'pool_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Pool Information'</span>
+<p>For example for our TicketsInfo Form:</p>
+<pre class="code literal-block"><span></span><span class="n">data_tickets_info_form</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="s1">'My first Pool'</span><span class="p">,</span>
+    <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2017-11-30T12:00:00'</span><span class="p">,</span>
+    <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Ticket Information'</span>
 <span class="p">}</span>
 </pre>
 
@@ -617,38 +617,38 @@ So, let's go to the real example.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">test_pool_wizard_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s1">'Awesome Pool'</span>
+    <span class="k">def</span> <span class="nf">test_ticket_wizard_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">'Awesome Tickets'</span>
         <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
 
         <span class="n">data_pool_form</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">'Pool Information-limit'</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
-            <span class="s1">'Pool Information-name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-            <span class="s1">'Pool Information-pub_data'</span><span class="p">:</span> <span class="s1">'2020-11-30T12:00:00'</span><span class="p">,</span>
-            <span class="s1">'pool_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Pool Information'</span>
+            <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2020-11-30T12:00:00'</span><span class="p">,</span>
+            <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Ticket Information'</span>
         <span class="p">}</span>
 
-        <span class="n">data_pool_form</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">data_address_form</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">'Address-street_name'</span><span class="p">:</span> <span class="s1">'Isac Newton'</span><span class="p">,</span>
             <span class="s1">'Address-zipcode'</span><span class="p">:</span> <span class="s1">'2011NA'</span><span class="p">,</span>
             <span class="s1">'Address-city'</span><span class="p">:</span> <span class="s1">'Pythonic Straat'</span><span class="p">,</span>
             <span class="s1">'Address-country'</span><span class="p">:</span> <span class="s1">'Netherlands'</span><span class="p">,</span>
-            <span class="s1">'pool_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Address'</span>
+            <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Address'</span>
         <span class="p">}</span>
 
-        <span class="n">POOL_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_pool_form</span><span class="p">,</span> <span class="n">data_pool_form</span><span class="p">]</span>
+        <span class="n">TICKETS_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_pool_form</span><span class="p">,</span> <span class="n">data_address_form</span><span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">data_step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">POOL_STEPS_DATA</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'pool_request'</span><span class="p">),</span> <span class="n">data_step</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">data_step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_request'</span><span class="p">),</span> <span class="n">data_step</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">POOL_REQUEST_STEPS_DATA</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">):</span>
                 <span class="c1"># make sure that after the create pool we are redirected to Pool List Page</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">assertRedirects</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'pool_list'</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertRedirects</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_list'</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 
         <span class="c1"># get the pool</span>
-        <span class="n">Pool</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">TicketInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
             <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span>

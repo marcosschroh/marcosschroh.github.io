@@ -3,7 +3,7 @@
 .. slug: testing-a-form-wizard-in-django
 .. date: 2017-11-30 10:08:43 UTC+01:00
 .. tags: python
-.. category: python, django, test 
+.. category: python, django, test, wizard
 .. link: 
 .. description: 
 .. type: text
@@ -26,7 +26,7 @@ So, let's go to the real example.
 Let's imagine that these are my Forms.
 
 ```python
-class PoolForm(forms.Form):
+class TicketInfoForm(forms.Form):
     limit = forms.IntegerField(min_value=1)
     name = forms.CharField()
     pub_date = forms.DateTimeField()
@@ -47,29 +47,29 @@ from django.shortcuts import redirect
 
 from formtools.wizard.views import SessionWizardView
 
-from .forms import PoolForm, AddressForm
+from .forms import TicketInfoForm, AddressForm
 
-POOL_WIZARD_FORMS = (
-    ("Pool Information", PoolForm),
+TICKETS_INFO_WIZARD_FORMS = (
+    ("Ticket Information", TicketInfoForm),
     ("Address", AddressForm)
 )
 
-class PoolWizardFormView(SessionWizardView):
-    template_name = 'pool.html'
+class TicketWizardFormView(SessionWizardView):
+    template_name = 'tickets_info.html'
 
     def done(self, form_list, **kwargs):
-        pool_form, address_form = form_list
+        ticket_info_form, address_form = form_list
 
 		address = address_form.save(commit=False)
         address.type = BUYER_ADDRESS
         address.save()
 
-		pool = pool_form.save(commit=False)
-        pool.user = self.request.user
-        pool.address = address
-        pool.save()        
+		tickets_info = tickets_info_form.save(commit=False)
+        tickets_info.user = self.request.user
+        tickets_info.address = address
+        tickets_info.save()        
 
-        return redirect(reverse('pool_list'))
+        return redirect(reverse('tickets_info_list'))
 ```
 
 &nbsp;
@@ -81,14 +81,13 @@ My urls.py file
 from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
 
-from .views import PoolWizardFormView, POOL_WIZARD_FORMS
+from .views import TicketsWizardFormView, TICKETS_INFO_WIZARD_FORMS
 
 urlpatterns = patterns(
     ...
-    url(r'^pool/request/$', login_required(RequestPoolWizardFormView.as_view(POOL_WIZARD_FORMS, name='pool_request'),
+    url(r'^tickets-info/request/$', login_required(TicketsWizardFormView.as_view(TICKETS_INFO_WIZARD_FORMS, name='tickets_info_request'),
 )
 ```
-
 
 This code is working fine, with to test it we need to add and change some things.
 
@@ -96,14 +95,14 @@ This code is working fine, with to test it we need to add and change some things
    form, we also need to send the current step: [wizard_name]-current_step: [current_step]
 2. We need to change the fields name to: [step_name]-[field_name]: [value]
 
-For example for our Pool Form:
+For example for our TicketsInfo Form:
 
 ```python
-data_pool_form = {
-	'Pool Information-limit': 10,
-	'Pool Information-name': 'My first Pool',
-	'Pool Information-pub_data': '2017-11-30T12:00:00',
-	'pool_wizard_form_view-current_step': 'Pool Information'
+data_tickets_info_form = {
+	'Ticket Information-limit': 10,
+	'Ticket Information-name': 'My first Pool',
+	'Ticket Information-pub_data': '2017-11-30T12:00:00',
+	'ticket_wizard_form_view-current_step': 'Ticket Information'
 }
 
 ```
@@ -133,38 +132,38 @@ class TestViews(TestCase):
         self.client = Client()
         self.user = User.objects.first()
 
-	def test_pool_wizard_form(self):
-        name = 'Awesome Pool'
+	def test_ticket_wizard_form(self):
+        name = 'Awesome Tickets'
         limit = 10
 
         data_pool_form = {
-			'Pool Information-limit': limit,
-			'Pool Information-name': name,
-			'Pool Information-pub_data': '2020-11-30T12:00:00',
-			'pool_wizard_form_view-current_step': 'Pool Information'
+			'Ticket Information-limit': limit,
+			'Ticket Information-name': name,
+			'Ticket Information-pub_data': '2020-11-30T12:00:00',
+			'ticket_wizard_form_view-current_step': 'Ticket Information'
 		}
 
-		data_pool_form = {
+		data_address_form = {
 		 	'Address-street_name': 'Isac Newton',
 			'Address-zipcode': '2011NA',
 			'Address-city': 'Pythonic Straat',
 			'Address-country': 'Netherlands',
-			'pool_wizard_form_view-current_step': 'Address'
+			'ticket_wizard_form_view-current_step': 'Address'
 		}
 
-        POOL_STEPS_DATA = [data_pool_form, data_pool_form]
+        TICKETS_STEPS_DATA = [data_pool_form, data_address_form]
 
-        for step, data_step in enumerate(POOL_STEPS_DATA, 1):
-            response = self.client.post(reverse('pool_request'), data_step)
+        for step, data_step in enumerate(TICKETS_STEPS_DATA, 1):
+            response = self.client.post(reverse('tickets_info_request'), data_step)
 
-            if step == len(POOL_REQUEST_STEPS_DATA):
+            if step == len(TICKETS_STEPS_DATA):
                 # make sure that after the create pool we are redirected to Pool List Page
-                self.assertRedirects(response, reverse('pool_list'))
+                self.assertRedirects(response, reverse('tickets_info_list'))
             else:
                 self.assertEqual(response.status_code, 200)
 
         # get the pool
-        Pool.objects.get(
+        TicketInfo.objects.get(
             name=name,
             limit=limit,
             user=self.user
