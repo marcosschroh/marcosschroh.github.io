@@ -1,4 +1,0 @@
-Sitemap: https://marcosschroh.github.io/sitemapindex.xml
-
-User-Agent: *
-Host: marcosschroh.github.io
