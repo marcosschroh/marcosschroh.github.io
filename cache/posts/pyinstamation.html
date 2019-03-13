@@ -1,0 +1,168 @@
+<h2>What is Pyinstamation?</h2>
+<p>Pyinstamation is a Python Bot for Instagram. I have developed this project with <a href="https://woile.github.io">Santiago Fraire</a>. You can take a look of the source code of Pyinstamation <a href="https://github.com/dscovr/pyinstamation">here</a></p>
+<p>Features:</p>
+<ul>
+<li>You can configure <strong>however</strong> you want the bot.</li>
+<li>Works in Linux and MacOS.</li>
+<li>Works in Chrome and Firefox. </li>
+<li>Upload pictures.</li>
+<li>Farm followers with the follow/unfollow technique.</li>
+<li>Like and comment by tags.</li>
+<li>Metrics persisted in db.</li>
+<li>Logging.</li>
+<li>Comment generator.</li>
+</ul>
+<p>Everything looks great so far, but here, I want to show you about the results I had with this bot. 
+I've been running this bot for 5 days in a row, once a day at the same time, and the results were quite good.</p>
+<p>First I will show you the configuration I used for teh 5 days:</p>
+<pre class="code literal-block"><span></span><span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yourusername</span>
+<span class="l l-Scalar l-Scalar-Plain">password</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yourpassword</span>
+<span class="l l-Scalar l-Scalar-Plain">hide_browser</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="l l-Scalar l-Scalar-Plain">browser_type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">chrome</span>
+
+<span class="l l-Scalar l-Scalar-Plain">posts</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">search_tags</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;hashtag_1&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;hashtag_2&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;hashtag_3&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;hashtag_4&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;hashtag_5&#39;</span><span class="p p-Indicator">,]</span>
+  <span class="l l-Scalar l-Scalar-Plain">ignore_tags</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
+  <span class="l l-Scalar l-Scalar-Plain">posts_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="l l-Scalar l-Scalar-Plain">likes_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="l l-Scalar l-Scalar-Plain">like_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="l l-Scalar l-Scalar-Plain">comments_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="l l-Scalar l-Scalar-Plain">comment_enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">comment_generator</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">comment_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="l l-Scalar l-Scalar-Plain">custom_comments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
+  <span class="l l-Scalar l-Scalar-Plain">total_to_follow_per_hashtag</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="l l-Scalar l-Scalar-Plain">followers</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">follow_enable</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">min_followers</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="l l-Scalar l-Scalar-Plain">max_followers</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="l l-Scalar l-Scalar-Plain">follow_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="l l-Scalar l-Scalar-Plain">ignore_users</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
+  <span class="l l-Scalar l-Scalar-Plain">follow_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="l l-Scalar l-Scalar-Plain">unfollow_followed_users</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p><strong>And here are the results per day:</strong></p>
+<table class='table table-bordered table-hover'>
+    <thead>
+        <tr>
+            <td>Day</td>
+            <td>Likes Given</td>
+            <td>Likes Gain</td>
+            <td>Comments made</td>
+            <td>Comments gained</td>
+            <td>My comments liked</td>
+            <td>Mentions</td>
+            <td><b>New users following</b></td>
+            <td><b>New Followers</b></td>
+            <td><b>Users Unfollowed</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>15</td>
+            <td>4</td>
+            <td>10</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td><b>15</b></td>
+            <td><b>13</b></td>
+            <td><b>0</b></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>19</td>
+            <td>3</td>
+            <td>10</td>
+            <td>0</td>
+            <td>5</td>
+            <td>2</td>
+            <td><b>23</b></td>
+            <td><b>11</b></td>
+            <td><b>0</b></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>13</td>
+            <td>3</td>
+            <td>10</td>
+            <td>3</td>
+            <td>7</td>
+            <td>2</td>
+            <td><b>15</b></td>
+            <td><b>1</b></td>
+            <td><b>15</b></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>47</td>
+            <td>15</td>
+            <td>10</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td><b>47</b></td>
+            <td><b>20</b></td>
+            <td><b>10</b></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>46</td>
+            <td>3</td>
+            <td>10</td>
+            <td>0</td>
+            <td>3</td>
+            <td>0</td>
+            <td><b>10</b></td>
+            <td><b>13</b></td>
+            <td><b>15</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>&nbsp;</p>
+<h3>Some numbers:</h3>
+<p><strong>New Followers:</strong> 13 + 11 + 1 + 20 + 13 = 58</p>
+<p><strong>New Users Following:</strong> (15 + 23 + 15 + 47 + 10) - (0 + 0 + 15 + 10 + 15) = 70</p>
+<p><em>Is important to note that we only unfollow the users that have been  followed by the bot</em></p>
+<p>&nbsp;</p>
+<p>Ok. So I was wondering whether the bot has achieved its goal or not? Well, my main goal was:
+<em>have more followers with the follow/unfollow technique</em></p>
+<p>If we analize the bot from the goal perpective, we can say that it's working because I have more Followers, actually <strong>47</strong>.
+Of course this result also dependes on the configuration that I've set: likes per days, comments, probabilities. etc.</p>
+<p>But if we define the FR (Follow Rate) as followers/following, that is not good because I'm following more users than before, to be exact <strong>70</strong>. 
+So, the FR = 58/70 = <strong>0.8285</strong></p>
+<p>We have more followers, but at the same time I'm following more users (bad rate) and I can guess that in the most of the cases a person wants to have a lot of followers but with a good rate (following &lt;&lt; followers).</p>
+<p>When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot indefinetely we can reach this number, but the good thing is that we don’t have any limit about followers.</p>
+<p>Let’s suppose that we start with 100 followers and 100 users following.</p>
+<p>Regarding the results that we had, we can say that:</p>
+<p>Followers average per running: 58 / 5 = <strong>11.6</strong></p>
+<p>New Users Following per running:  70 / 5 = <strong>14</strong>  </p>
+<p>If we do some math we can says that:</p>
+<p>I will reach the 7500 limit of user following around: (7500 - 100) / 14 = <strong>528 running</strong></p>
+<p>I will reach the 7500 limit of followers around: (7500 - 100) / 11.6 =  <strong>637 running</strong></p>
+<p>So, I will have a FR = 1 around the running 637.</p>
+<p>&nbsp;</p>
+<p><img alt="simple image1" src="/pyinstamation/running.png"></p>
+<p>&nbsp;</p>
+<p>If everything goes well and I keep running the bot I will have a FR &gt; 1 after the running <strong>637</strong> times.</p>
+<p>Probably is too much time If I run the bot once per day!!!</p>
+<h2>Conclusion:</h2>
+<p>I think the bot has achieved the goal.
+You will have to wait too much for a good RATE if you run the bot once a day with the same configuration.</p>
+<p>What can you do to improve the Rate:</p>
+<ul>
+<li>Look at popular hashtags.</li>
+<li>Increase the amount of comments and likes per day.</li>
+<li>Do not Follow too much people per day</li>
+<li>Create posts per day.</li>
+<li>Increase comment and like probability. </li>
+<li>Run the bot multiple times per day.</li>
+<li>Avoid unpopular hashtags</li>
+</ul>
+<p>PD: If you have any issue or a new feature request don't hesitate to tell us!!. You can do it on our <a href="https://github.com/dscovr/pyinstamation">pyinstamation</a> repo</p>

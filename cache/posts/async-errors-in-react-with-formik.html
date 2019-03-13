@@ -1,0 +1,230 @@
+<p>In this posts, I want to show you one approach to manage errors when we perform asynchronous actions with React.js</p>
+<p>Just to remember, I am using the architecture that I commented on my previous post <a href="https://marcosschroh.github.io/posts/creating-your-own-framework-with-react/">Creating your own framework with React</a></p>
+<p>I've tried several forms libraries in React and one that has accomplished most of the requirements
+is <a href="https://github.com/jaredpalmer/formik">Formik</a>. It does not have several issues, the repository is updated quite often, the community is active, and in my case, It was clear how to use it.</p>
+<p>&nbsp;</p>
+<h3>Architecture</h3>
+<p>This is the architecture that I've decided to use:</p>
+<p><img alt="simple image-routes" src="/async-errors-react-formik/react-formik-async.jpg"></p>
+<p>One important thing is we have only one reducer (Error Reducer) to store all the errors related to the forms that we have in our project. 
+Also, there is a FieldError component that knows how to show the errors.</p>
+<h3>Let's write code:</h3>
+<p>&nbsp;</p>
+<p><em>Our Form Smart Component with Formik</em></p>
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="p">{</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Formik</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;formik&#39;</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">FieldError</span> <span class="nn">from</span> <span class="s1">&#39;../../../components/FieldError&#39;</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LoginForm</span> <span class="n">extends</span> <span class="n">React</span><span class="o">.</span><span class="n">Component</span> <span class="p">{</span>
+
+  <span class="n">constructor</span><span class="p">(</span><span class="n">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+    <span class="n">this</span><span class="o">.</span><span class="n">initialValues</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">email</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+      <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="n">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="n">Formik</span> 
+        <span class="n">initialValues</span><span class="o">=</span><span class="p">{</span><span class="n">this</span><span class="o">.</span><span class="n">initialValues</span><span class="p">}</span>
+        <span class="n">onSubmit</span><span class="o">=</span><span class="p">{(</span><span class="n">values</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="n">this</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">handleSubmit</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="p">}}</span>
+      <span class="n">render</span><span class="o">=</span><span class="p">{(</span><span class="n">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="n">form</span> <span class="n">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="n">props</span><span class="o">.</span><span class="n">handleSubmit</span><span class="p">}</span> <span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">label</span> <span class="n">htmlFor</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="o">&gt;</span><span class="n">Email</span><span class="o">&lt;/</span><span class="n">Label</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;email&#39;</span><span class="n">required</span><span class="o">/&gt;</span>
+
+          <span class="o">&lt;</span><span class="n">FieldError</span> <span class="n">errors</span><span class="o">=</span><span class="p">{</span><span class="n">this</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">email</span><span class="p">}</span> <span class="o">/&gt;</span>
+
+          <span class="o">&lt;</span><span class="n">label</span> <span class="n">htmlFor</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="o">&gt;</span><span class="n">Password</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;password&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;password&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;password&#39;</span> <span class="n">required</span><span class="o">/&gt;</span>
+
+          <span class="o">&lt;</span><span class="n">button</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span><span class="o">&gt;</span><span class="n">Login</span><span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+      <span class="p">}}</span>
+    <span class="o">/&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">export</span> <span class="n">default</span> <span class="n">LoginForm</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p><em>Our FieldError component</em></p>
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">PropTypes</span> <span class="nn">from</span> <span class="s1">&#39;prop-types&#39;</span><span class="p">;</span>
+
+
+<span class="k">class</span> <span class="nc">FieldError</span> <span class="n">extends</span> <span class="n">React</span><span class="o">.</span><span class="n">Component</span> <span class="p">{</span>
+
+  <span class="n">static</span> <span class="n">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">PropTypes</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">globalInForm</span><span class="p">:</span> <span class="n">PropTypes</span><span class="o">.</span><span class="n">bool</span>
+  <span class="p">};</span>
+
+  <span class="n">static</span> <span class="n">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="n">globalInForm</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">}</span>
+
+  <span class="n">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">let</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">map</span><span class="p">((</span><span class="n">error</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="n">p</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;error text-danger&quot;</span> <span class="n">key</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="n">error</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+    <span class="p">))</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">errors</span><span class="o">.</span><span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">this</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">globalInForm</span><span class="p">){</span>
+      <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;danger&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span><span class="p">{</span><span class="n">errors</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+      <span class="p">)</span>  
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="n">errors</span><span class="p">}</span>
+      <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">export</span> <span class="n">default</span> <span class="n">FieldError</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p><em>Our Error Reducer</em></p>
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="nn">actionTypes</span> <span class="nn">from</span> <span class="s1">&#39;../actions/actionTypes&#39;</span><span class="p">;</span>
+
+<span class="n">const</span> <span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">formErrors</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="n">globalErrros</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="n">messages</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="n">export</span> <span class="n">default</span> <span class="n">function</span> <span class="n">reducer</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">initialState</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">switch</span> <span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="n">case</span> <span class="n">actionTypes</span><span class="o">.</span><span class="n">ADD_FORM_ERRORS</span><span class="p">:</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="o">...</span><span class="n">state</span><span class="p">,</span>
+        <span class="n">formErrors</span><span class="p">:</span> <span class="n">action</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span>
+     <span class="p">}</span>
+
+  <span class="n">case</span> <span class="n">actionTypes</span><span class="o">.</span><span class="n">RESET_FORM_ERRORS</span><span class="p">:</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="o">...</span><span class="n">state</span><span class="p">,</span>
+        <span class="n">formErrors</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="p">}</span> 
+
+  <span class="n">default</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">state</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p><em>Sagas funtions</em></p>
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">takeEvery</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;redux-saga&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="p">{</span> <span class="n">call</span><span class="p">,</span> <span class="n">put</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;redux-saga/effects&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">actionTypes</span> <span class="nn">from</span> <span class="s1">&#39;../actions/actionTypes&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">api</span> <span class="nn">from</span> <span class="s1">&#39;../../api&#39;</span><span class="p">;</span>
+
+<span class="n">function</span> <span class="o">*</span> <span class="n">login</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">try</span><span class="p">{</span>
+    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">call</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">login</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">);</span>
+    <span class="k">yield</span> <span class="n">put</span><span class="p">({</span> <span class="nb">type</span><span class="p">:</span> <span class="n">actionTypes</span><span class="o">.</span><span class="n">LOGIN_SUCCESSFUL</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="n">response</span> <span class="p">})</span>
+    <span class="k">yield</span> <span class="n">put</span><span class="p">({</span> <span class="nb">type</span><span class="p">:</span> <span class="n">actionTypes</span><span class="o">.</span><span class="n">RESET_FORM_ERRORS</span> <span class="p">});</span>
+
+  <span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="n">put</span><span class="p">({</span> <span class="nb">type</span><span class="p">:</span> <span class="n">actionTypes</span><span class="o">.</span><span class="n">ADD_FORM_ERRORS</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="p">{</span><span class="n">errors</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">errors</span><span class="p">}</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">export</span> <span class="n">function</span> <span class="o">*</span> <span class="n">userSagas</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="p">[</span>
+    <span class="n">takeEvery</span><span class="p">(</span><span class="n">actionTypes</span><span class="o">.</span><span class="n">LOGIN_REQUESTED</span><span class="p">,</span> <span class="n">login</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p><em>Linking Error Reducer with our Form and actions</em></p>
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">connect</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;react-redux&#39;</span>
+<span class="kn">import</span> <span class="nn">LoginForm</span> <span class="nn">from</span> <span class="s1">&#39;./components/LoginForm&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="p">{</span> <span class="n">login</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;../../store/actions&#39;</span><span class="p">;</span>
+
+<span class="n">const</span> <span class="n">mapStateToProps</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">errorReducer</span><span class="o">.</span><span class="n">formErrors</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">const</span> <span class="n">mapDispatchToProps</span> <span class="o">=</span> <span class="p">(</span><span class="n">dispatch</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="n">login</span><span class="p">:</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="n">dispatch</span><span class="p">(</span><span class="n">login</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">const</span> <span class="n">LoginContainer</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span>
+    <span class="n">mapStateToProps</span><span class="p">,</span>
+    <span class="n">mapDispatchToProps</span>
+<span class="p">)(</span><span class="n">LoginPage</span><span class="p">)</span>
+
+<span class="n">export</span> <span class="n">default</span> <span class="n">LoginContainer</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>In the above code, we can observe that the form component have access to a portion
+of the store (error Reducer), also when the form is submitted the login action is dispatched.</p>
+<h3>Important thngs:</h3>
+<p>Is important to know the response format that comes from the server. In our case the expected format is:</p>
+<pre class="code literal-block"><span></span><span class="p">{</span>
+    <span class="s1">&#39;field_1&#39;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">&#39;error_1&#39;</span><span class="p">,</span> <span class="s1">&#39;error_2&#39;</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;field_2&#39;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">&#39;error__1&#39;</span><span class="p">,</span> <span class="s1">&#39;error_2&#39;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>So, our Form will have access to the above error object, and then will pass each array to the
+FieldError component to show them.</p>
+<pre class="code literal-block"><span></span>&lt;FieldError errors={this.props.errors.email} /&gt;
+</pre>
+
+
+<p>If there is no error in the response, we should clean the reducer because the same reducer
+is used by multiple forms.</p>
+<p>Another thing is when the user refresh the page, we also should clean the ErrorReducer,
+otherwise, the errors will be there and can cause confusion.</p>
+<p>&nbsp;</p>
+<h3>The flow:</h3>
+<ol>
+<li>User fill the form and press submit (login function is called).</li>
+<li>Because is an async action, the sagas middleware catch it, and send a request to the backend.</li>
+<li>The server has responded with an error e.g. 400.</li>
+<li>The errors are registered in the Error Reducer by sagas.</li>
+<li>The form is listening to the Error Reducer and have access to it.</li>
+<li>The errors are shown in the form.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>Conclusion:</h3>
+<p>Showing async errors is not an easy task in React, but after a clear workflow was established and the structures to play (Reducer and FieldError) have been created
+showing errors becomes easier. </p>
+<p>Also, I've seen the approach of creating one Reducer per Form, in our case LoginForm Reducer belongs to the login form, RegistrationForm Reducer to Registration Form, etc. Maybe is a good approach to have a better control of each form but the amount of reducer increase considerably.</p>

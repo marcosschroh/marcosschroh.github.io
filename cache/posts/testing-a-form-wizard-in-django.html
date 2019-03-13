@@ -1,0 +1,158 @@
+<p>I was writing a couple to tests form my django views and I got stuck with a Form Wizard. I tought.. well I will need to iterate over a form list and make several post as many steps as the wizard has. That assumetion was correct, so I created the data for every form, I create a form loop... and bump, It didn't work.</p>
+<pre class="code literal-block"><span></span><span class="k">return</span> handler<span class="o">(</span>request, *args, **kwargs<span class="o">)</span>
+File <span class="s2">&quot;/home/marcos/.virtualenvs/platformv3/local/lib/python2.7/site-packages/formtools/wizard/views.py&quot;</span>, line <span class="m">284</span>, in post <span class="nv">code</span><span class="o">=</span><span class="s1">&#39;missing_management_form&#39;</span>,
+ValidationError: <span class="o">[</span>u<span class="s1">&#39;ManagementForm data is missing or has been tampered.&#39;</span><span class="o">]</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>It didn't work because like we can see in the Traceback a wizard also need management_form.
+Basically, I was makeing a post with the data for each form but of course teh Wizard needs to know wich step are you refering to.
+So, let's go to the real example.</p>
+<p>Let's imagine that these are my Forms.</p>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">TicketInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">AddressForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">street_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">zipcode</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>My views.py file</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">formtools.wizard.views</span> <span class="kn">import</span> <span class="n">SessionWizardView</span>
+
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">TicketInfoForm</span><span class="p">,</span> <span class="n">AddressForm</span>
+
+<span class="n">TICKETS_INFO_WIZARD_FORMS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;Ticket Information&quot;</span><span class="p">,</span> <span class="n">TicketInfoForm</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="n">AddressForm</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TicketWizardFormView</span><span class="p">(</span><span class="n">SessionWizardView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;tickets_info.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_list</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">ticket_info_form</span><span class="p">,</span> <span class="n">address_form</span> <span class="o">=</span> <span class="n">form_list</span>
+
+        <span class="n">address</span> <span class="o">=</span> <span class="n">address_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">address</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">BUYER_ADDRESS</span>
+        <span class="n">address</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">tickets_info</span> <span class="o">=</span> <span class="n">tickets_info_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
+
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;tickets_info_list&#39;</span><span class="p">))</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>My urls.py file</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">patterns</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">TicketsWizardFormView</span><span class="p">,</span> <span class="n">TICKETS_INFO_WIZARD_FORMS</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^tickets-info/request/$&#39;</span><span class="p">,</span> <span class="n">login_required</span><span class="p">(</span><span class="n">TicketsWizardFormView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">TICKETS_INFO_WIZARD_FORMS</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tickets_info_request&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre>
+
+
+<p>This code is working fine, with to test it we need to add and change some things.</p>
+<ol>
+<li>Every time that we make a POST besides of send the data that each 
+   form, we also need to send the current step: [wizard_name]-current_step: [current_step]</li>
+<li>We need to change the fields name to: [step_name]-[field_name]: [value]</li>
+</ol>
+<p>For example for our TicketsInfo Form:</p>
+<pre class="code literal-block"><span></span><span class="n">data_tickets_info_form</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Ticket Information-limit&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;Ticket Information-name&#39;</span><span class="p">:</span> <span class="s1">&#39;My first Ticket Info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ticket Information-pub_data&#39;</span><span class="p">:</span> <span class="s1">&#39;2017-11-30T12:00:00&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ticket_wizard_form_view-current_step&#39;</span><span class="p">:</span> <span class="s1">&#39;Ticket Information&#39;</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>In the above example we can see that we have added the [current_step] value and each field has the [step_name] prefix.</p>
+<p>Now we are ready to pass our test:</p>
+<pre class="code literal-block"><span></span><span class="c1"># test_views.py</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+
+<span class="k">class</span> <span class="nc">TestViews</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;users.json&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">test_ticket_wizard_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Awesome Tickets&#39;</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="n">data_ticket_form</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Ticket Information-limit&#39;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="s1">&#39;Ticket Information-name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;Ticket Information-pub_data&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-11-30T12:00:00&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ticket_wizard_form_view-current_step&#39;</span><span class="p">:</span> <span class="s1">&#39;Ticket Information&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">data_address_form</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Address-street_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Isac Newton&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Address-zipcode&#39;</span><span class="p">:</span> <span class="s1">&#39;2011NA&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Address-city&#39;</span><span class="p">:</span> <span class="s1">&#39;Pythonic Straat&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Address-country&#39;</span><span class="p">:</span> <span class="s1">&#39;Netherlands&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ticket_wizard_form_view-current_step&#39;</span><span class="p">:</span> <span class="s1">&#39;Address&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">TICKETS_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_ticket_form</span><span class="p">,</span> <span class="n">data_address_form</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">data_step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;tickets_info_request&#39;</span><span class="p">),</span> <span class="n">data_step</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">):</span>
+                <span class="c1"># make sure that after the create ticket we are redirected to Ticket List Page</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertRedirects</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;tickets_info_list&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+        <span class="c1"># get the ticket</span>
+        <span class="n">TicketInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span>
+        <span class="p">)</span>
+</pre>
+
+
+<p>&nbsp;</p>
+<p>And... The test pass :-)</p>
+<pre class="code literal-block"><span></span>....................................
+----------------------------------------------------------------------
+Ran <span class="m">36</span> tests in <span class="m">5</span>.555s
+
+OK
+</pre>
+
+
+<h2>Conclusion:</h2>
+<p>Test a Form Wizard is not so hard as seems at the beginning!!</p>
