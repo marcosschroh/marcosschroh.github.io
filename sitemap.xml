@@ -19,11 +19,11 @@
  </url>
  <url>
   <loc>https://marcosschroh.github.io/archive.html</loc>
-  <lastmod>2018-08-23T17:52:00Z</lastmod>
+  <lastmod>2019-03-13T22:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/</loc>
-  <lastmod>2018-08-23T17:56:00Z</lastmod>
+  <lastmod>2019-03-13T20:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/bot/</loc>
@@ -60,6 +60,10 @@
  <url>
   <loc>https://marcosschroh.github.io/categories/redux/</loc>
   <lastmod>2017-11-07T09:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/categories/sagas/</loc>
+  <lastmod>2019-03-13T20:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/galleries/</loc>

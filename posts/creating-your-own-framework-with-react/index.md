@@ -2,7 +2,7 @@
 .. title: Creating your own framework with React
 .. slug: creating-your-own-framework-with-react
 .. date: 2017-11-07 09:32:24 UTC+01:00
-.. tags: react, redux
+.. tags: react, redux, sagas
 .. category: react
 .. link: 
 .. description: 

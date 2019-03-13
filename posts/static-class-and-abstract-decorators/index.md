@@ -1,5 +1,5 @@
 <!--
-.. title: Static, Class and Abstract Decorators
+.. title: Static, Class and Abstract Decorators in Python
 .. slug: static-class-and-abstract-decorators
 .. date: 2017-11-07 09:17:04 UTC+01:00
 .. tags: python

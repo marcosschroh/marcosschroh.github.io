@@ -19,9 +19,23 @@ I am passionate about learning new things and sharing what I know with others. I
 
 ## My experience
 
-I worked for 3 years as a Python and Django developer at [Devsar](https://www.devsar.com/), was a really good time. In 2016 I decided to quit my job and travel around Europe. I met really good people and luckily could got a job in the Netherlands. I worked for 1 year for [Telegraaf Media Groep](https://www.tmg.nl/) and currentely I am working for [LeQuest](https://www.lequest.nl/en/)
+* Python/Django developer at [Devsar](https://www.devsar.com/) from October 2013 to
+May 2016.
 
+* Software Engineer at [Find Your Trainer](https://findyourtrainer.com) from October 2014 to May 2016.
+
+* Python Developer at [Telegraph Media Group](https://www.tmg.nl/) from November 2016 to October 2017.
+
+* Software Engineer at [LeQuest](https://www.lequest.nl/en/) from October 2017 to Present October 2018
+
+* Software Engineer at [KPN](https://www.kpn.com/) from October 2018 to Present
+
+## Pages
+
+* [Github](https://github.com/marcosschroh)
+* [LinkedIn](https://www.linkedin.com/in/schrohmarcos/)
+* [Stackoverflow](https://stackoverflow.com/users/5678966/marcos-schroh)
 
 ## What I expect
 
-I expect to continue learning, meeting awesome people, have my company and try to share with you some of the experience that I have. If you have any question, don't hesitate to ask!! :-)
+I expect to continue learning, meeting awesome people, have my company and try to share with you some of the experience that I have. If you have any question, don't hesitate to ask!!
