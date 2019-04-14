@@ -143,7 +143,7 @@ NAVIGATION_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootstrap3"
+THEME = "bootstrap4"
 
 # Primary color of your theme. This will be used to customize your theme and
 # auto-generate related colors in POSTS_SECTION_COLORS. Must be a HEX value.
@@ -1179,6 +1179,16 @@ MARKDOWN_EXTENSIONS = [
 # the base.tmpl will use the feed Nikola generates. However, you may want to
 # change it for a FeedBurner feed or something else.
 # RSS_LINK = None
+
+
+SEARCH_FORM = """
+    <form class="form-inline" action="/pages/search/" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search in blog" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+"""
 
 # A search form to search this site, for the sidebar. You can use a Google
 # custom search (https://www.google.com/cse/)

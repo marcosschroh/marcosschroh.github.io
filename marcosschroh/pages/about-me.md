@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-2">
-        <img src="/personal/profile.jpg" alt="Marcos Schroh" class="img-circle">
+        <img src="/personal/profile.jpg" alt="Marcos Schroh" class="rounded-circle">
     </div>
     <div class="col-md-10">
         <h2>Introduction</h2>

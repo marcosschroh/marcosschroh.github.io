@@ -2,3 +2,7 @@
 cache
 .doit.db
 output
+
+.doit.db.db
+
+/.vscode
