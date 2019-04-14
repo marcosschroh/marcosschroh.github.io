@@ -4,13 +4,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Posts about react | Marcos Schroh</title>
+<title>Search results | Marcos Schroh</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
-<link rel="canonical" href="https://marcosschroh.github.io/categories/cat_react/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link rel="alternate" type="application/rss+xml" title="RSS for category react" hreflang="en" href="../cat_react.xml">
+<link rel="canonical" href="https://marcosschroh.github.io/pages/search/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]-->
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -35,18 +35,18 @@ navbar-dark bg-dark
 <a href="../../archive.html" class="nav-link">Archive</a>
                 </li>
 <li class="nav-item">
-<a href="../" class="nav-link">Tags</a>
+<a href="../../categories/" class="nav-link">Tags</a>
                 </li>
 <li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSS feed</a>
                 </li>
 <li class="nav-item">
-<a href="../../pages/about-me/index.html" class="nav-link">About Me</a>
+<a href="../about-me/index.html" class="nav-link">About Me</a>
 
                 
             </li>
 </ul>
-<form class="form-inline" action="../../pages/search/" role="search">
+<form class="form-inline" action="." role="search">
         <div class="form-group">
             <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search in blog" autocomplete="off">
 </div>
@@ -64,26 +64,13 @@ navbar-dark bg-dark
         <!--Body content-->
         
         
-<article class="tagpage"><header><h1>Posts about react</h1>
-        <div class="metadata">
-            
-                <p class="feedlink">
-                        
-            <a href="../cat_react.xml" hreflang="en" type="application/rss+xml">RSS feed</a>
+<h1>Search</h1>
+<noscript>Search requires JavaScript, sorry for the inconvenience.</noscript>
+<div id="tipue_search_content">Use the search box in the navigation bar to search.</div>
 
-                </p>
+        <!--End of body content-->
 
-        </div>
-        
-
-    </header><ul class="postlist">
-<li>
-<time class="listdate" datetime="2018-01-06T15:07:09+01:00" title="2018-01-06 15:07">2018-01-06 15:07</time><a href="../../posts/async-errors-in-react-with-formik/" class="listtitle">Manage asynchronous errors with React and Formik</a><a></a>
-</li>
-            <li>
-<time class="listdate" datetime="2017-11-07T09:32:24+01:00" title="2017-11-07 09:32">2017-11-07 09:32</time><a href="../../posts/creating-your-own-framework-with-react/" class="listtitle">Creating your own framework with React</a><a></a>
-</li>
-        </ul></article><!--End of body content--><footer id="footer">
+        <footer id="footer">
             Contents © 2019         <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
@@ -91,7 +78,15 @@ navbar-dark bg-dark
 </div>
 
 
-        <script src="../../assets/js/all-nocdn.js"></script><script>
+        <script src="../../assets/js/all-nocdn.js"></script><script src="../../assets/js/tipuesearch_set.js"></script><script src="../../assets/js/tipuesearch.js"></script><script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        'mode': 'json',
+        'contentLocation': '/assets/js/tipuesearch_content.json',
+        'showUrl': false
+    });
+});
+</script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

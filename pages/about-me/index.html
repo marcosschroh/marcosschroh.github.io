@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About me | Marcos Schroh</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://assets.annotateit.org/annotator/v1.2.5/annotator.min.css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -25,42 +25,48 @@
 
 <!-- Menubar -->
 
-<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
 <!-- This keeps the margins nice -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://marcosschroh.github.io/">
+        <a class="navbar-brand" href="https://marcosschroh.github.io/">
 
-                <span id="blog-title">Marcos Schroh</span>
-            </a>
-        </div>
-<!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="bs-navbar" role="navigation" aria-expanded="false">
-            <ul class="nav navbar-nav">
-<li>
-<a href="../../archive.html">Archive</a>
+            <span id="blog-title">Marcos Schroh</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
                 </li>
-<li>
-<a href="../../categories/">Tags</a>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
                 </li>
-<li>
-<a href="../../rss.xml">RSS feed</a>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
                 </li>
-<li>
-<a href="#">About Me</a>
+<li class="nav-item">
+<a href="#" class="nav-link">About Me</a>
 
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-    <a href="index.md" id="sourcelink">Source</a>
+<form class="form-inline" action="../search/" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search in blog" autocomplete="off">
+</div>
+        <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+
+
+            <ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
     </li>
+
 
                 
             </ul>
@@ -71,9 +77,8 @@
 </nav><!-- End of Menubar --><div class="container" id="content" role="main">
     <div class="body-content">
         <!--Body content-->
-        <div class="row">
-            
-            
+        
+        
 <article class="post-text storypage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">About me</a></h1>
 
         
@@ -81,7 +86,7 @@
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div class="row">
     <div class="col-md-2">
-        <img src="../../personal/profile.jpg" alt="Marcos Schroh" class="img-circle">
+        <img src="../../personal/profile.jpg" alt="Marcos Schroh" class="rounded-circle">
 </div>
     <div class="col-md-10">
         <h3>Introduction</h3>
@@ -127,11 +132,7 @@
     </div>
     
 
-</article>
-</div>
-        <!--End of body content-->
-
-        <footer id="footer">
+</article><!--End of body content--><footer id="footer">
             Contents © 2019         <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
@@ -139,16 +140,12 @@
 </div>
 
 
-            <script src="../../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
-    moment.locale("en");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script><script src="http://assets.annotateit.org/annotator/v1.2.7/annotator-full.js"></script><script>
-    jQuery(function ($) {
-        $('body').annotator().annotator('setupPlugins', {}, {
-            // Disable filter bar
-            Filter: false
-        });
-    });
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
     </script>
 </body>
 </html>

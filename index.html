@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Personal Blog">
@@ -17,39 +18,44 @@
 
 <!-- Menubar -->
 
-<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
 <!-- This keeps the margins nice -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://marcosschroh.github.io/">
+        <a class="navbar-brand" href="https://marcosschroh.github.io/">
 
-                <span id="blog-title">Marcos Schroh</span>
-            </a>
-        </div>
-<!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="bs-navbar" role="navigation" aria-expanded="false">
-            <ul class="nav navbar-nav">
-<li>
-<a href="archive.html">Archive</a>
+            <span id="blog-title">Marcos Schroh</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archive</a>
                 </li>
-<li>
-<a href="categories/">Tags</a>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tags</a>
                 </li>
-<li>
-<a href="rss.xml">RSS feed</a>
+<li class="nav-item">
+<a href="rss.xml" class="nav-link">RSS feed</a>
                 </li>
-<li>
-<a href="pages/about-me/index.html">About Me</a>
+<li class="nav-item">
+<a href="pages/about-me/index.html" class="nav-link">About Me</a>
 
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<form class="form-inline" action="pages/search/" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search in blog" autocomplete="off">
+</div>
+        <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -57,21 +63,23 @@
 </nav><!-- End of Menubar --><div class="container" id="content" role="main">
     <div class="body-content">
         <!--Body content-->
-        <div class="row">
-            
-            
+        
+        
 
     
 
 
     
 <div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/async-errors-in-react-with-formik/" class="u-url">Manage asynchronous errors with React and Formik</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/async-errors-in-react-with-formik/" class="u-url">Manage asynchronous errors with React and Formik</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
             </span></p>
-            <p class="dateline"><a href="posts/async-errors-in-react-with-formik/" rel="bookmark"><time class="published dt-published" datetime="2018-01-06T15:07:09+01:00" title="2018-01-06 15:07">2018-01-06 15:07</time></a></p>
+            <p class="dateline">
+            <a href="posts/async-errors-in-react-with-formik/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-01-06T15:07:09+01:00" itemprop="datePublished" title="2018-01-06 15:07">2018-01-06 15:07</time></a>
+            </p>
                 <p class="commentline">
         
     <a href="posts/async-errors-in-react-with-formik/#disqus_thread" data-disqus-identifier="cache/posts/async-errors-in-react-with-formik.html">Comments</a>
@@ -313,12 +321,15 @@ showing errors becomes easier. </p>
 <p>Also, I've seen the approach of creating one Reducer per Form, in our case LoginForm Reducer belongs to the login form, RegistrationForm Reducer to Registration Form, etc. Maybe is a good approach to have a better control of each form but the amount of reducer increase considerably.</p>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/pyinstamation/" class="u-url">Pyinstamation</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/pyinstamation/" class="u-url">Pyinstamation</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
             </span></p>
-            <p class="dateline"><a href="posts/pyinstamation/" rel="bookmark"><time class="published dt-published" datetime="2017-12-14T14:29:19+01:00" title="2017-12-14 14:29">2017-12-14 14:29</time></a></p>
+            <p class="dateline">
+            <a href="posts/pyinstamation/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-12-14T14:29:19+01:00" itemprop="datePublished" title="2017-12-14 14:29">2017-12-14 14:29</time></a>
+            </p>
                 <p class="commentline">
         
     <a href="posts/pyinstamation/#disqus_thread" data-disqus-identifier="cache/posts/pyinstamation.html">Comments</a>
@@ -345,32 +356,32 @@ showing errors becomes easier. </p>
 <p>Everything looks great so far, but here, I want to show you about the results I had with this bot. 
 I've been running this bot for 5 days in a row, once a day at the same time, and the results were quite good.</p>
 <p>First I will show you the configuration I used for teh 5 days:</p>
-<pre class="code literal-block"><span></span><span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yourusername</span>
-<span class="l l-Scalar l-Scalar-Plain">password</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yourpassword</span>
-<span class="l l-Scalar l-Scalar-Plain">hide_browser</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="l l-Scalar l-Scalar-Plain">browser_type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">chrome</span>
+<pre class="code literal-block"><span></span><span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yourusername</span>
+<span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yourpassword</span>
+<span class="nt">hide_browser</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">browser_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">chrome</span>
 
-<span class="l l-Scalar l-Scalar-Plain">posts</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">search_tags</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">'hashtag_1'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_2'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_3'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_4'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_5'</span><span class="p p-Indicator">,]</span>
-  <span class="l l-Scalar l-Scalar-Plain">ignore_tags</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
-  <span class="l l-Scalar l-Scalar-Plain">posts_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-  <span class="l l-Scalar l-Scalar-Plain">likes_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
-  <span class="l l-Scalar l-Scalar-Plain">like_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
-  <span class="l l-Scalar l-Scalar-Plain">comments_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
-  <span class="l l-Scalar l-Scalar-Plain">comment_enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="l l-Scalar l-Scalar-Plain">comment_generator</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="l l-Scalar l-Scalar-Plain">comment_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
-  <span class="l l-Scalar l-Scalar-Plain">custom_comments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
-  <span class="l l-Scalar l-Scalar-Plain">total_to_follow_per_hashtag</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="nt">posts</span><span class="p">:</span>
+  <span class="nt">search_tags</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">'hashtag_1'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_2'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_3'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_4'</span><span class="p p-Indicator">,</span> <span class="s">'hashtag_5'</span><span class="p p-Indicator">,]</span>
+  <span class="nt">ignore_tags</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+  <span class="nt">posts_per_day</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="nt">likes_per_day</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">like_probability</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="nt">comments_per_day</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="nt">comment_enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">comment_generator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">comment_probability</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="nt">custom_comments</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+  <span class="nt">total_to_follow_per_hashtag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 
-<span class="l l-Scalar l-Scalar-Plain">followers</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">follow_enable</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="l l-Scalar l-Scalar-Plain">min_followers</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
-  <span class="l l-Scalar l-Scalar-Plain">max_followers</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
-  <span class="l l-Scalar l-Scalar-Plain">follow_probability</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
-  <span class="l l-Scalar l-Scalar-Plain">ignore_users</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
-  <span class="l l-Scalar l-Scalar-Plain">follow_per_day</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
-  <span class="l l-Scalar l-Scalar-Plain">unfollow_followed_users</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">followers</span><span class="p">:</span>
+  <span class="nt">follow_enable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">min_followers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">max_followers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">follow_probability</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+  <span class="nt">ignore_users</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+  <span class="nt">follow_per_day</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">unfollow_followed_users</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre>
 
 
@@ -495,12 +506,15 @@ You will have to wait too much for a good RATE if you run the bot once a day wit
 <p>PD: If you have any issue or a new feature request don't hesitate to tell us!!. You can do it on our <a href="https://github.com/dscovr/pyinstamation">pyinstamation</a> repo</p>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/testing-a-form-wizard-in-django/" class="u-url">Testing a Form Wizard in Django</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/testing-a-form-wizard-in-django/" class="u-url">Testing a Form Wizard in Django</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
             </span></p>
-            <p class="dateline"><a href="posts/testing-a-form-wizard-in-django/" rel="bookmark"><time class="published dt-published" datetime="2017-11-30T10:08:43+01:00" title="2017-11-30 10:08">2017-11-30 10:08</time></a></p>
+            <p class="dateline">
+            <a href="posts/testing-a-form-wizard-in-django/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-30T10:08:43+01:00" itemprop="datePublished" title="2017-11-30 10:08">2017-11-30 10:08</time></a>
+            </p>
                 <p class="commentline">
         
     <a href="posts/testing-a-form-wizard-in-django/#disqus_thread" data-disqus-identifier="cache/posts/testing-a-form-wizard-in-django.html">Comments</a>
@@ -670,12 +684,15 @@ OK
 <p>Test a Form Wizard is not so hard as seems at the beginning!!</p>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/creating-your-own-framework-with-react/" class="u-url">Creating your own framework with React</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/creating-your-own-framework-with-react/" class="u-url">Creating your own framework with React</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
             </span></p>
-            <p class="dateline"><a href="posts/creating-your-own-framework-with-react/" rel="bookmark"><time class="published dt-published" datetime="2017-11-07T09:32:24+01:00" title="2017-11-07 09:32">2017-11-07 09:32</time></a></p>
+            <p class="dateline">
+            <a href="posts/creating-your-own-framework-with-react/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-07T09:32:24+01:00" itemprop="datePublished" title="2017-11-07 09:32">2017-11-07 09:32</time></a>
+            </p>
                 <p class="commentline">
         
     <a href="posts/creating-your-own-framework-with-react/#disqus_thread" data-disqus-identifier="cache/posts/creating-your-own-framework-with-react.html">Comments</a>
@@ -797,12 +814,15 @@ you could replace the differents layers as much as you like according to your ne
 <p>This world is growing really fast with React, React Native, React VR, so be prepared...</p>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/static-class-and-abstract-decorators/" class="u-url">Static, Class and Abstract Decorators</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/static-class-and-abstract-decorators/" class="u-url">Static, Class and Abstract Decorators</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
             </span></p>
-            <p class="dateline"><a href="posts/static-class-and-abstract-decorators/" rel="bookmark"><time class="published dt-published" datetime="2017-11-07T09:17:04+01:00" title="2017-11-07 09:17">2017-11-07 09:17</time></a></p>
+            <p class="dateline">
+            <a href="posts/static-class-and-abstract-decorators/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-07T09:17:04+01:00" itemprop="datePublished" title="2017-11-07 09:17">2017-11-07 09:17</time></a>
+            </p>
                 <p class="commentline">
         
     <a href="posts/static-class-and-abstract-decorators/#disqus_thread" data-disqus-identifier="cache/posts/static-class-and-abstract-decorators.html">Comments</a>
@@ -935,11 +955,7 @@ If you have inheritance and you want to overwrite a method always decorate it wi
 
 
         
-       <script>var disqus_shortname="marcosschroh-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
-</div>
-        <!--End of body content-->
-
-        <footer id="footer">
+       <script>var disqus_shortname="marcosschroh-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
             Contents © 2019         <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
@@ -947,9 +963,12 @@ If you have inheritance and you want to overwrite a method always decorate it wi
 </div>
 
 
-            <script src="assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
-    moment.locale("en");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates -->
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
 </body>
 </html>
