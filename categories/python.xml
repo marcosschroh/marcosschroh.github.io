@@ -1,5 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Sun, 14 Apr 2019 13:44:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Mon, 15 Apr 2019 11:08:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Let's help version controls</title><link>https://marcosschroh.github.io/posts/lets-help-version-controls/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;As developers sometimes we don't realize the amount of work that a control version has to do in order
+to calculate diffs, so what can we do about it in order to help them and make our teammate's life easier? &lt;/p&gt;
+&lt;h3&gt;A control version is ...&lt;/h3&gt;
+&lt;p&gt;According to Wikipedia is the management of changes to documents, computer programs, large web sites, and other collections of information. Somehow, these guys have to track and compare every change that we made, crazy eh!&lt;/p&gt;
+&lt;h3&gt;Complacent comma placement&lt;/h3&gt;
+&lt;p&gt;Let's imagine that we have the following python list and we are using &lt;code&gt;git&lt;/code&gt; as our control version tool:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Whenever you make a change to the list, it will be hard to tell what was modified by looking
+at git diff. Because of most of the source control system are line-based they have a hard time highlining multiple changes to a single line&lt;/p&gt;
+&lt;p&gt;A quick fix is to adopt a code style where you spread out list, dict or set constants across multiple lines,
+so we have one item per line:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now, is perfectly clear when one item was added, removed or modified using a &lt;code&gt;git diff&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As a bonus, let's say that you add &lt;code&gt;anana&lt;/code&gt; at the end of the list, you commit but you can not push because you are not
+in the latest version. Make a pull and there is a conflict because your teammate has added &lt;code&gt;pear&lt;/code&gt; at the end of the list:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"anana"&lt;/span&gt; &lt;span class="c1"&gt;# &amp;lt;-- missing comma&lt;/span&gt;
+    &lt;span class="s2"&gt;"pear"&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Seems really clear here that you have to add a comma after &lt;code&gt;anana&lt;/code&gt; to avoid &lt;code&gt;string literal concatenation&lt;/code&gt;,
+but it happened to me a lot of times that I was focused on trying to solve the &lt;code&gt;merge conflict&lt;/code&gt; and I forgot the COMMA!!
+Just for a missing comma and we have unexpected results.&lt;/p&gt;
+&lt;p&gt;So, as &lt;code&gt;python&lt;/code&gt; developer we can adopt a code style that we place a comma after every item in a &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt; or &lt;code&gt;set constants&lt;/code&gt; including the last item to avoid silly mistakes in merge conflicts.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"anana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"pear"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Unfortunately, not always we can do this, for example in &lt;code&gt;json&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"firstName"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Foo"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"lastName"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Bar"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;//&lt;/span&gt; &lt;span class="err"&gt;&amp;lt;--&lt;/span&gt;  &lt;span class="err"&gt;SyntaxError:&lt;/span&gt; &lt;span class="err"&gt;Unexpected&lt;/span&gt; &lt;span class="err"&gt;token&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="err"&gt;in&lt;/span&gt; &lt;span class="err"&gt;JSON&lt;/span&gt; &lt;span class="err"&gt;at&lt;/span&gt; &lt;span class="err"&gt;position&lt;/span&gt; &lt;span class="err"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Space at the end&lt;/h3&gt;
+&lt;p&gt;Why are line breaks important?&lt;/p&gt;
+&lt;p&gt;Version control systems are focused on text files; they can track the changes, merge files automatically, or facilitate the process of resolving conflicts. Because of this, line endings are crucial in understanding the content of the file and how to work with the changes (most of them do merges on a line by line basis).&lt;/p&gt;
+&lt;p&gt;For example, &lt;code&gt;Git&lt;/code&gt; supports both &lt;code&gt;CR+LF&lt;/code&gt; and &lt;code&gt;LF&lt;/code&gt; line endings using several configuration options.&lt;/p&gt;
+&lt;p&gt;Git's default merge strategy will throw a conflict whenever two branches make changes to adjacent (or the same) lines. This is eminently sensible: when changes are made, neighboring lines are needed to give them context – simply merging changes when their context has also changed won't always give the desired result.&lt;/p&gt;
+&lt;p&gt;Let's imagine that we have a file called &lt;code&gt;foo.txt&lt;/code&gt; and we add the word &lt;code&gt;python&lt;/code&gt; without an &lt;code&gt;ending line&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;If run &lt;code&gt;git diff&lt;/code&gt; we have the following message:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index e69de29..d8654aa &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -0,0 +1 @@
++python
+&lt;span class="se"&gt;\ &lt;/span&gt;No newline at end of file
+&lt;/pre&gt;
+
+
+&lt;p&gt;So far so good, we decide to commit and push. After a while, is time to add a new word to our foo file and we write &lt;code&gt;test&lt;/code&gt; with a new line at the end. What do you think we will get after running &lt;code&gt;git diff&lt;/code&gt;?&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index d8654aa..4215a2c &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -1 +1,2 @@
+-python
+&lt;span class="se"&gt;\ &lt;/span&gt;No newline at end of file
++python
++test
+&lt;/pre&gt;
+
+
+&lt;p&gt;but why? If I just added the word &lt;code&gt;test&lt;/code&gt; and not &lt;code&gt;python&lt;/code&gt;? Don't panic, the first line shows up in the diff as modified although there is no visible change because newlines are a control character and therefore don't have a visible representation.&lt;/p&gt;
+&lt;p&gt;Now, what would have the output of &lt;code&gt;git diff&lt;/code&gt; if we had added a &lt;code&gt;new line&lt;/code&gt; at the end of &lt;code&gt;python&lt;/code&gt; and after we add the &lt;code&gt;test&lt;/code&gt; word?&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index fdc793e..4215a2c &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -1 +1,2 @@
+ python
++test
+&lt;/pre&gt;
+
+
+&lt;p&gt;Cleaner and easier, right?&lt;/p&gt;
+&lt;h3&gt;Conslusion:&lt;/h3&gt;
+&lt;p&gt;Adapting smart formattings like spread out list, dict or set constants across multiple lines and adding a comma at the end of
+each item including the last one is easier to maintain and avoid bugs.
+Always add a &lt;code&gt;new line&lt;/code&gt; at the end, it will make life easier to your teammates and for version control tools.&lt;/p&gt;&lt;/div&gt;</description><category>python</category><guid>https://marcosschroh.github.io/posts/lets-help-version-controls/</guid><pubDate>Sun, 14 Apr 2019 15:01:16 GMT</pubDate></item><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/posts/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
 &lt;p&gt;Pyinstamation is a Python Bot for Instagram. I have developed this project with &lt;a href="https://woile.github.io"&gt;Santiago Fraire&lt;/a&gt;. You can take a look of the source code of Pyinstamation &lt;a href="https://github.com/dscovr/pyinstamation"&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Features:&lt;/p&gt;
 &lt;ul&gt;

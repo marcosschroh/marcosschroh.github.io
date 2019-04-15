@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://marcosschroh.github.io/</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/2017/</loc>
@@ -18,12 +18,16 @@
   <lastmod>2019-04-14T13:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://marcosschroh.github.io/2019/</loc>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://marcosschroh.github.io/archive.html</loc>
-  <lastmod>2019-04-14T14:43:00Z</lastmod>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/bot/</loc>
@@ -32,6 +36,10 @@
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram/</loc>
   <lastmod>2019-04-14T13:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/categories/cat_python-control-version/</loc>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators/</loc>
@@ -76,6 +84,10 @@
  <url>
   <loc>https://marcosschroh.github.io/posts/creating-your-own-framework-with-react/</loc>
   <lastmod>2019-04-14T13:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/posts/lets-help-version-controls/</loc>
+  <lastmod>2019-04-15T11:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/pyinstamation/</loc>
