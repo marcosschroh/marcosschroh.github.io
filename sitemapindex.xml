@@ -7,50 +7,62 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/bot.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/cat_ci.xml</loc>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-control-version.xml</loc>
-  <lastmod>2019-04-15T11:08:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-django-test-wizard.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_react.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/ci.xml</loc>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/formik.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/gitlab.xml</loc>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
-  <lastmod>2019-04-15T11:08:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/redux.xml</loc>
-  <lastmod>2019-04-14T13:44:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2019-04-15T11:08:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2019-04-15T11:08:00Z</lastmod>
+  <lastmod>2019-05-01T22:02:00Z</lastmod>
  </sitemap>
 </sitemapindex>

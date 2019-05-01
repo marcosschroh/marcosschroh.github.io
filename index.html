@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://marcosschroh.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/lets-help-version-controls/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/autobumping-with-gitlab/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -71,7 +71,162 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/lets-help-version-controls/" class="u-url">Let's help version controls</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/autobumping-with-gitlab/" class="u-url">Continuous Integration with Gitlab</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Marcos Schroh
+            </span></p>
+            <p class="dateline">
+            <a href="posts/autobumping-with-gitlab/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-28T17:32:46+02:00" itemprop="datePublished" title="2019-04-28 17:32">2019-04-28 17:32</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="posts/autobumping-with-gitlab/#disqus_thread" data-disqus-identifier="cache/posts/ci-with-gitlab.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>In this post, I want to talk about how we can automate our integration process using the <code>Gitlab</code> army tool.
+More specifically, how we can create a new release of our software, update the corresponding files that reflects the version, and create a new <code>docker</code> image.</p>
+<p>For this example, we have a <code>python/django</code> application and <code>Docker</code> as containerization tool.</p>
+<h5>Goals:</h5>
+<ul>
+<li>Bump a new version every time that a change occurs on <code>master</code> branch. The bump should be executed automatically by the <code>CI</code> process.</li>
+<li>Create a new <code>docker</code> image that contains the latest changes and push it to the registry.</li>
+</ul>
+<h5>Defining a CI Pipeline</h5>
+<p>Starting a <code>CI</code> process in gitlab is super easy, you just need a <code>.gitlab-ci.yaml</code> file that contains <code>stages</code> and <code>jobs</code> configurations. You can find more info <a href="https://docs.gitlab.com/ee/ci/quick_start/">here</a>.</p>
+<p>For our case purpose, we define three <code>stages</code> with one <code>job</code> each one.</p>
+<ol>
+<li>Test the application.</li>
+<li>Auto bump the version. Means changing the file/s that reflects the version, creating a new commit and git tag.</li>
+<li>Create a new <code>docker</code> image and publish it in Gitlab registry.</li>
+</ol>
+<p><img alt="gitlab variables" src="gitlab_ci/gitlab_jobs.png"></p>
+<h5>Assumptions and Development Workflow:</h5>
+<p>Define a clear development workflow is crucial for our goal. It gives a clear vision and a tidy way about how developers should work. We have defined the following the flow and probably you are familiar with it:</p>
+<ol>
+<li>A developer creates a new commit on any branch (except <code>master</code>)</li>
+<li>A developer creates a merge request (MR) against <code>master</code>
+</li>
+<li>When the <code>MR</code> is accepted and merged, the 3 stages of the CI are executed</li>
+</ol>
+<p><em>Some Assumptions:</em></p>
+<ol>
+<li>Master branch is protected, means that nobody can push to it, except Gitlab runners.</li>
+<li>The test job runs on every branch when a change is detected.</li>
+<li>We use semantic version.</li>
+<li>For every commit message, we use a convention.</li>
+<li>You can use any tool that you want, in our case we use <a href="https://woile.github.io/commitizen/">commitizen</a> </li>
+<li>For simplification, we store the version in a file called <code>VERSION</code>. You can use any file that you want as <code>commitizen</code> supports it.</li>
+</ol>
+<h5>Gitlab Configuration:</h5>
+<p>In order to be able to change files and push new changes with Gitlab runners, we need to have a <code>ssh</code> key and configure a git user.</p>
+<p>First, let's create a <code>ssh key</code>. The only requirement is to create it without a passphrase.</p>
+<pre class="code literal-block"><span></span>ssh-keygen -f deploy_key -N ""
+</pre>
+
+
+<p>The previous command will create a private and public key under the files <code>deploy_key</code> and <code>deploy_key.pub</code>. We will use them later.</p>
+<p>For the git user, we need an email and username. You can choose whatever you want, in this example, we choose <code>ci-runner@myproject.com</code> and <code>ci-runner</code> respectively.</p>
+<p>Now, we need to create three environment variables that will be visible for the runners. The variables should be created under in the section <code>settings/ci_cd</code> variables:</p>
+<p><img alt="gitlab variables" src="gitlab_ci/gitlab_variables.png"></p>
+<p>Create <code>SSH_PRIVATE_KEY</code>, <code>CI_EMAIL</code>, <code>CI_USERNAME</code> variables and fill them with the <code>private_key</code>, <code>email</code> and <code>username</code> that we have created.</p>
+<p>An important thing is to unprotect the private key, otherwise, the CI will raise errors. </p>
+<p>The latest step is to create a <code>deploy key.</code> To do this, we should create a new one in the section <code>settings/repository</code> and fill it with the <code>public key</code> generated before. Check <code>Write access allowed</code>, otherwise, the runner won't be able to write changes to the repository. </p>
+<p><img alt="gitlab deploy key" src="gitlab_ci/gitlab_deploy_key.png"></p>
+<p>If you have more projects under the same organization, you can reuse the deploy key created before, but you will have to
+repeat the step where we created the environment variables (ssh key, email, and username).</p>
+<h5>Start CI pipeline:</h5>
+<p>Let's start with a basic configuration for our pipeline:</p>
+<pre class="code literal-block"><span></span><span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker:latest</span>
+
+<span class="nt">services</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker:dind</span>
+
+<span class="nt">variables</span><span class="p">:</span>
+  <span class="nt">API_IMAGE_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME</span>
+
+<span class="nt">before_script</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">apk add --no-cache py-pip</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install docker-compose</span>
+
+<span class="nt">stages</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+  <span class="c1"># - auto-bump # both stages will use later</span>
+  <span class="c1"># - publish</span>
+
+<span class="nt">test</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker-compose run -e DJANGO_ENVIRONMENT=dev your_project python manage.py test</span>
+</pre>
+
+
+<p>So, every time that a developer push to any branch the test job will be executed. </p>
+<p>Time for the bumping. Below, we are defining a new job to auto bump a new version. The important steps are setting the ssh key, configure git, execute the auto bump command, push to master branch and upload the new version to gitlab artifacts.
+See the comments next to each line:</p>
+<pre class="code literal-block"><span></span><span class="nt">auto-bump</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">auto-bump</span>
+  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python:3.6</span>
+  <span class="nt">before_script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">'which</span><span class="nv"> </span><span class="s">ssh-agent</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">(</span><span class="nv"> </span><span class="s">apt-get</span><span class="nv"> </span><span class="s">update</span><span class="nv"> </span><span class="s">-qy</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">apt-get</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">openssh-client</span><span class="nv"> </span><span class="s">-qqy</span><span class="nv"> </span><span class="s">)'</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">eval `ssh-agent -s`</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - &gt; /dev/null</span> <span class="c1"># add ssh key</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip3 install -U Commitizen</span> <span class="c1"># install commitizen</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mkdir -p ~/.ssh</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chmod 700 ~/.ssh</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo "$SSH_PUBLIC_KEY" &gt;&gt; ~/.ssh/id_rsa.pub</span>
+    <span class="p p-Indicator">-</span> <span class="s">'[[</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">/.dockerenv</span><span class="nv"> </span><span class="s">]]</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">-e</span><span class="nv"> </span><span class="s">"Host</span><span class="nv"> </span><span class="s">*\n\tStrictHostKeyChecking</span><span class="nv"> </span><span class="s">no\n\n"</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">~/.ssh/config'</span>
+  <span class="nt">dependencies</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote set-url origin git@gitlab.com:discover/rentee-core.git</span> <span class="c1"># git configuration</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.email "${CI_EMAIL}" &amp;&amp; git config --global user.name "${CI_USERNAME}"</span>
+    <span class="p p-Indicator">-</span> <span class="s">'exists=`git</span><span class="nv"> </span><span class="s">show-ref</span><span class="nv"> </span><span class="s">refs/heads/master`</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">[</span><span class="nv"> </span><span class="s">-n</span><span class="nv"> </span><span class="s">"$exists"</span><span class="nv"> </span><span class="s">];</span><span class="nv"> </span><span class="s">then</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">branch</span><span class="nv"> </span><span class="s">-D</span><span class="nv"> </span><span class="s">master;</span><span class="nv"> </span><span class="s">fi'</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git checkout -b master</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cz bump</span> <span class="c1"># execute auto bump and push to master</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git push origin master:$CI_COMMIT_REF_NAME</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">TAG=$(head -n 1 VERSION)</span> <span class="c1"># get the new software version and save into artifacts</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo "#!/bin/sh" &gt;&gt; variables</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo "export TAG='$TAG'" &gt;&gt; variables</span> 
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git push origin $TAG</span>
+  <span class="nt">only</span><span class="p">:</span>
+    <span class="nt">refs</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+  <span class="nt">artifacts</span><span class="p">:</span>
+    <span class="nt">paths</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">variables</span>
+</pre>
+
+
+<p>Now, let's add the <code>publish</code> job to create a new docker image and push it to the registry:</p>
+<pre class="code literal-block"><span></span><span class="nt">publish</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">publish</span>
+  <span class="nt">dependencies</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">auto-bump</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">source variables</span> <span class="c1"># loading environment variables from artifact</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo $TAG</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">API_IMAGE_TAG="${CI_REGISTRY_IMAGE}:${TAG}"</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}</span> <span class="c1"># Authenticating against registry registry</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build -t $API_IMAGE_NAME your_project</span> <span class="c1"># creating docker image</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $API_IMAGE_NAME $API_IMAGE_TAG</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $API_IMAGE_TAG</span> <span class="c1"># pushing to docker registry</span>
+  <span class="nt">only</span><span class="p">:</span>
+    <span class="nt">refs</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+</pre>
+
+
+<p>Because we can not pass variables between jobs, we are using artifacts. You can avoid using <code>artifacts</code> configuring git again in the latest job, then pull the latest changes that include the last commit that bumps the version or simply combining <code>auto-bumping</code> and <code>publish</code> into one job.</p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/lets-help-version-controls/" class="u-url">Let's help version controls</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
