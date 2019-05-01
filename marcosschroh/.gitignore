@@ -4,5 +4,6 @@ cache
 output
 
 .doit.db.db
+.DS_Store
 
 /.vscode
