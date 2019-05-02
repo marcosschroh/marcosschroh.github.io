@@ -47,6 +47,8 @@ Define a clear development workflow is crucial for our goal. It gives a clear vi
 4. For every commit message, we use a convention.
 5. You can use any tool that you want, in our case we use [commitizen](https://woile.github.io/commitizen/) 
 6. For simplification, we store the version in a file called `VERSION`. You can use any file that you want as `commitizen` supports it.
+7. The commit message executed automatically by the `CI` must include `[skip-ci]` otherwise the process will be executed in a loop. You can define the message structure in [commitizen](https://woile.github.io/commitizen/bump/) as well.
+
 
 #### Gitlab Configuration:
 
@@ -60,9 +62,9 @@ ssh-keygen -f deploy_key -N ""
 
 The previous command will create a private and public key under the files `deploy_key` and `deploy_key.pub`. We will use them later.
 
-For the git user, we need an email and username. You can choose whatever you want, in this example, we choose `ci-runner@myproject.com` and `ci-runner` respectively.
+For the git user, we need an email and username. You can choose whatever you want, in this example, we choose `ci-runner@myproject.com` and `admin` respectively.
 
-Now, we need to create three environment variables that will be visible for the runners. The variables should be created under in the section `settings/ci_cd` variables:
+Now, we need to create three environment variables that will be visible for the runners. They should be created in the `variables` section under `settings/ci_cd`:
 
 ![gitlab variables](/gitlab_ci/gitlab_variables.png)
 
@@ -166,3 +168,9 @@ publish:
 ```
 
 Because we can not pass variables between jobs, we are using artifacts. You can avoid using `artifacts` configuring git again in the latest job, then pull the latest changes that include the last commit that bumps the version or simply combining `auto-bumping` and `publish` into one job.
+
+After merging with master we have the final result:
+
+![gitlab final ci result](/gitlab_ci/gitlab_final_ci_result.png)
+
+
