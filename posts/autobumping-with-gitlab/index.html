@@ -138,6 +138,7 @@ More specifically, how we can create a new release of our software, update the c
 <li>For every commit message, we use a convention.</li>
 <li>You can use any tool that you want, in our case we use <a href="https://woile.github.io/commitizen/">commitizen</a> </li>
 <li>For simplification, we store the version in a file called <code>VERSION</code>. You can use any file that you want as <code>commitizen</code> supports it.</li>
+<li>The commit message executed automatically by the <code>CI</code> must include <code>[skip-ci]</code> otherwise the process will be executed in a loop. You can define the message structure in <a href="https://woile.github.io/commitizen/bump/">commitizen</a> as well.</li>
 </ol>
 <h5>Gitlab Configuration:</h5>
 <p>In order to be able to change files and push new changes with Gitlab runners, we need to have a <code>ssh</code> key and configure a git user.</p>
@@ -147,8 +148,8 @@ More specifically, how we can create a new release of our software, update the c
 
 
 <p>The previous command will create a private and public key under the files <code>deploy_key</code> and <code>deploy_key.pub</code>. We will use them later.</p>
-<p>For the git user, we need an email and username. You can choose whatever you want, in this example, we choose <code>ci-runner@myproject.com</code> and <code>ci-runner</code> respectively.</p>
-<p>Now, we need to create three environment variables that will be visible for the runners. The variables should be created under in the section <code>settings/ci_cd</code> variables:</p>
+<p>For the git user, we need an email and username. You can choose whatever you want, in this example, we choose <code>ci-runner@myproject.com</code> and <code>admin</code> respectively.</p>
+<p>Now, we need to create three environment variables that will be visible for the runners. They should be created in the <code>variables</code> section under <code>settings/ci_cd</code>:</p>
 <p><img alt="gitlab variables" src="../../gitlab_ci/gitlab_variables.png"></p>
 <p>Create <code>SSH_PRIVATE_KEY</code>, <code>CI_EMAIL</code>, <code>CI_USERNAME</code> variables and fill them with the <code>private_key</code>, <code>email</code> and <code>username</code> that we have created.</p>
 <p>An important thing is to unprotect the private key, otherwise, the CI will raise errors. </p>
@@ -240,6 +241,8 @@ See the comments next to each line:</p>
 
 
 <p>Because we can not pass variables between jobs, we are using artifacts. You can avoid using <code>artifacts</code> configuring git again in the latest job, then pull the latest changes that include the last commit that bumps the version or simply combining <code>auto-bumping</code> and <code>publish</code> into one job.</p>
+<p>After merging with master we have the final result:</p>
+<p><img alt="gitlab final ci result" src="../../gitlab_ci/gitlab_final_ci_result.png"></p>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
