@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Wed, 01 May 2019 22:02:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Let's help version controls</title><link>https://marcosschroh.github.io/posts/lets-help-version-controls/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;As developers sometimes we don't realize the amount of work that a control version has to do in order
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Schroh (Posts about python)</title><link>https://marcosschroh.github.io/</link><description></description><atom:link href="https://marcosschroh.github.io/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Fri, 07 Jun 2019 15:25:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Cookiecutter Faust</title><link>https://marcosschroh.github.io/posts/cookiecutter-faust/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;Businesses collect large amounts of data, and data experts can extract actionable insights and learn from it. Because we can leverage data in real time, employing data streaming and processing, insights can be discovered almost instantly.&lt;/p&gt;
+&lt;p&gt;Tools like &lt;a href="https://kafka.apache.org/documentation/streams/"&gt;Kafka Streams&lt;/a&gt;, &lt;a href="https://spark.apache.org/"&gt;Apache Spark&lt;/a&gt;, and &lt;a href="https://flink.apache.org/"&gt;Flink&lt;/a&gt; are used for this propouse, but mainly with support for &lt;code&gt;Java&lt;/code&gt; and &lt;code&gt;Scala&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Recently, a new framework was born for the Python world: &lt;a href="https://faust.readthedocs.io/en/latest/"&gt;Faust&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Faust is a stream processing library, porting the ideas from Kafka Streams to Python.
+It is used to build high performance distributed systems and real-time data pipelines that process billions of events every day.
+Faust provides both stream processing and event processing, sharing similarity with tools such as Kafka Streams, Apache Spark/Storm/Samza/Flink,
+It does not use a DSL, it’s just Python! This means you can use all your favorite Python libraries when stream processing: NumPy, PyTorch, Pandas, NLTK, Django, Flask, SQLAlchemy, ++
+Faust requires Python 3.6 or later for the new async/await syntax, and variable type annotations.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In order to use a data streaming technology, we need to set up a broker, for example &lt;a href="https://kafka.apache.org/"&gt;kafka&lt;/a&gt;, and &lt;code&gt;kafka&lt;/code&gt; needs &lt;a href="https://zookeeper.apache.org/"&gt;zookeeper&lt;/a&gt;, and this is when we start struggling a bit because the different parts have to be installed and configured in order to play together. Indeed, we can go further, and use services like &lt;code&gt;Schema Registry&lt;/code&gt; and &lt;code&gt;Rocks DB&lt;/code&gt; to make more robust our stack, and again, we need to spend time configuring them.  &lt;/p&gt;
+&lt;p&gt;So, I have created a small project called &lt;a href="https://github.com/marcosschroh/cookiecutter-faust"&gt;cookiecutter-faust&lt;/a&gt;: &lt;code&gt;A Cookiecutter template for creating Faust projects quickly&lt;/code&gt;, means that all the necessary services are pre-configured and the project skeleton is generated for you.&lt;/p&gt;
+&lt;p&gt;The requirements are &lt;code&gt;cookiecutter&lt;/code&gt;, &lt;code&gt;Docker&lt;/code&gt; and &lt;code&gt;Docker Compose&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;Features&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;For Faust 1.5.4&lt;/li&gt;
+&lt;li&gt;Python 3.6 and 3.7&lt;/li&gt;
+&lt;li&gt;Docker and docker-compose support&lt;/li&gt;
+&lt;li&gt;Useful commands included in Makefile&lt;/li&gt;
+&lt;li&gt;Project skeleton is defined as a medium/large project according to faust layout&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;setup.py&lt;/code&gt; has the entrypoint in order to solve the entrypoint problem in Faust&lt;/li&gt;
+&lt;li&gt;Include a &lt;code&gt;settings.py&lt;/code&gt; as &lt;code&gt;Django&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Include an App example with tests&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Usage&lt;/h4&gt;
+&lt;p&gt;Is super easy. First, we need to install &lt;code&gt;coockicutter&lt;/code&gt;. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;pip install &lt;span class="s2"&gt;"cookiecutter&amp;gt;=1.4.0"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Then, just run:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;cookiecutter https://github.com/marcosschroh/cookiecutter-faust
+&lt;/pre&gt;
+
+
+&lt;p&gt;and answer the prompts with your desired option:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;project_name &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project&lt;span class="o"&gt;]&lt;/span&gt;: super faust
+project_slug &lt;span class="o"&gt;[&lt;/span&gt;super_faust&lt;span class="o"&gt;]&lt;/span&gt;:
+description &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project!&lt;span class="o"&gt;]&lt;/span&gt;:
+long_description &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project!&lt;span class="o"&gt;]&lt;/span&gt;:
+author_name &lt;span class="o"&gt;[&lt;/span&gt;Marcos Schroh&lt;span class="o"&gt;]&lt;/span&gt;:
+author_email &lt;span class="o"&gt;[&lt;/span&gt;marcos-schroh@gmail.com&lt;span class="o"&gt;]&lt;/span&gt;:
+version &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.1.0&lt;span class="o"&gt;]&lt;/span&gt;:
+Select open_source_license:
+&lt;span class="m"&gt;1&lt;/span&gt; - MIT
+&lt;span class="m"&gt;2&lt;/span&gt; - BSD
+&lt;span class="m"&gt;3&lt;/span&gt; - GPLv3
+&lt;span class="m"&gt;4&lt;/span&gt; - Apache Software License &lt;span class="m"&gt;2&lt;/span&gt;.0
+&lt;span class="m"&gt;5&lt;/span&gt; - Not open &lt;span class="nb"&gt;source&lt;/span&gt;
+Choose from &lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;:
+use_pycharm &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+use_docker &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+include_docker_compose &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+include_page_view_tutorial &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+worker_port &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;6066&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;:
+kafka_server_environment_variable &lt;span class="o"&gt;[&lt;/span&gt;KAFKA_BOOTSTRAP_SERVER&lt;span class="o"&gt;]&lt;/span&gt;:
+include_codec_example &lt;span class="o"&gt;[&lt;/span&gt;y&lt;span class="o"&gt;]&lt;/span&gt;:
+Select faust_loglevel:
+&lt;span class="m"&gt;1&lt;/span&gt; - CRITICAL
+&lt;span class="m"&gt;2&lt;/span&gt; - ERROR
+&lt;span class="m"&gt;3&lt;/span&gt; - WARNING
+&lt;span class="m"&gt;4&lt;/span&gt; - INFO
+&lt;span class="m"&gt;5&lt;/span&gt; - DEBUG
+&lt;span class="m"&gt;6&lt;/span&gt; - NOTSET
+Choose from &lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;, &lt;span class="m"&gt;6&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;, &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="m"&gt;4&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;and now you are ready to start coding your Data Streaming application without spending time on configurations!&lt;/p&gt;
+&lt;p&gt;The full Documentation is &lt;a href="https://github.com/marcosschroh/cookiecutter-faust/blob/master/README.md"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>data streaming</category><category>faust</category><category>python</category><guid>https://marcosschroh.github.io/posts/cookiecutter-faust/</guid><pubDate>Fri, 07 Jun 2019 10:40:51 GMT</pubDate></item><item><title>Let's help version controls</title><link>https://marcosschroh.github.io/posts/lets-help-version-controls/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;As developers sometimes we don't realize the amount of work that a control version has to do in order
 to calculate diffs, so what can we do about it in order to help them and make our teammate's life easier? &lt;/p&gt;
 &lt;h3&gt;A control version is ...&lt;/h3&gt;
 &lt;p&gt;According to Wikipedia is the management of changes to documents, computer programs, large web sites, and other collections of information. Somehow, these guys have to track and compare every change that we made, crazy eh!&lt;/p&gt;

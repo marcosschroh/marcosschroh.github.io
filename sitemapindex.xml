@@ -7,62 +7,210 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/bot.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_ci.xml</loc>
-  <lastmod>2019-05-02T13:22:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/cat_data-streaming.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-control-version.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_python-django-test-wizard.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_react.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/ci.xml</loc>
-  <lastmod>2019-05-02T13:22:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/data-streaming.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/categories/faust.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/formik.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/gitlab.xml</loc>
-  <lastmod>2019-05-02T13:22:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/redux.xml</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/bot.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_ci.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_data-streaming.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_python-bot-instagram.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_python-control-version.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_python-decorators.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_python-django-test-wizard.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_react.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/ci.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/data-streaming.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/faust.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/formik.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/gitlab.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/python.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/react.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/categories/redux.xml</loc>
+  <lastmod>2019-06-07T13:40:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/nl/rss.xml</loc>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2019-05-02T13:22:00Z</lastmod>
+  <lastmod>2019-06-07T14:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2019-05-14T07:53:00Z</lastmod>
+  <lastmod>2019-06-07T14:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/bot.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_ci.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_data-streaming.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-bot-instagram.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-control-version.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-decorators.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-django-test-wizard.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_react.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/ci.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/data-streaming.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/faust.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/formik.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/gitlab.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/python.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/react.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/categories/redux.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://marcosschroh.github.io/translations/nl/rss.xml</loc>
+  <lastmod>2019-06-07T13:41:00Z</lastmod>
  </sitemap>
 </sitemapindex>

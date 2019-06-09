@@ -9,14 +9,15 @@
 <link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (nl)" href="nl/rss.xml">
 <link rel="canonical" href="https://marcosschroh.github.io/">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-1263458186804128",
     enable_page_level_ads: true
   });
-</script><link rel="prefetch" href="posts/autobumping-with-gitlab/" type="text/html">
+</script><link rel="prefetch" href="posts/cookiecutter-faust/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -60,7 +61,15 @@ navbar-dark bg-dark
     </form>
 
 
-            <ul class="navbar-nav navbar-right"></ul>
+            <ul class="navbar-nav navbar-right">
+<li>
+            </li>
+<li class="nav-item"><a href="https://marcosschroh.github.io/nl/" rel="alternate" hreflang="nl" class="nav-link">Nederlands</a></li>
+
+                
+                    
+                
+            </ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -76,7 +85,98 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/autobumping-with-gitlab/" class="u-url">Continuous Integration with Gitlab</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/cookiecutter-faust/" class="u-url">Cookiecutter Faust</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Marcos Schroh
+            </span></p>
+            <p class="dateline">
+            <a href="posts/cookiecutter-faust/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-07T12:40:51+02:00" itemprop="datePublished" title="2019-06-07 12:40">2019-06-07 12:40</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="posts/cookiecutter-faust/#disqus_thread" data-disqus-identifier="cache/posts/cookiecutter-faust.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>Businesses collect large amounts of data, and data experts can extract actionable insights and learn from it. Because we can leverage data in real time, employing data streaming and processing, insights can be discovered almost instantly.</p>
+<p>Tools like <a href="https://kafka.apache.org/documentation/streams/">Kafka Streams</a>, <a href="https://spark.apache.org/">Apache Spark</a>, and <a href="https://flink.apache.org/">Flink</a> are used for this propouse, but mainly with support for <code>Java</code> and <code>Scala</code>.</p>
+<p>Recently, a new framework was born for the Python world: <a href="https://faust.readthedocs.io/en/latest/">Faust</a>.</p>
+<blockquote>
+<p>Faust is a stream processing library, porting the ideas from Kafka Streams to Python.
+It is used to build high performance distributed systems and real-time data pipelines that process billions of events every day.
+Faust provides both stream processing and event processing, sharing similarity with tools such as Kafka Streams, Apache Spark/Storm/Samza/Flink,
+It does not use a DSL, it’s just Python! This means you can use all your favorite Python libraries when stream processing: NumPy, PyTorch, Pandas, NLTK, Django, Flask, SQLAlchemy, ++
+Faust requires Python 3.6 or later for the new async/await syntax, and variable type annotations.</p>
+</blockquote>
+<p>In order to use a data streaming technology, we need to set up a broker, for example <a href="https://kafka.apache.org/">kafka</a>, and <code>kafka</code> needs <a href="https://zookeeper.apache.org/">zookeeper</a>, and this is when we start struggling a bit because the different parts have to be installed and configured in order to play together. Indeed, we can go further, and use services like <code>Schema Registry</code> and <code>Rocks DB</code> to make more robust our stack, and again, we need to spend time configuring them.  </p>
+<p>So, I have created a small project called <a href="https://github.com/marcosschroh/cookiecutter-faust">cookiecutter-faust</a>: <code>A Cookiecutter template for creating Faust projects quickly</code>, means that all the necessary services are pre-configured and the project skeleton is generated for you.</p>
+<p>The requirements are <code>cookiecutter</code>, <code>Docker</code> and <code>Docker Compose</code>.</p>
+<h4>Features</h4>
+<ul>
+<li>For Faust 1.5.4</li>
+<li>Python 3.6 and 3.7</li>
+<li>Docker and docker-compose support</li>
+<li>Useful commands included in Makefile</li>
+<li>Project skeleton is defined as a medium/large project according to faust layout</li>
+<li>The <code>setup.py</code> has the entrypoint in order to solve the entrypoint problem in Faust</li>
+<li>Include a <code>settings.py</code> as <code>Django</code>
+</li>
+<li>Include an App example with tests</li>
+</ul>
+<h4>Usage</h4>
+<p>Is super easy. First, we need to install <code>coockicutter</code>. </p>
+<pre class="code literal-block"><span></span>pip install <span class="s2">"cookiecutter&gt;=1.4.0"</span>
+</pre>
+
+
+<p>Then, just run:</p>
+<pre class="code literal-block"><span></span>cookiecutter https://github.com/marcosschroh/cookiecutter-faust
+</pre>
+
+
+<p>and answer the prompts with your desired option:</p>
+<pre class="code literal-block"><span></span>project_name <span class="o">[</span>My Awesome Faust Project<span class="o">]</span>: super faust
+project_slug <span class="o">[</span>super_faust<span class="o">]</span>:
+description <span class="o">[</span>My Awesome Faust Project!<span class="o">]</span>:
+long_description <span class="o">[</span>My Awesome Faust Project!<span class="o">]</span>:
+author_name <span class="o">[</span>Marcos Schroh<span class="o">]</span>:
+author_email <span class="o">[</span>marcos-schroh@gmail.com<span class="o">]</span>:
+version <span class="o">[</span><span class="m">0</span>.1.0<span class="o">]</span>:
+Select open_source_license:
+<span class="m">1</span> - MIT
+<span class="m">2</span> - BSD
+<span class="m">3</span> - GPLv3
+<span class="m">4</span> - Apache Software License <span class="m">2</span>.0
+<span class="m">5</span> - Not open <span class="nb">source</span>
+Choose from <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>, <span class="m">5</span> <span class="o">(</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>, <span class="m">5</span><span class="o">)</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>:
+use_pycharm <span class="o">[</span>n<span class="o">]</span>:
+use_docker <span class="o">[</span>n<span class="o">]</span>: y
+include_docker_compose <span class="o">[</span>n<span class="o">]</span>: y
+include_page_view_tutorial <span class="o">[</span>n<span class="o">]</span>: y
+worker_port <span class="o">[</span><span class="m">6066</span><span class="o">]</span>:
+kafka_server_environment_variable <span class="o">[</span>KAFKA_BOOTSTRAP_SERVER<span class="o">]</span>:
+include_codec_example <span class="o">[</span>y<span class="o">]</span>:
+Select faust_loglevel:
+<span class="m">1</span> - CRITICAL
+<span class="m">2</span> - ERROR
+<span class="m">3</span> - WARNING
+<span class="m">4</span> - INFO
+<span class="m">5</span> - DEBUG
+<span class="m">6</span> - NOTSET
+Choose from <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span> <span class="o">(</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span><span class="o">)</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="m">4</span>
+</pre>
+
+
+<p>and now you are ready to start coding your Data Streaming application without spending time on configurations!</p>
+<p>The full Documentation is <a href="https://github.com/marcosschroh/cookiecutter-faust/blob/master/README.md">here</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/autobumping-with-gitlab/" class="u-url">Continuous Integration with Gitlab</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
@@ -1243,7 +1343,7 @@ If you have inheritance and you want to overwrite a method always decorate it wi
 
         
        <script>var disqus_shortname="marcosschroh-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2019         <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2019 <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
 </div>

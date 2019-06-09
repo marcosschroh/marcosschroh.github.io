@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing a Form Wizard in Django | Marcos Schroh</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (nl)" href="../../../rss.xml">
+<link rel="canonical" href="https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1263458186804128",
+    enable_page_level_ads: true
+  });
+</script><meta name="author" content="Marcos Schroh">
+<link rel="prev" href="../creating-your-own-framework-with-react/" title="Creating your own framework with React" type="text/html">
+<link rel="next" href="../pyinstamation/" title="Pyinstamation" type="text/html">
+<meta property="og:site_name" content="Marcos Schroh">
+<meta property="og:title" content="Testing a Form Wizard in Django">
+<meta property="og:url" content="https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/">
+<meta property="og:description" content="I was writing a couple to tests form my django views and I got stuck with a Form Wizard. I tought.. well I will need to iterate over a form list and make several post as many steps as the wizard has. ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-11-30T10:08:43+01:00">
+<meta property="article:tag" content="python">
+<link rel="alternate" hreflang="en" href="../../../../posts/testing-a-form-wizard-in-django/">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Ga door naar de hoofdinhoud</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://marcosschroh.github.io/nl/">
+
+            <span id="blog-title">Marcos Schroh</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../pages/about-me/index.html" class="nav-link">About Me</a>
+
+                
+            </li>
+</ul>
+<form class="form-inline" action="../../../../pages/search/" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search in blog" autocomplete="off">
+</div>
+        <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+
+
+            <ul class="navbar-nav navbar-right">
+<li>
+            </li>
+<li class="nav-item"><a href="https://marcosschroh.github.io/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
+
+                
+                    
+    
+    <li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Bron</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Testing a Form Wizard in Django</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Marcos Schroh
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-30T10:08:43+01:00" itemprop="datePublished" title="2017-11-30 10:08">2017-11-30 10:08</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/testing-a-form-wizard-in-django.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.md" class="sourcelink">Bron</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>I was writing a couple to tests form my django views and I got stuck with a Form Wizard. I tought.. well I will need to iterate over a form list and make several post as many steps as the wizard has. That assumetion was correct, so I created the data for every form, I create a form loop... and bump, It didn't work.</p>
+<pre class="code literal-block"><span></span><span class="k">return</span> handler<span class="o">(</span>request, *args, **kwargs<span class="o">)</span>
+File <span class="s2">"/home/marcos/.virtualenvs/platformv3/local/lib/python2.7/site-packages/formtools/wizard/views.py"</span>, line <span class="m">284</span>, in post <span class="nv">code</span><span class="o">=</span><span class="s1">'missing_management_form'</span>,
+ValidationError: <span class="o">[</span>u<span class="s1">'ManagementForm data is missing or has been tampered.'</span><span class="o">]</span>
+</pre>
+
+
+<p> </p>
+<p>It didn't work because like we can see in the Traceback a wizard also need management_form.
+Basically, I was makeing a post with the data for each form but of course teh Wizard needs to know wich step are you refering to.
+So, let's go to the real example.</p>
+<p>Let's imagine that these are my Forms.</p>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">TicketInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">AddressForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">street_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">zipcode</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+</pre>
+
+
+<p> </p>
+<p>My views.py file</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">formtools.wizard.views</span> <span class="kn">import</span> <span class="n">SessionWizardView</span>
+
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">TicketInfoForm</span><span class="p">,</span> <span class="n">AddressForm</span>
+
+<span class="n">TICKETS_INFO_WIZARD_FORMS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">"Ticket Information"</span><span class="p">,</span> <span class="n">TicketInfoForm</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Address"</span><span class="p">,</span> <span class="n">AddressForm</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TicketWizardFormView</span><span class="p">(</span><span class="n">SessionWizardView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">'tickets_info.html'</span>
+
+    <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_list</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">ticket_info_form</span><span class="p">,</span> <span class="n">address_form</span> <span class="o">=</span> <span class="n">form_list</span>
+
+        <span class="n">address</span> <span class="o">=</span> <span class="n">address_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">address</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">BUYER_ADDRESS</span>
+        <span class="n">address</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">tickets_info</span> <span class="o">=</span> <span class="n">tickets_info_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="n">tickets_info</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
+
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_list'</span><span class="p">))</span>
+</pre>
+
+
+<p> </p>
+<p>My urls.py file</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">patterns</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">TicketsWizardFormView</span><span class="p">,</span> <span class="n">TICKETS_INFO_WIZARD_FORMS</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^tickets-info/request/$'</span><span class="p">,</span> <span class="n">login_required</span><span class="p">(</span><span class="n">TicketsWizardFormView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">TICKETS_INFO_WIZARD_FORMS</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tickets_info_request'</span><span class="p">),</span>
+<span class="p">)</span>
+</pre>
+
+
+<p>This code is working fine, with to test it we need to add and change some things.</p>
+<ol>
+<li>Every time that we make a POST besides of send the data that each 
+   form, we also need to send the current step: [wizard_name]-current_step: [current_step]</li>
+<li>We need to change the fields name to: [step_name]-[field_name]: [value]</li>
+</ol>
+<p>For example for our TicketsInfo Form:</p>
+<pre class="code literal-block"><span></span><span class="n">data_tickets_info_form</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="s1">'My first Ticket Info'</span><span class="p">,</span>
+    <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2017-11-30T12:00:00'</span><span class="p">,</span>
+    <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Ticket Information'</span>
+<span class="p">}</span>
+</pre>
+
+
+<p> </p>
+<p>In the above example we can see that we have added the [current_step] value and each field has the [step_name] prefix.</p>
+<p>Now we are ready to pass our test:</p>
+<pre class="code literal-block"><span></span><span class="c1"># test_views.py</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+
+<span class="k">class</span> <span class="nc">TestViews</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'users.json'</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">test_ticket_wizard_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">'Awesome Tickets'</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="n">data_ticket_form</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'Ticket Information-limit'</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="s1">'Ticket Information-name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">'Ticket Information-pub_data'</span><span class="p">:</span> <span class="s1">'2020-11-30T12:00:00'</span><span class="p">,</span>
+            <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Ticket Information'</span>
+        <span class="p">}</span>
+
+        <span class="n">data_address_form</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'Address-street_name'</span><span class="p">:</span> <span class="s1">'Isac Newton'</span><span class="p">,</span>
+            <span class="s1">'Address-zipcode'</span><span class="p">:</span> <span class="s1">'2011NA'</span><span class="p">,</span>
+            <span class="s1">'Address-city'</span><span class="p">:</span> <span class="s1">'Pythonic Straat'</span><span class="p">,</span>
+            <span class="s1">'Address-country'</span><span class="p">:</span> <span class="s1">'Netherlands'</span><span class="p">,</span>
+            <span class="s1">'ticket_wizard_form_view-current_step'</span><span class="p">:</span> <span class="s1">'Address'</span>
+        <span class="p">}</span>
+
+        <span class="n">TICKETS_STEPS_DATA</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_ticket_form</span><span class="p">,</span> <span class="n">data_address_form</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">data_step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_request'</span><span class="p">),</span> <span class="n">data_step</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">TICKETS_STEPS_DATA</span><span class="p">):</span>
+                <span class="c1"># make sure that after the create ticket we are redirected to Ticket List Page</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertRedirects</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">'tickets_info_list'</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+        <span class="c1"># get the ticket</span>
+        <span class="n">TicketInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span>
+        <span class="p">)</span>
+</pre>
+
+
+<p> </p>
+<p>And... The test pass :-)</p>
+<pre class="code literal-block"><span></span>....................................
+----------------------------------------------------------------------
+Ran <span class="m">36</span> tests in <span class="m">5</span>.555s
+
+OK
+</pre>
+
+
+<h3>Conclusion:</h3>
+<p>Test a Form Wizard is not so hard as seems at the beginning!!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../categories/python/" rel="tag">python</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../creating-your-own-framework-with-react/" rel="prev" title="Creating your own framework with React">Vorig bericht</a>
+            </li>
+            <li class="next">
+                <a href="../pyinstamation/" rel="next" title="Pyinstamation">Volgend bericht</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Commentaar</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="marcosschroh-github-io",
+            disqus_url="https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/",
+        disqus_title="Testing a Form Wizard in Django",
+        disqus_identifier="cache/posts/testing-a-form-wizard-in-django.html",
+        disqus_config = function () {
+            this.language = "nl";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="marcosschroh-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2019 <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', "UA-136216549-1", 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

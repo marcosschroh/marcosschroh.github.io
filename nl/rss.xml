@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Schroh</title><link>https://marcosschroh.github.io/</link><description>Personal Blog</description><atom:link href="https://marcosschroh.github.io/nl/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>nl</language><copyright>Contents © 2019 &lt;a href="mailto:schrohm@gmail.com"&gt;Marcos Schroh&lt;/a&gt; </copyright><lastBuildDate>Fri, 07 Jun 2019 16:09:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Cookiecutter Faust</title><link>https://marcosschroh.github.io/nl/posts/nl/cookiecutter-faust/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;Bedrijven krijgen long som gegevens, en gegevens specialists kunnen extract informatie en leren uit het. Wants we kunnen leverenen gegevens in real tijd, applicatie &lt;code&gt;Data Streaming&lt;/code&gt; en &lt;code&gt;Processing Tecnics&lt;/code&gt;, kennis kun ogenblikkelijk ontdekt.&lt;/p&gt;
+&lt;p&gt;Frameworks zoals &lt;a href="https://kafka.apache.org/documentation/streams/"&gt;Kafka Streams&lt;/a&gt;, &lt;a href="https://spark.apache.org/"&gt;Apache Spark&lt;/a&gt;, en &lt;a href="https://flink.apache.org/"&gt;Flink&lt;/a&gt; zijn gebruiken voor dit wit, maar special ondersteuning voor &lt;code&gt;Java&lt;/code&gt; en &lt;code&gt;Scala&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Kort geleden, een nieuwe framework hebt geboren voor Python: &lt;a href="https://faust.readthedocs.io/en/latest/"&gt;Faust&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Faust is a stream processing library, porting the ideas from Kafka Streams to Python.
+It is used to build high performance distributed systems and real-time data pipelines that process billions of events every day.
+Faust provides both stream processing and event processing, sharing similarity with tools such as Kafka Streams, Apache Spark/Storm/Samza/Flink,
+It does not use a DSL, it’s just Python! This means you can use all your favorite Python libraries when stream processing: NumPy, PyTorch, Pandas, NLTK, Django, Flask, SQLAlchemy, ++
+Faust requires Python 3.6 or later for the new async/await syntax, and variable type annotations.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Als we bruiken een gegevens streaming technologie, we hebben en broker stellen nodig, bij voorbeeld&lt;a href="https://kafka.apache.org/"&gt;kafka&lt;/a&gt;, en &lt;code&gt;kafka&lt;/code&gt; hebt &lt;a href="https://zookeeper.apache.org/"&gt;zookeeper&lt;/a&gt; nodig, en this is when we start struggling a bit because the different parts have to be installed and configured in order to play together. Indeed, we can go further, and use services like &lt;code&gt;Schema Registry&lt;/code&gt; and &lt;code&gt;Rocks DB&lt;/code&gt; to make more robust our stack, and again, we need to spend time configuring them.  &lt;/p&gt;
+&lt;p&gt;Dus, Ik heb gecreëerd en kleine project heet &lt;a href="https://github.com/marcosschroh/cookiecutter-faust"&gt;cookiecutter-faust&lt;/a&gt;: &lt;code&gt;A Cookiecutter template for creating Faust projects quickly&lt;/code&gt;, means that all the necessary services are pre-configured and the project skeleton is generated for you.&lt;/p&gt;
+&lt;p&gt;The requirements zijn &lt;code&gt;cookiecutter&lt;/code&gt;, &lt;code&gt;Docker&lt;/code&gt; en &lt;code&gt;Docker Compose&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;Kenmerken&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Faust 1.5.4&lt;/li&gt;
+&lt;li&gt;Python 3.6 and 3.7&lt;/li&gt;
+&lt;li&gt;Docker en docker-compose ondersteuning&lt;/li&gt;
+&lt;li&gt;Useful commands included in Makefile&lt;/li&gt;
+&lt;li&gt;Project skeleton is defined as a medium/large project according to faust layout&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;setup.py&lt;/code&gt; has the entrypoint in order to solve the entrypoint problem in Faust&lt;/li&gt;
+&lt;li&gt;Include a &lt;code&gt;settings.py&lt;/code&gt; as &lt;code&gt;Django&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Include an App example with tests&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Gebruiken&lt;/h4&gt;
+&lt;p&gt;Is super makkelijk. Eerste, we hebben install &lt;code&gt;coockicutter&lt;/code&gt; nodig. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;pip install &lt;span class="s2"&gt;"cookiecutter&amp;gt;=1.4.0"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Then, just run:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;cookiecutter https://github.com/marcosschroh/cookiecutter-faust
+&lt;/pre&gt;
+
+
+&lt;p&gt;antword de vragens met jouw opties:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;project_name &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project&lt;span class="o"&gt;]&lt;/span&gt;: super faust
+project_slug &lt;span class="o"&gt;[&lt;/span&gt;super_faust&lt;span class="o"&gt;]&lt;/span&gt;:
+description &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project!&lt;span class="o"&gt;]&lt;/span&gt;:
+long_description &lt;span class="o"&gt;[&lt;/span&gt;My Awesome Faust Project!&lt;span class="o"&gt;]&lt;/span&gt;:
+author_name &lt;span class="o"&gt;[&lt;/span&gt;Marcos Schroh&lt;span class="o"&gt;]&lt;/span&gt;:
+author_email &lt;span class="o"&gt;[&lt;/span&gt;marcos-schroh@gmail.com&lt;span class="o"&gt;]&lt;/span&gt;:
+version &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.1.0&lt;span class="o"&gt;]&lt;/span&gt;:
+Select open_source_license:
+&lt;span class="m"&gt;1&lt;/span&gt; - MIT
+&lt;span class="m"&gt;2&lt;/span&gt; - BSD
+&lt;span class="m"&gt;3&lt;/span&gt; - GPLv3
+&lt;span class="m"&gt;4&lt;/span&gt; - Apache Software License &lt;span class="m"&gt;2&lt;/span&gt;.0
+&lt;span class="m"&gt;5&lt;/span&gt; - Not open &lt;span class="nb"&gt;source&lt;/span&gt;
+Choose from &lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;:
+use_pycharm &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+use_docker &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+include_docker_compose &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+include_page_view_tutorial &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;: y
+worker_port &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;6066&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;:
+kafka_server_environment_variable &lt;span class="o"&gt;[&lt;/span&gt;KAFKA_BOOTSTRAP_SERVER&lt;span class="o"&gt;]&lt;/span&gt;:
+include_codec_example &lt;span class="o"&gt;[&lt;/span&gt;y&lt;span class="o"&gt;]&lt;/span&gt;:
+Select faust_loglevel:
+&lt;span class="m"&gt;1&lt;/span&gt; - CRITICAL
+&lt;span class="m"&gt;2&lt;/span&gt; - ERROR
+&lt;span class="m"&gt;3&lt;/span&gt; - WARNING
+&lt;span class="m"&gt;4&lt;/span&gt; - INFO
+&lt;span class="m"&gt;5&lt;/span&gt; - DEBUG
+&lt;span class="m"&gt;6&lt;/span&gt; - NOTSET
+Choose from &lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;, &lt;span class="m"&gt;6&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="m"&gt;3&lt;/span&gt;, &lt;span class="m"&gt;4&lt;/span&gt;, &lt;span class="m"&gt;5&lt;/span&gt;, &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="m"&gt;4&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;En nu je bent klaar te coding jouw Data Streaming applicatie zonder spending tijd in configuratie!&lt;/p&gt;
+&lt;p&gt;De projectdocumentatie is &lt;a href="https://github.com/marcosschroh/cookiecutter-faust/blob/master/README.md"&gt;hier&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>data streaming</category><category>faust</category><category>python</category><guid>https://marcosschroh.github.io/nl/posts/nl/cookiecutter-faust/</guid><pubDate>Fri, 07 Jun 2019 10:40:51 GMT</pubDate></item><item><title>Continuous Integration with Gitlab</title><link>https://marcosschroh.github.io/nl/posts/nl/autobumping-with-gitlab/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;In this post, I want to talk about how we can automate our integration process using the &lt;code&gt;Gitlab&lt;/code&gt; army tool.
+More specifically, how we can create a new release of our software, update the corresponding files that reflects the version, and create a new &lt;code&gt;docker&lt;/code&gt; image.&lt;/p&gt;
+&lt;p&gt;For this example, we have a &lt;code&gt;python/django&lt;/code&gt; application and &lt;code&gt;Docker&lt;/code&gt; as containerization tool.&lt;/p&gt;
+&lt;h5&gt;Goals:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Bump a new version every time that a change occurs on &lt;code&gt;master&lt;/code&gt; branch. The bump should be executed automatically by the &lt;code&gt;CI&lt;/code&gt; process.&lt;/li&gt;
+&lt;li&gt;Create a new &lt;code&gt;docker&lt;/code&gt; image that contains the latest changes and push it to the registry.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Defining a CI Pipeline&lt;/h5&gt;
+&lt;p&gt;Starting a &lt;code&gt;CI&lt;/code&gt; process in gitlab is super easy, you just need a &lt;code&gt;.gitlab-ci.yaml&lt;/code&gt; file that contains &lt;code&gt;stages&lt;/code&gt; and &lt;code&gt;jobs&lt;/code&gt; configurations. You can find more info &lt;a href="https://docs.gitlab.com/ee/ci/quick_start/"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For our case purpose, we define three &lt;code&gt;stages&lt;/code&gt; with one &lt;code&gt;job&lt;/code&gt; each one.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Test the application.&lt;/li&gt;
+&lt;li&gt;Auto bump the version. Means changing the file/s that reflects the version, creating a new commit and git tag.&lt;/li&gt;
+&lt;li&gt;Create a new &lt;code&gt;docker&lt;/code&gt; image and publish it in Gitlab registry.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="gitlab variables" src="https://marcosschroh.github.io/gitlab_ci/gitlab_jobs.png"&gt;&lt;/p&gt;
+&lt;h5&gt;Assumptions and Development Workflow:&lt;/h5&gt;
+&lt;p&gt;Define a clear development workflow is crucial for our goal. It gives a clear vision and a tidy way about how developers should work. We have defined the following the flow and probably you are familiar with it:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A developer creates a new commit on any branch (except &lt;code&gt;master&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;A developer creates a merge request (MR) against &lt;code&gt;master&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;When the &lt;code&gt;MR&lt;/code&gt; is accepted and merged, the 3 stages of the CI are executed&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Some Assumptions:&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Master branch is protected, means that nobody can push to it, except Gitlab runners.&lt;/li&gt;
+&lt;li&gt;The test job runs on every branch when a change is detected.&lt;/li&gt;
+&lt;li&gt;We use semantic version.&lt;/li&gt;
+&lt;li&gt;For every commit message, we use a convention.&lt;/li&gt;
+&lt;li&gt;You can use any tool that you want, in our case we use &lt;a href="https://woile.github.io/commitizen/"&gt;commitizen&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;For simplification, we store the version in a file called &lt;code&gt;VERSION&lt;/code&gt;. You can use any file that you want as &lt;code&gt;commitizen&lt;/code&gt; supports it.&lt;/li&gt;
+&lt;li&gt;The commit message executed automatically by the &lt;code&gt;CI&lt;/code&gt; must include &lt;code&gt;[skip-ci]&lt;/code&gt; otherwise the process will be executed in a loop. You can define the message structure in &lt;a href="https://woile.github.io/commitizen/bump/"&gt;commitizen&lt;/a&gt; as well.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;Gitlab Configuration:&lt;/h5&gt;
+&lt;p&gt;In order to be able to change files and push new changes with Gitlab runners, we need to have a &lt;code&gt;ssh&lt;/code&gt; key and configure a git user.&lt;/p&gt;
+&lt;p&gt;First, let's create a &lt;code&gt;ssh key&lt;/code&gt;. The only requirement is to create it without a passphrase.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -f deploy_key -N ""
+&lt;/pre&gt;
+
+
+&lt;p&gt;The previous command will create a private and public key under the files &lt;code&gt;deploy_key&lt;/code&gt; and &lt;code&gt;deploy_key.pub&lt;/code&gt;. We will use them later.&lt;/p&gt;
+&lt;p&gt;For the git user, we need an email and username. You can choose whatever you want, in this example, we choose &lt;code&gt;ci-runner@myproject.com&lt;/code&gt; and &lt;code&gt;admin&lt;/code&gt; respectively.&lt;/p&gt;
+&lt;p&gt;Now, we need to create three environment variables that will be visible for the runners. They should be created in the &lt;code&gt;variables&lt;/code&gt; section under &lt;code&gt;settings/ci_cd&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="gitlab variables" src="https://marcosschroh.github.io/gitlab_ci/gitlab_variables.png"&gt;&lt;/p&gt;
+&lt;p&gt;Create &lt;code&gt;SSH_PRIVATE_KEY&lt;/code&gt;, &lt;code&gt;CI_EMAIL&lt;/code&gt;, &lt;code&gt;CI_USERNAME&lt;/code&gt; variables and fill them with the &lt;code&gt;private_key&lt;/code&gt;, &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;username&lt;/code&gt; that we have created.&lt;/p&gt;
+&lt;p&gt;An important thing is to unprotect the private key, otherwise, the CI will raise errors. &lt;/p&gt;
+&lt;p&gt;The latest step is to create a &lt;code&gt;deploy key.&lt;/code&gt; To do this, we should create a new one in the section &lt;code&gt;settings/repository&lt;/code&gt; and fill it with the &lt;code&gt;public key&lt;/code&gt; generated before. Check &lt;code&gt;Write access allowed&lt;/code&gt;, otherwise, the runner won't be able to write changes to the repository. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="gitlab deploy key" src="https://marcosschroh.github.io/gitlab_ci/gitlab_deploy_key.png"&gt;&lt;/p&gt;
+&lt;p&gt;If you have more projects under the same organization, you can reuse the deploy key created before, but you will have to
+repeat the step where we created the environment variables (ssh key, email, and username).&lt;/p&gt;
+&lt;h5&gt;Start CI pipeline:&lt;/h5&gt;
+&lt;p&gt;Let's start with a basic configuration for our pipeline:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker:latest&lt;/span&gt;
+
+&lt;span class="nt"&gt;services&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker:dind&lt;/span&gt;
+
+&lt;span class="nt"&gt;variables&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;API_IMAGE_NAME&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME&lt;/span&gt;
+
+&lt;span class="nt"&gt;before_script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;apk add --no-cache py-pip&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip install docker-compose&lt;/span&gt;
+
+&lt;span class="nt"&gt;stages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;test&lt;/span&gt;
+  &lt;span class="c1"&gt;# - auto-bump # both stages will use later&lt;/span&gt;
+  &lt;span class="c1"&gt;# - publish&lt;/span&gt;
+
+&lt;span class="nt"&gt;test&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;stage&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;test&lt;/span&gt;
+  &lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker-compose run -e DJANGO_ENVIRONMENT=dev your_project python manage.py test&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;So, every time that a developer push to any branch the test job will be executed. &lt;/p&gt;
+&lt;p&gt;Time for the bumping. Below, we are defining a new job to auto bump a new version. The important steps are setting the ssh key, configure git, execute the auto bump command, push to master branch and upload the new version to gitlab artifacts.
+See the comments next to each line:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;auto-bump&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;stage&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;auto-bump&lt;/span&gt;
+  &lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python:3.6&lt;/span&gt;
+  &lt;span class="nt"&gt;before_script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="s"&gt;'which&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;ssh-agent&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;||&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;(&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;apt-get&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;update&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-qy&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;apt-get&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;install&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;openssh-client&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-qqy&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;)'&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;eval `ssh-agent -s`&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - &amp;gt; /dev/null&lt;/span&gt; &lt;span class="c1"&gt;# add ssh key&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip3 install -U Commitizen&lt;/span&gt; &lt;span class="c1"&gt;# install commitizen&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;mkdir -p ~/.ssh&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;chmod 700 ~/.ssh&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;echo "$SSH_PUBLIC_KEY" &amp;gt;&amp;gt; ~/.ssh/id_rsa.pub&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="s"&gt;'[[&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-f&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;/.dockerenv&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;]]&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;echo&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-e&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Host&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;*\n\tStrictHostKeyChecking&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;no\n\n"&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;~/.ssh/config'&lt;/span&gt;
+  &lt;span class="nt"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;test&lt;/span&gt;
+  &lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;git remote set-url origin git@gitlab.com:discover/rentee-core.git&lt;/span&gt; &lt;span class="c1"&gt;# git configuration&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;git config --global user.email "${CI_EMAIL}" &amp;amp;&amp;amp; git config --global user.name "${CI_USERNAME}"&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="s"&gt;'exists=`git&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;show-ref&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;refs/heads/master`&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;if&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;[&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-n&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;"$exists"&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;];&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;then&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;git&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;branch&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;-D&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;master;&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;fi'&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;git checkout -b master&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;cz bump&lt;/span&gt; &lt;span class="c1"&gt;# execute auto bump and push to master&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;git push origin master:$CI_COMMIT_REF_NAME&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;TAG=$(head -n 1 VERSION)&lt;/span&gt; &lt;span class="c1"&gt;# get the new software version and save into artifacts&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;echo "#!/bin/sh" &amp;gt;&amp;gt; variables&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;echo "export TAG='$TAG'" &amp;gt;&amp;gt; variables&lt;/span&gt; 
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;git push origin $TAG&lt;/span&gt;
+  &lt;span class="nt"&gt;only&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nt"&gt;refs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+      &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;master&lt;/span&gt;
+  &lt;span class="nt"&gt;artifacts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nt"&gt;paths&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;variables&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now, let's add the &lt;code&gt;publish&lt;/code&gt; job to create a new docker image and push it to the registry:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;publish&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;stage&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;publish&lt;/span&gt;
+  &lt;span class="nt"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;test&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;auto-bump&lt;/span&gt;
+  &lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;source variables&lt;/span&gt; &lt;span class="c1"&gt;# loading environment variables from artifact&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;echo $TAG&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;API_IMAGE_TAG="${CI_REGISTRY_IMAGE}:${TAG}"&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}&lt;/span&gt; &lt;span class="c1"&gt;# Authenticating against registry registry&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker build -t $API_IMAGE_NAME your_project&lt;/span&gt; &lt;span class="c1"&gt;# creating docker image&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker tag $API_IMAGE_NAME $API_IMAGE_TAG&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;docker push $API_IMAGE_TAG&lt;/span&gt; &lt;span class="c1"&gt;# pushing to docker registry&lt;/span&gt;
+  &lt;span class="nt"&gt;only&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nt"&gt;refs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+      &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;master&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Because we can not pass variables between jobs, we are using artifacts. You can avoid using &lt;code&gt;artifacts&lt;/code&gt; configuring git again in the latest job, then pull the latest changes that include the last commit that bumps the version or simply combining &lt;code&gt;auto-bumping&lt;/code&gt; and &lt;code&gt;publish&lt;/code&gt; into one job.&lt;/p&gt;
+&lt;p&gt;After merging with master we have the final result:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="gitlab final ci result" src="https://marcosschroh.github.io/gitlab_ci/gitlab_final_ci_result.png"&gt;&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/autobumping-with-gitlab/</guid><pubDate>Sun, 28 Apr 2019 15:32:46 GMT</pubDate></item><item><title>Let's help version controls</title><link>https://marcosschroh.github.io/nl/posts/nl/lets-help-version-controls/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;As developers sometimes we don't realize the amount of work that a control version has to do in order
+to calculate diffs, so what can we do about it in order to help them and make our teammate's life easier? &lt;/p&gt;
+&lt;h3&gt;A control version is ...&lt;/h3&gt;
+&lt;p&gt;According to Wikipedia is the management of changes to documents, computer programs, large web sites, and other collections of information. Somehow, these guys have to track and compare every change that we made, crazy eh!&lt;/p&gt;
+&lt;h3&gt;Complacent comma placement&lt;/h3&gt;
+&lt;p&gt;Let's imagine that we have the following python list and we are using &lt;code&gt;git&lt;/code&gt; as our control version tool:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Whenever you make a change to the list, it will be hard to tell what was modified by looking
+at git diff. Because of most of the source control system are line-based they have a hard time highlining multiple changes to a single line&lt;/p&gt;
+&lt;p&gt;A quick fix is to adopt a code style where you spread out list, dict or set constants across multiple lines,
+so we have one item per line:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now, is perfectly clear when one item was added, removed or modified using a &lt;code&gt;git diff&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As a bonus, let's say that you add &lt;code&gt;anana&lt;/code&gt; at the end of the list, you commit but you can not push because you are not
+in the latest version. Make a pull and there is a conflict because your teammate has added &lt;code&gt;pear&lt;/code&gt; at the end of the list:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"anana"&lt;/span&gt; &lt;span class="c1"&gt;# &amp;lt;-- missing comma&lt;/span&gt;
+    &lt;span class="s2"&gt;"pear"&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Seems really clear here that you have to add a comma after &lt;code&gt;anana&lt;/code&gt; to avoid &lt;code&gt;string literal concatenation&lt;/code&gt;,
+but it happened to me a lot of times that I was focused on trying to solve the &lt;code&gt;merge conflict&lt;/code&gt; and I forgot the COMMA!!
+Just for a missing comma and we have unexpected results.&lt;/p&gt;
+&lt;p&gt;So, as &lt;code&gt;python&lt;/code&gt; developer we can adopt a code style that we place a comma after every item in a &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt; or &lt;code&gt;set constants&lt;/code&gt; including the last item to avoid silly mistakes in merge conflicts.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"banana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"apple"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"anana"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"pear"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Unfortunately, not always we can do this, for example in &lt;code&gt;json&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"firstName"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Foo"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"lastName"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Bar"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;//&lt;/span&gt; &lt;span class="err"&gt;&amp;lt;--&lt;/span&gt;  &lt;span class="err"&gt;SyntaxError:&lt;/span&gt; &lt;span class="err"&gt;Unexpected&lt;/span&gt; &lt;span class="err"&gt;token&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="err"&gt;in&lt;/span&gt; &lt;span class="err"&gt;JSON&lt;/span&gt; &lt;span class="err"&gt;at&lt;/span&gt; &lt;span class="err"&gt;position&lt;/span&gt; &lt;span class="err"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Space at the end&lt;/h3&gt;
+&lt;p&gt;Why are line breaks important?&lt;/p&gt;
+&lt;p&gt;Version control systems are focused on text files; they can track the changes, merge files automatically, or facilitate the process of resolving conflicts. Because of this, line endings are crucial in understanding the content of the file and how to work with the changes (most of them do merges on a line by line basis).&lt;/p&gt;
+&lt;p&gt;For example, &lt;code&gt;Git&lt;/code&gt; supports both &lt;code&gt;CR+LF&lt;/code&gt; and &lt;code&gt;LF&lt;/code&gt; line endings using several configuration options.&lt;/p&gt;
+&lt;p&gt;Git's default merge strategy will throw a conflict whenever two branches make changes to adjacent (or the same) lines. This is eminently sensible: when changes are made, neighboring lines are needed to give them context – simply merging changes when their context has also changed won't always give the desired result.&lt;/p&gt;
+&lt;p&gt;Let's imagine that we have a file called &lt;code&gt;foo.txt&lt;/code&gt; and we add the word &lt;code&gt;python&lt;/code&gt; without an &lt;code&gt;ending line&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;If run &lt;code&gt;git diff&lt;/code&gt; we have the following message:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index e69de29..d8654aa &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -0,0 +1 @@
++python
+&lt;span class="se"&gt;\ &lt;/span&gt;No newline at end of file
+&lt;/pre&gt;
+
+
+&lt;p&gt;So far so good, we decide to commit and push. After a while, is time to add a new word to our foo file and we write &lt;code&gt;test&lt;/code&gt; with a new line at the end. What do you think we will get after running &lt;code&gt;git diff&lt;/code&gt;?&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index d8654aa..4215a2c &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -1 +1,2 @@
+-python
+&lt;span class="se"&gt;\ &lt;/span&gt;No newline at end of file
++python
++test
+&lt;/pre&gt;
+
+
+&lt;p&gt;but why? If I just added the word &lt;code&gt;test&lt;/code&gt; and not &lt;code&gt;python&lt;/code&gt;? Don't panic, the first line shows up in the diff as modified although there is no visible change because newlines are a control character and therefore don't have a visible representation.&lt;/p&gt;
+&lt;p&gt;Now, what would have the output of &lt;code&gt;git diff&lt;/code&gt; if we had added a &lt;code&gt;new line&lt;/code&gt; at the end of &lt;code&gt;python&lt;/code&gt; and after we add the &lt;code&gt;test&lt;/code&gt; word?&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;diff --git a/marcosschroh/foo.txt b/marcosschroh/foo.txt
+index fdc793e..4215a2c &lt;span class="m"&gt;100644&lt;/span&gt;
+--- a/marcosschroh/foo.txt
++++ b/marcosschroh/foo.txt
+@@ -1 +1,2 @@
+ python
++test
+&lt;/pre&gt;
+
+
+&lt;p&gt;Cleaner and easier, right?&lt;/p&gt;
+&lt;h3&gt;Conslusion:&lt;/h3&gt;
+&lt;p&gt;Adapting smart formattings like spread out list, dict or set constants across multiple lines and adding a comma at the end of
+each item including the last one is easier to maintain and avoid bugs.
+Always add a &lt;code&gt;new line&lt;/code&gt; at the end, it will make life easier to your teammates and for version control tools.&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/lets-help-version-controls/</guid><pubDate>Sun, 14 Apr 2019 15:01:16 GMT</pubDate></item><item><title>Manage asynchronous errors with React and Formik</title><link>https://marcosschroh.github.io/nl/posts/nl/async-errors-in-react-with-formik/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;In this posts, I want to show you one approach to manage errors when we perform asynchronous actions with React.js&lt;/p&gt;
+&lt;p&gt;Just to remember, I am using the architecture that I commented on my previous post &lt;a href="https://marcosschroh.github.io/posts/creating-your-own-framework-with-react/"&gt;Creating your own framework with React&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I've tried several forms libraries in React and one that has accomplished most of the requirements
+is &lt;a href="https://github.com/jaredpalmer/formik"&gt;Formik&lt;/a&gt;. It does not have several issues, the repository is updated quite often, the community is active, and in my case, It was clear how to use it.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;Architecture&lt;/h4&gt;
+&lt;p&gt;This is the architecture that I've decided to use:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://marcosschroh.github.io/async-errors-react-formik/react-formik-async.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;One important thing is we have only one reducer (Error Reducer) to store all the errors related to the forms that we have in our project. 
+Also, there is a FieldError component that knows how to show the errors.&lt;/p&gt;
+&lt;h4&gt;Let's write code:&lt;/h4&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Our Form Smart Component with Formik&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;React&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'react'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Formik&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'formik'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;FieldError&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'../../../components/FieldError'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LoginForm&lt;/span&gt; &lt;span class="n"&gt;extends&lt;/span&gt; &lt;span class="n"&gt;React&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Component&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+  &lt;span class="n"&gt;constructor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialValues&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;''&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;''&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+      &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Formik&lt;/span&gt; 
+        &lt;span class="n"&gt;initialValues&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialValues&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;onSubmit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;handleSubmit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;}}&lt;/span&gt;
+      &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{(&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;form&lt;/span&gt; &lt;span class="n"&gt;onSubmit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;handleSubmit&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="n"&gt;htmlFor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"email"&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;Email&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;Label&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;input&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"email"&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"email"&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'email'&lt;/span&gt;&lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;FieldError&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="n"&gt;htmlFor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"password"&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;Password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;input&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"password"&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"password"&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'password'&lt;/span&gt; &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;button&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"submit"&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;Login&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;}}&lt;/span&gt;
+    &lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;LoginForm&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Our FieldError component&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;React&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'react'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;PropTypes&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'prop-types'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;FieldError&lt;/span&gt; &lt;span class="n"&gt;extends&lt;/span&gt; &lt;span class="n"&gt;React&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Component&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+  &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;propTypes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;PropTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;globalInForm&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;PropTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bool&lt;/span&gt;
+  &lt;span class="p"&gt;};&lt;/span&gt;
+
+  &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;defaultProps&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+    &lt;span class="n"&gt;globalInForm&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;false&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;let&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+      &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="n"&gt;className&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"error text-danger"&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;))&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;props&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;globalInForm&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;div&lt;/span&gt; &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"danger"&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+          &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ul&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;ul&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;div&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;)&lt;/span&gt;  
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+      &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;div&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+      &lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="n"&gt;div&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;FieldError&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Our Error Reducer&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;actionTypes&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'../actions/actionTypes'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;initialState&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;formErrors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+  &lt;span class="n"&gt;globalErrros&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+  &lt;span class="n"&gt;messages&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="n"&gt;reducer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;initialState&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+  &lt;span class="n"&gt;case&lt;/span&gt; &lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ADD_FORM_ERRORS&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;formErrors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+     &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;case&lt;/span&gt; &lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RESET_FORM_ERRORS&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;formErrors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt; 
+
+  &lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Sagas funtions&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;takeEvery&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'redux-saga'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'redux-saga/effects'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;actionTypes&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'../actions/actionTypes'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;api&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'../../api'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;api&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LOGIN_SUCCESSFUL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RESET_FORM_ERRORS&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;
+
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;catch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ADD_FORM_ERRORS&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;userSagas&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;takeEvery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;actionTypes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LOGIN_REQUESTED&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Linking Error Reducer with our Form and actions&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;connect&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'react-redux'&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;LoginForm&lt;/span&gt; &lt;span class="nn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'./components/LoginForm'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;login&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'../../store/actions'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;mapStateToProps&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errorReducer&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;formErrors&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;mapDispatchToProps&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dispatch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;dispatch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;LoginContainer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;mapStateToProps&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;mapDispatchToProps&lt;/span&gt;
+&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;LoginPage&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;LoginContainer&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;In the above code, we can observe that the form component have access to a portion
+of the store (error Reducer), also when the form is submitted the login action is dispatched.&lt;/p&gt;
+&lt;h4&gt;Important thngs:&lt;/h4&gt;
+&lt;p&gt;Is important to know the response format that comes from the server. In our case the expected format is:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s1"&gt;'field_1'&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="s1"&gt;'error_1'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'error_2'&lt;/span&gt;
+    &lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="s1"&gt;'field_2'&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="s1"&gt;'error__1'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'error_2'&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;So, our Form will have access to the above error object, and then will pass each array to the
+FieldError component to show them.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;FieldError errors={this.props.errors.email} /&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;If there is no error in the response, we should clean the reducer because the same reducer
+is used by multiple forms.&lt;/p&gt;
+&lt;p&gt;Another thing is when the user refresh the page, we also should clean the ErrorReducer,
+otherwise, the errors will be there and can cause confusion.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;The flow:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;User fill the form and press submit (login function is called).&lt;/li&gt;
+&lt;li&gt;Because is an async action, the sagas middleware catch it, and send a request to the backend.&lt;/li&gt;
+&lt;li&gt;The server has responded with an error e.g. 400.&lt;/li&gt;
+&lt;li&gt;The errors are registered in the Error Reducer by sagas.&lt;/li&gt;
+&lt;li&gt;The form is listening to the Error Reducer and have access to it.&lt;/li&gt;
+&lt;li&gt;The errors are shown in the form.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;Conclusion:&lt;/h4&gt;
+&lt;p&gt;Showing async errors is not an easy task in React, but after a clear workflow was established and the structures to play (Reducer and FieldError) have been created
+showing errors becomes easier. &lt;/p&gt;
+&lt;p&gt;Also, I've seen the approach of creating one Reducer per Form, in our case LoginForm Reducer belongs to the login form, RegistrationForm Reducer to Registration Form, etc. Maybe is a good approach to have a better control of each form but the amount of reducer increase considerably.&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/async-errors-in-react-with-formik/</guid><pubDate>Sat, 06 Jan 2018 14:07:09 GMT</pubDate></item><item><title>Pyinstamation</title><link>https://marcosschroh.github.io/nl/posts/nl/pyinstamation/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;What is Pyinstamation?&lt;/h3&gt;
+&lt;p&gt;Pyinstamation is a Python Bot for Instagram. I have developed this project with &lt;a href="https://woile.github.io"&gt;Santiago Fraire&lt;/a&gt;. You can take a look of the source code of Pyinstamation &lt;a href="https://github.com/dscovr/pyinstamation"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can configure &lt;strong&gt;however&lt;/strong&gt; you want the bot.&lt;/li&gt;
+&lt;li&gt;Works in Linux and MacOS.&lt;/li&gt;
+&lt;li&gt;Works in Chrome and Firefox. &lt;/li&gt;
+&lt;li&gt;Upload pictures.&lt;/li&gt;
+&lt;li&gt;Farm followers with the follow/unfollow technique.&lt;/li&gt;
+&lt;li&gt;Like and comment by tags.&lt;/li&gt;
+&lt;li&gt;Metrics persisted in db.&lt;/li&gt;
+&lt;li&gt;Logging.&lt;/li&gt;
+&lt;li&gt;Comment generator.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Everything looks great so far, but here, I want to show you about the results I had with this bot. 
+I've been running this bot for 5 days in a row, once a day at the same time, and the results were quite good.&lt;/p&gt;
+&lt;p&gt;First I will show you the configuration I used for teh 5 days:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;username&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;yourusername&lt;/span&gt;
+&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;yourpassword&lt;/span&gt;
+&lt;span class="nt"&gt;hide_browser&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;false&lt;/span&gt;
+&lt;span class="nt"&gt;browser_type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;chrome&lt;/span&gt;
+
+&lt;span class="nt"&gt;posts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;search_tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'hashtag_1'&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'hashtag_2'&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'hashtag_3'&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'hashtag_4'&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'hashtag_5'&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,]&lt;/span&gt;
+  &lt;span class="nt"&gt;ignore_tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[]&lt;/span&gt;
+  &lt;span class="nt"&gt;posts_per_day&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;100&lt;/span&gt;
+  &lt;span class="nt"&gt;likes_per_day&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;50&lt;/span&gt;
+  &lt;span class="nt"&gt;like_probability&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0.5&lt;/span&gt;
+  &lt;span class="nt"&gt;comments_per_day&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;10&lt;/span&gt;
+  &lt;span class="nt"&gt;comment_enabled&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+  &lt;span class="nt"&gt;comment_generator&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+  &lt;span class="nt"&gt;comment_probability&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0.5&lt;/span&gt;
+  &lt;span class="nt"&gt;custom_comments&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[]&lt;/span&gt;
+  &lt;span class="nt"&gt;total_to_follow_per_hashtag&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;10&lt;/span&gt;
+
+&lt;span class="nt"&gt;followers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;follow_enable&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+  &lt;span class="nt"&gt;min_followers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0&lt;/span&gt;
+  &lt;span class="nt"&gt;max_followers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0&lt;/span&gt;
+  &lt;span class="nt"&gt;follow_probability&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0.5&lt;/span&gt;
+  &lt;span class="nt"&gt;ignore_users&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[]&lt;/span&gt;
+  &lt;span class="nt"&gt;follow_per_day&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;50&lt;/span&gt;
+  &lt;span class="nt"&gt;unfollow_followed_users&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;And here are the results per day:&lt;/strong&gt;&lt;/p&gt;
+&lt;table class="table table-bordered table-hover"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Day&lt;/td&gt;
+            &lt;td&gt;Likes Given&lt;/td&gt;
+            &lt;td&gt;Likes Gain&lt;/td&gt;
+            &lt;td&gt;Comments made&lt;/td&gt;
+            &lt;td&gt;Comments gained&lt;/td&gt;
+            &lt;td&gt;My comments liked&lt;/td&gt;
+            &lt;td&gt;Mentions&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;New users following&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;New Followers&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;Users Unfollowed&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;15&lt;/td&gt;
+            &lt;td&gt;4&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;15&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;13&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;19&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;23&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;11&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;13&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;7&lt;/td&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;15&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;15&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;4&lt;/td&gt;
+            &lt;td&gt;47&lt;/td&gt;
+            &lt;td&gt;15&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;47&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;20&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;10&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;46&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;10&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;13&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;15&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;Some numbers:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;New Followers:&lt;/strong&gt; 13 + 11 + 1 + 20 + 13 = 58&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;New Users Following:&lt;/strong&gt; (15 + 23 + 15 + 47 + 10) - (0 + 0 + 15 + 10 + 15) = 70&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Is important to note that we only unfollow the users that have been  followed by the bot&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Ok. So I was wondering whether the bot has achieved its goal or not? Well, my main goal was:
+&lt;em&gt;have more followers with the follow/unfollow technique&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;If we analize the bot from the goal perpective, we can say that it's working because I have more Followers, actually &lt;strong&gt;47&lt;/strong&gt;.
+Of course this result also dependes on the configuration that I've set: likes per days, comments, probabilities. etc.&lt;/p&gt;
+&lt;p&gt;But if we define the FR (Follow Rate) as followers/following, that is not good because I'm following more users than before, to be exact &lt;strong&gt;70&lt;/strong&gt;. 
+So, the FR = 58/70 = &lt;strong&gt;0.8285&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We have more followers, but at the same time I'm following more users (bad rate) and I can guess that in the most of the cases a person wants to have a lot of followers but with a good rate (following &amp;lt;&amp;lt; followers).&lt;/p&gt;
+&lt;p&gt;When we developed this project, Instagram had a limit of 7500 people that you can follow, so it’s means that if we run this bot indefinetely we can reach this number, but the good thing is that we don’t have any limit about followers.&lt;/p&gt;
+&lt;p&gt;Let’s suppose that we start with 100 followers and 100 users following.&lt;/p&gt;
+&lt;p&gt;Regarding the results that we had, we can say that:&lt;/p&gt;
+&lt;p&gt;Followers average per running: 58 / 5 = &lt;strong&gt;11.6&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;New Users Following per running:  70 / 5 = &lt;strong&gt;14&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;If we do some math we can says that:&lt;/p&gt;
+&lt;p&gt;I will reach the 7500 limit of user following around: (7500 - 100) / 14 = &lt;strong&gt;528 running&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I will reach the 7500 limit of followers around: (7500 - 100) / 11.6 =  &lt;strong&gt;637 running&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;So, I will have a FR = 1 around the running 637.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image1" src="https://marcosschroh.github.io/pyinstamation/running.png"&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;If everything goes well and I keep running the bot I will have a FR &amp;gt; 1 after the running &lt;strong&gt;637&lt;/strong&gt; times.&lt;/p&gt;
+&lt;p&gt;Probably is too much time If I run the bot once per day!!!&lt;/p&gt;
+&lt;h3&gt;Conclusion:&lt;/h3&gt;
+&lt;p&gt;I think the bot has achieved the goal.
+You will have to wait too much for a good RATE if you run the bot once a day with the same configuration.&lt;/p&gt;
+&lt;p&gt;What can you do to improve the Rate:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Look at popular hashtags.&lt;/li&gt;
+&lt;li&gt;Increase the amount of comments and likes per day.&lt;/li&gt;
+&lt;li&gt;Do not Follow too much people per day&lt;/li&gt;
+&lt;li&gt;Create posts per day.&lt;/li&gt;
+&lt;li&gt;Increase comment and like probability. &lt;/li&gt;
+&lt;li&gt;Run the bot multiple times per day.&lt;/li&gt;
+&lt;li&gt;Avoid unpopular hashtags&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PD: If you have any issue or a new feature request don't hesitate to tell us!!. You can do it on our &lt;a href="https://github.com/dscovr/pyinstamation"&gt;pyinstamation&lt;/a&gt; repo&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/pyinstamation/</guid><pubDate>Thu, 14 Dec 2017 13:29:19 GMT</pubDate></item><item><title>Testing a Form Wizard in Django</title><link>https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;I was writing a couple to tests form my django views and I got stuck with a Form Wizard. I tought.. well I will need to iterate over a form list and make several post as many steps as the wizard has. That assumetion was correct, so I created the data for every form, I create a form loop... and bump, It didn't work.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; handler&lt;span class="o"&gt;(&lt;/span&gt;request, *args, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;
+File &lt;span class="s2"&gt;"/home/marcos/.virtualenvs/platformv3/local/lib/python2.7/site-packages/formtools/wizard/views.py"&lt;/span&gt;, line &lt;span class="m"&gt;284&lt;/span&gt;, in post &lt;span class="nv"&gt;code&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'missing_management_form'&lt;/span&gt;,
+ValidationError: &lt;span class="o"&gt;[&lt;/span&gt;u&lt;span class="s1"&gt;'ManagementForm data is missing or has been tampered.'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;It didn't work because like we can see in the Traceback a wizard also need management_form.
+Basically, I was makeing a post with the data for each form but of course teh Wizard needs to know wich step are you refering to.
+So, let's go to the real example.&lt;/p&gt;
+&lt;p&gt;Let's imagine that these are my Forms.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TicketInfoForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Form&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;limit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IntegerField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;min_value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;pub_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AddressForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Form&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;street_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;zipcode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;city&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;country&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;My views.py file&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.shortcuts&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;redirect&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;formtools.wizard.views&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;SessionWizardView&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.forms&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TicketInfoForm&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;AddressForm&lt;/span&gt;
+
+&lt;span class="n"&gt;TICKETS_INFO_WIZARD_FORMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Ticket Information"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TicketInfoForm&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Address"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;AddressForm&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TicketWizardFormView&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SessionWizardView&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;template_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'tickets_info.html'&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;done&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;form_list&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;ticket_info_form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;address_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;form_list&lt;/span&gt;
+
+        &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;address_form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;address&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BUYER_ADDRESS&lt;/span&gt;
+        &lt;span class="n"&gt;address&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+        &lt;span class="n"&gt;tickets_info&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tickets_info_form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;tickets_info&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;
+        &lt;span class="n"&gt;tickets_info&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt;
+        &lt;span class="n"&gt;tickets_info&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;        
+
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;redirect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_list'&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;My urls.py file&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;patterns&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib.auth.decorators&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;login_required&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.views&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TicketsWizardFormView&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TICKETS_INFO_WIZARD_FORMS&lt;/span&gt;
+
+&lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;patterns&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;'^tickets-info/request/$'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;login_required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TicketsWizardFormView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as_view&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TICKETS_INFO_WIZARD_FORMS&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_request'&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;This code is working fine, with to test it we need to add and change some things.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Every time that we make a POST besides of send the data that each 
+   form, we also need to send the current step: [wizard_name]-current_step: [current_step]&lt;/li&gt;
+&lt;li&gt;We need to change the fields name to: [step_name]-[field_name]: [value]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example for our TicketsInfo Form:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data_tickets_info_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s1"&gt;'Ticket Information-limit'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'Ticket Information-name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'My first Ticket Info'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'Ticket Information-pub_data'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'2017-11-30T12:00:00'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'ticket_wizard_form_view-current_step'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Ticket Information'&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;In the above example we can see that we have added the [current_step] value and each field has the [step_name] prefix.&lt;/p&gt;
+&lt;p&gt;Now we are ready to pass our test:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# test_views.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.test&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TestCase&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.core.urlresolvers&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;reverse&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib.auth.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TestViews&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TestCase&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="n"&gt;fixtures&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'users.json'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;setUp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Client&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;test_ticket_wizard_form&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Awesome Tickets'&lt;/span&gt;
+        &lt;span class="n"&gt;limit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+
+        &lt;span class="n"&gt;data_ticket_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="s1"&gt;'Ticket Information-limit'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'Ticket Information-name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'Ticket Information-pub_data'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'2020-11-30T12:00:00'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'ticket_wizard_form_view-current_step'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Ticket Information'&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="n"&gt;data_address_form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="s1"&gt;'Address-street_name'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Isac Newton'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'Address-zipcode'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'2011NA'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'Address-city'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Pythonic Straat'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'Address-country'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Netherlands'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="s1"&gt;'ticket_wizard_form_view-current_step'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Address'&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;data_ticket_form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data_address_form&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data_step&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_request'&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;data_step&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TICKETS_STEPS_DATA&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+                &lt;span class="c1"&gt;# make sure that after the create ticket we are redirected to Ticket List Page&lt;/span&gt;
+                &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;assertRedirects&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'tickets_info_list'&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;assertEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="c1"&gt;# get the ticket&lt;/span&gt;
+        &lt;span class="n"&gt;TicketInfo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;
+        &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;And... The test pass :-)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;....................................
+----------------------------------------------------------------------
+Ran &lt;span class="m"&gt;36&lt;/span&gt; tests in &lt;span class="m"&gt;5&lt;/span&gt;.555s
+
+OK
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Conclusion:&lt;/h3&gt;
+&lt;p&gt;Test a Form Wizard is not so hard as seems at the beginning!!&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/</guid><pubDate>Thu, 30 Nov 2017 09:08:43 GMT</pubDate></item><item><title>Creating your own framework with React</title><link>https://marcosschroh.github.io/nl/posts/nl/creating-your-own-framework-with-react/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;h3&gt;&lt;a href="https://reactjs.org/"&gt;React&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;First we should know the basics of React:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Is the view layer. &lt;/li&gt;
+&lt;li&gt;Based on components.&lt;/li&gt;
+&lt;li&gt;A component must have a render method. The method must return a valid html tag (In React 16 you can return an array).&lt;/li&gt;
+&lt;li&gt;Each component can have props and state.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;Difference between state and props&lt;/strong&gt;:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Props&lt;/strong&gt;: props (short for properties) are a Component's configuration, its options if you may. Props are received from above and are immutable as far as the Component which receives them is concerned.
+A Component cannot change its props, but it is responsible for putting together the props of its child Components.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;State&lt;/strong&gt;: The state starts with a default value when a Component is mounted, and then suffers from mutations in time (mostly generated from user events). It's a [*]serializable representation of one point in time a snapshot.&lt;/p&gt;
+&lt;p&gt;A Component manages its own state internally, but besides setting an initial state has no business fiddling with the state of its children. You could say that the state is private.&lt;/p&gt;
+&lt;p&gt;[*] We didn't say props are also serializable because it's pretty common to pass down callback functions through props.&lt;/p&gt;
+&lt;p&gt;The state is optional. Since state increases complexity and reduces predictability, a Component without state is preferable. Even though you clearly can't do without state in an interactive app, you should avoid having too many Stateful Components.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;&lt;em&gt;Resume of props ans state&lt;/em&gt;&lt;/h4&gt;
+&lt;table class="table table-bordered table-hover"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;td&gt;-&lt;/td&gt;
+            &lt;td&gt;Props&lt;/td&gt;
+            &lt;td&gt;State&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can get initial value from parent Component?&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can be changed by parent Component?&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+            &lt;td&gt;No&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can set default values inside Component?&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can change inside Component?&lt;/td&gt;
+            &lt;td&gt;No&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can set initial value for child Components?&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Can change in child Components?&lt;/td&gt;
+            &lt;td&gt;Yes&lt;/td&gt;
+            &lt;td&gt;No&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://redux.js.org/"&gt;Redux&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Redux is a predictable state container for JavaScript apps.
+It helps you to write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. You can use Redux together with React, or with any other view library. It is tiny (2kB, including dependencies).&lt;/p&gt;
+&lt;p&gt;  &lt;/p&gt;
+&lt;h3&gt;Creating the framework&lt;/h3&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h4&gt;The Architecture:&lt;/h4&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image1" src="https://marcosschroh.github.io/react-own-framework/framework-architecture.png"&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;The main key here is that exists only one store (one big Javascript object), that can be stored, usually in the local storage. This is a big immutable object . You must be familiar with the concept of immutability in Javascript. You can’t change any value of the store object.&lt;/p&gt;
+&lt;p&gt;Basically when something happens you might want to modify part of this big object, but don’t change it, just create a new object, change it, and return it. Where we do this functionality? In a reducer.&lt;/p&gt;
+&lt;p&gt;One big change is that you have to wrap the entire react application in a provider component. The provider component is listening at the store, and when it changes, a react component can be re-rendered.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://marcosschroh.github.io/react-own-framework/routes.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the image we can see how to wrap the Application in the Provider component imported from react-redux.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Smart Components or Containers&lt;/strong&gt;: Components that are connected to a portion of the store. They can trigger or fire actions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dumb Components&lt;/strong&gt;: They are just normal components, can receive data as props from smart components.&lt;/p&gt;
+&lt;p&gt;The following piece of code is the LoginPage component. This is a smart component. Maybe you are wondering why… &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple login" src="https://marcosschroh.github.io/react-own-framework/login-page.png"&gt;&lt;/p&gt;
+&lt;p&gt;Well... because we are connecting it with part of the store, also it can trigger actions. 
+Actions are just javascript functions that dispatch an action. Actions are listened by reducers. &lt;/p&gt;
+&lt;p&gt;In the image below there is a login function (ES6 arrow function =&amp;gt; ). The login receives data and dispatch something… an action with type equal to LOGIN_REQUESTED&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-routes" src="https://marcosschroh.github.io/react-own-framework/login-index.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can see a couple of things:&lt;/p&gt;
+&lt;p&gt;First of all we are importing connect. This allows us to connect a react component with the state object (store) and trigger actions. &lt;/p&gt;
+&lt;p&gt;The second is that we are importing a react component (LoginPage) and we are connecting it. So, now the component have access to part of the store (user) and we can trigger actions (login). &lt;/p&gt;
+&lt;p&gt;Now inside the LoginPage component we can use this.props.user, because we have access to a part of the store, in this case only the user. Also we can trigger the login action by doing this.props.login(). Then, this is a &lt;strong&gt;Smart Component&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;Now the Dumb Component… and it is the LoginForm component. We are importing it in the LoginPage component. &lt;/p&gt;
+&lt;p&gt;It looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-login-form" src="https://marcosschroh.github.io/react-own-framework/login-form.png"&gt; &lt;/p&gt;
+&lt;p&gt;If you take a look, when the button is clicked, we execute the function handleSubmit, and this function executes this.props.handleSubmit(). Yes, this is a props that was passed from the smart component. In other words, we are triggering the action login() that is listened by a reducer or a middleware.&lt;/p&gt;
+&lt;p&gt;In this case, the login function makes an AJAX request and it is intercepted by sagas middleware (User Sagas): &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-sagas" src="https://marcosschroh.github.io/react-own-framework/sagas.png"&gt;&lt;/p&gt;
+&lt;p&gt;Sometimes actions are intercepted by a middleware. Here is saying: when the action LOGIN_REQUESTED is fired, execute the login generator (make an API call). If the api call was successful, then execute the loginSuccessful generator, that it triggers another action, in this case SET_TOKEN. Finally, the token is set in the reducer. &lt;/p&gt;
+&lt;p&gt;The following piece of code belongs to the user reducer.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-reducer" src="https://marcosschroh.github.io/react-own-framework/reducer.png"&gt;&lt;/p&gt;
+&lt;p&gt;Before dispatching the login action, the store object looks like: &lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-console-1" src="https://marcosschroh.github.io/react-own-framework/console-1.png"&gt;&lt;/p&gt;
+&lt;p&gt;After triggering the login() action, the store object looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-console-2" src="https://marcosschroh.github.io/react-own-framework/console-2.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can see how the store has been changed. Of course we have access to the user object in the LoginPage component via this.props.user. We can do cool things like verifying whether the user object has token or not. In case that has one, redirect our visitor to the Home Page, otherwise redirect to the Login Page again.&lt;/p&gt;
+&lt;p&gt;This is how we connect Sagas middleware, the store and the reducers:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple image-store-index" src="https://marcosschroh.github.io/react-own-framework/store-index.png"&gt;&lt;/p&gt;
+&lt;p&gt;We are exporting the store, and we are using it with the Provider Component. :-). Take a look at the step where I talk about the provider and you can see how we use the store&lt;/p&gt;
+&lt;p&gt;A special recommendation is that should have a balance between Smart Components and Dumb Components. You don’t want to have too many smart components because it implies to connect them to the store or a portion of it. At the same time if you have too many dumb components it means that you are passing props everywhere and it can be extremely hard to follow, especially because you can pass data through many levels (component 1--&amp;gt;component 2….---&amp;gt;component n)&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Create your own framework with React can be a hard task at the beginning, but if you undestarnd the concept behind that
+you could replace the differents layers as much as you like according to your needs.&lt;/p&gt;
+&lt;p&gt;For example here I am using &lt;a href="https://redux.js.org/"&gt;Redux&lt;/a&gt; for the data layer, but you can go for &lt;a href="https://facebook.github.io/flux/"&gt;Flux&lt;/a&gt; or &lt;a href="https://mobx.js.org/"&gt;MobX&lt;/a&gt;. Also, an alternative for &lt;a href="https://redux-saga.js.org/"&gt;redux-sagas&lt;/a&gt; is &lt;a href="https://redux.js.org"&gt;redux-thunk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This world is growing really fast with React, React Native, React VR, so be prepared...&lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/creating-your-own-framework-with-react/</guid><pubDate>Tue, 07 Nov 2017 08:32:24 GMT</pubDate></item><item><title>Static, Class and Abstract Decorators</title><link>https://marcosschroh.github.io/nl/posts/nl/static-class-and-abstract-decorators/</link><dc:creator>Marcos Schroh</dc:creator><description>&lt;div&gt;&lt;p&gt;The first thing that we have to ak ourselves is: What is a Python decorator? Well, in a formal way “A decorator is the name used for a software design pattern. Decorators dynamically alter the functionality of a function, method, or class without having to directly use subclasses or change the source code of the function being decorated”, but my favourite definition is “Factory of functions”. 
+The second thing that we need to know is the concept of bound and unbound methods in Python. Methods in Python are objects too, so in runtime the methods are instantiated and they are bound to a class or an instance of a class.&lt;/p&gt;
+&lt;h3&gt;Static Method&lt;/h3&gt;
+&lt;p&gt;The best way to understand the concept is with the code:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;motor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chasis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chasis&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_total_weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt;  &lt;span class="nf"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weigth&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The question is, is this code working?: The answer is yes, but if you take a look at the get_total_weigth method, the first argument is self and we never use it inside. But what is really happen? Well, remember that the methods are object too, so Python create objects related to the methods and bound them to a Car instance, this is the reason why we pass self like first argument. &lt;/p&gt;
+&lt;p&gt;Suppose that car is a Car instance, then:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;bound&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Car&lt;/span&gt; &lt;span class="nb"&gt;object&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mh"&gt;0x7f72d7dbb750&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;This is expensive because every time that we instantiate a Car, Python must create new methods objects,  and  we know that we don’t need the “self” reference. So the solution is to use staticmethod. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@staticmethod&lt;/span&gt;    
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_total_weight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+       &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+
+
+&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;29&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="n"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_total_weight&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now we see that the method is not bound to the instance.&lt;/p&gt;
+&lt;p&gt;With this approach we have the following advantages:&lt;/p&gt;
+&lt;p&gt;Python doesn’t have to instantiate a bound-method for each Car object.
+We know that the methods don’t  depend on the internal object state
+If we have a subclass, we can override the get_total_weight without ovewrite the weight method&lt;/p&gt;
+&lt;p&gt;One thing that we mention is that a method that is decorated with @staticmethod is callable by a class or by an instance.&lt;/p&gt;
+&lt;p&gt;REMEMBER: If a method doesn’t use the self reference, it is probably a static method.  &lt;/p&gt;
+&lt;h3&gt;Class Method&lt;/h3&gt;
+&lt;p&gt;Class methods are methods that are bound to the class instead of the instance of the class, so in the following code we can see that the get_market method receive cls as first argument. &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;    
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;car_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;consumption&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+             &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;car_component_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c3&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;span class="n"&gt;car_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;car&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;car_component_list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;car_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;car&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;bound&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;car_factory&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="nc"&gt;__main__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Car&lt;/span&gt;&lt;span class="s1"&gt;'&amp;gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;methods&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="n"&gt;used&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="s2"&gt;"Factory Methods"&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt; &lt;span class="n"&gt;need&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;do&lt;/span&gt; &lt;span class="n"&gt;special&lt;/span&gt; &lt;span class="n"&gt;operations&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;instance&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;has&lt;/span&gt; &lt;span class="n"&gt;been&lt;/span&gt; &lt;span class="n"&gt;decorated&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;staticmethod&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Abstract Method&lt;/h3&gt;
+&lt;p&gt;Abstract method are used in inheritance, are defined in a Base Class but are not implemented. See the following example:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;    
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chasis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chasis&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;turn_on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;NotIplementedError&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Any class that inherited from Car must be implement turn_on method, otherwise an exception will be raised.
+One thing that you should know is that if you forget to implement the method in a subclass an error will be raised when you try to call the method. A solution to this problem is to use the ABC module that is Python provide.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;abc&lt;/span&gt;
+
+&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="vm"&gt;__metaclass__&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ABCMetaclass&lt;/span&gt;
+    &lt;span class="n"&gt;MARKET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Onda"&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;engine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chassis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chassis&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@abc.abstractmethod&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;turn_on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="sd"&gt;"""&lt;/span&gt;
+&lt;span class="sd"&gt;        This method should be implemented by the subclass&lt;/span&gt;
+&lt;span class="sd"&gt;        """&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now, if we try to create an instance of BaseCar we have the following error:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BaseCar&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="ne"&gt;TypeError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Can&lt;/span&gt;&lt;span class="s1"&gt;'t instantiate abstract class BaseCar with abstract methods turn_on&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Conclusion:&lt;/h3&gt;
+&lt;p&gt;If you have a method and inside it you never use the self reference, probably the method should be decorated with @staticmethod.
+Remember that @classmethod in general is used by ‘Factory’, and always the first argument must be a reference to the class. We use cls for it. Of course you should use the cls inside the method!!
+A static method can be called by any kind of methods.
+If you have inheritance and you want to overwrite a method always decorate it with @abc.abstractmethod. It avoid problems. &lt;/p&gt;&lt;/div&gt;</description><guid>https://marcosschroh.github.io/nl/posts/nl/static-class-and-abstract-decorators/</guid><pubDate>Tue, 07 Nov 2017 08:17:04 GMT</pubDate></item></channel></rss>
