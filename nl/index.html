@@ -85,7 +85,153 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nl/cookiecutter-faust/" class="u-url">Cookiecutter Faust</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nl/schema-registry-client/" class="u-url">Python Schema Registry Client</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Marcos Schroh
+            </span></p>
+            <p class="dateline">
+            <a href="posts/nl/schema-registry-client/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-24T19:32:55+02:00" itemprop="datePublished" title="2019-09-24 19:32">2019-09-24 19:32</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="posts/nl/schema-registry-client/#disqus_thread" data-disqus-identifier="cache/posts/schema-registry-client.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>Businesses collect large amounts of data, and data can be analized in real time. Usually, we use <a href="https://kafka.apache.org/">Kafka</a> and a framework such us <a href="https://flink.apache.org/">Flink</a> or <a href="https://faust.readthedocs.io/en/latest/">Faust</a> to proccess data, but we do not include a way to validate it. 
+This is why <a href="https://thrift.apache.org/">Thrift</a>, <a href="https://developers.google.com/protocol-buffers">Protocol Buffers</a> and <a href="https://avro.apache.org/docs/current/">Apache Avro</a> were developed. In this post I want to talk about <code>Avro Schemas</code> and how to integrate them with <code>Faust</code>.</p>
+<h3>Apache Avro and Avro Schemas?</h3>
+<p><code>Avro</code> is a row-oriented remote procedure call and data serialization framework developed within Apache's Hadoop project. It uses JSON for defining data types and protocols, and serializes data in a compact binary format. Its primary use is in Apache Hadoop, where it can provide both a serialization format for persistent data, and a wire format for communication between Hadoop nodes, and from client programs to the Hadoop services. Avro uses a schema (avro schema) to structure the data that is being encoded. It has two different types of schema languages; one for human editing (Avro IDL) and another which is more machine-readable based on (JSON).</p>
+<p>It is similar to Thrift and Protocol Buffers, but does not require running a code-generation program when a schema changes (unless desired for statically-typed languages). </p>
+<p>Avro Schema example:</p>
+<pre class="code literal-block"><span></span><span class="p">{</span>
+   <span class="nt">"namespace"</span><span class="p">:</span> <span class="s2">"example.avro"</span><span class="p">,</span>
+   <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"record"</span><span class="p">,</span>
+   <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"User"</span><span class="p">,</span>
+   <span class="nt">"fields"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+      <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"favorite_number"</span><span class="p">,</span>  <span class="nt">"type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"int"</span><span class="p">,</span> <span class="s2">"null"</span><span class="p">]},</span>
+      <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"favorite_color"</span><span class="p">,</span> <span class="nt">"type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="s2">"null"</span><span class="p">]}</span>
+   <span class="p">]</span> 
+ <span class="p">}</span>
+</pre>
+
+
+<p>Now that we know <code>avro schemas</code> are, we should talk about where they are stored. We need a place where producers and cosumers can get them, and this is why a <code>Schema Registry</code> exist. The <a href="https://docs.confluent.io/current/schema-registry/index.html">Confluent Schema Registry</a>is a schema management that taht provides a RESTful interface for storing, serving and versioning schemas. </p>
+<h3>Scenario</h3>
+<p>We could think about a producer that uses a schema to serialize data and compact it into a binary representation and a consumer that deserialize the binary to get the original data cheking it with the corresponding schema.</p>
+<p><img alt="Confluent Architecture" src="../data-streaming/confluent_architecture.png"></p>
+<p>The producer and consumer have to serialize/deserialize messages using the Schema Registry every time that they send/receive events to/from <code>Kafka topics</code>. We can imagine the producer and consumer as <code>Faust</code> application that are able to interact with the Schema Registry Server. In order to achive this, I have created <a href="https://github.com/marcosschroh/python-schema-registry-client/">Python Schema Registry Client</a></p>
+<blockquote>
+<p>A Python Rest Client to interact against schema-registry confluent server to manage Avro Schemas resources.
+Also, has a <code>MessageSerializer</code> in order to serialize/deserialize events using avro schemas. </p>
+</blockquote>
+<h3>Faust Integration</h3>
+<p>Asumming that you know <code>Faust</code>, we need to define a custom codec and a custom serializer to be able to talk with the Schema Registry, and to do that, we will use the <code>MessageSerializer</code>.</p>
+<p>For the demonstration, let's imagine that we have the following schema:</p>
+<pre class="code literal-block"><span></span><span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"record"</span><span class="p">,</span>
+    <span class="s2">"namespace"</span><span class="p">:</span> <span class="s2">"com.example"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"AvroUsers"</span><span class="p">,</span>
+    <span class="s2">"fields"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"first_name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"last_name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>Let's register the custom codec:</p>
+<pre class="code literal-block"><span></span><span class="c1"># codecs.codec.py</span>
+<span class="kn">from</span> <span class="nn">schema_registry.client</span> <span class="kn">import</span> <span class="n">SchemaRegistryClient</span><span class="p">,</span> <span class="n">schema</span>
+<span class="kn">from</span> <span class="nn">schema_registry.serializers</span> <span class="kn">import</span> <span class="n">FaustSerializer</span>
+
+<span class="c1"># create an instance of the `SchemaRegistryClient`</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">SchemaRegistryClient</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">SCHEMA_REGISTRY_URL</span><span class="p">)</span>
+
+<span class="c1"># schema that we want to use. For this example we </span>
+<span class="c1"># are using a dict, but this schema could be located in a file called avro_user_schema.avsc</span>
+<span class="n">avro_user_schema</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">AvroSchema</span><span class="p">({</span>
+     <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"record"</span><span class="p">,</span>
+     <span class="s2">"namespace"</span><span class="p">:</span> <span class="s2">"com.example"</span><span class="p">,</span>
+     <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"AvroUsers"</span><span class="p">,</span>
+     <span class="s2">"fields"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"first_name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+       <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"last_name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}</span>
+     <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">avro_user_serializer</span> <span class="o">=</span> <span class="n">FaustSerializer</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="s2">"users"</span><span class="p">,</span> <span class="n">avro_user_schema</span><span class="p">)</span>
+
+
+<span class="c1"># function used to register the codec</span>
+<span class="k">def</span> <span class="nf">avro_user_codec</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">avro_user_serializer</span>
+</pre>
+
+
+<p>and in setup.py the following code in order to tell faust where to find the custom codecs.</p>
+<pre class="code literal-block"><span></span><span class="c1"># setup.py</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">'console_scripts'</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s1">'example = example.app:main'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'faust.codecs'</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s1">'avro_users = example.codecs.avro:avro_user_codec'</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre>
+
+
+<p>Now the final step is to integrate the faust model with the AvroSerializer:</p>
+<pre class="code literal-block"><span></span><span class="c1"># users.models</span>
+
+<span class="k">class</span> <span class="nc">UserModel</span><span class="p">(</span><span class="n">faust</span><span class="o">.</span><span class="n">Record</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s1">'avro_users'</span><span class="p">):</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>
+</pre>
+
+
+<pre class="code literal-block"><span></span><span class="c1"># users.agents.py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">your_project.app</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">.codecs.codec</span> <span class="kn">import</span> <span class="n">avro_user_serializer</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">UserModel</span>
+
+<span class="n">users_topic</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">topic</span><span class="p">(</span><span class="s1">'avro_users'</span><span class="p">,</span> <span class="n">partitions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value_type</span><span class="o">=</span><span class="n">UserModel</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@app.agent</span><span class="p">(</span><span class="n">users_topic</span><span class="p">)</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">users</span><span class="p">(</span><span class="n">users</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Event received in topic avro_users"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"First Name: {user.first_name}, last name {user.last_name}"</span><span class="p">)</span>
+
+
+<span class="nd">@app.timer</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">on_leader</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">publish_users</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'PUBLISHING ON LEADER FOR USERS APP!'</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"bar"</span><span class="p">}</span>
+    <span class="n">await</span> <span class="n">users</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">value_serializer</span><span class="o">=</span><span class="n">avro_user_serializer</span><span class="p">)</span>
+</pre>
+
+
+<p>Now our application is able to send and receive message using arvo schemas!!!! :-) You can take a look the code example <a href="https://github.com/marcosschroh/faust-docker-compose-example/blob/master/faust-project/example/codecs/avro.py">here</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nl/cookiecutter-faust/" class="u-url">Cookiecutter Faust</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh

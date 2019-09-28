@@ -7,509 +7,422 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://marcosschroh.github.io/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
+  <lastmod>2019-09-24T17:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/2017/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/2018/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/2019/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/archive.html</loc>
-  <lastmod>2019-06-07T14:08:00Z</lastmod>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/</loc>
-  <lastmod>2019-06-07T13:10:00Z</lastmod>
+  <lastmod>2019-09-28T14:53:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/categories/avro-schemas/</loc>
+  <lastmod>2019-09-28T14:53:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/bot/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_ci/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_data-streaming/</loc>
-  <lastmod>2019-06-07T13:10:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/categories/cat_posts/</loc>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-bot-instagram/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-control-version/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-decorators/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_python-django-test-wizard/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/cat_react/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/ci/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/data-streaming/</loc>
-  <lastmod>2019-06-07T13:10:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/faust/</loc>
-  <lastmod>2019-06-07T13:10:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/formik/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/gitlab/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/python/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/react/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/categories/redux/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/2017/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/2018/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/2019/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/archive.html</loc>
+  <lastmod>2019-06-10T13:54:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/bot/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_ci/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_data-streaming/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_python-bot-instagram/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_python-control-version/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_python-decorators/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_python-django-test-wizard/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/cat_react/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/ci/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/data-streaming/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/faust/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/formik/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/gitlab/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/python/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/react/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/categories/redux/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/pages/about-me/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/pages/search/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/async-errors-in-react-with-formik/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/autobumping-with-gitlab/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/cookiecutter-faust/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/creating-your-own-framework-with-react/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/lets-help-version-controls/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/pyinstamation/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/static-class-and-abstract-decorators/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/en/posts/testing-a-form-wizard-in-django/</loc>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/2017/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/2018/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/2019/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/archive.html</loc>
-  <lastmod>2019-06-07T14:08:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/autobumping-with-gitlab/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/lets-help-version-controls/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/pyinstamation/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/blogpost/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-06-07T14:01:00Z</lastmod>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-09-28T14:53:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/nl/categories/avro-schemas/</loc>
+  <lastmod>2019-09-28T14:53:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/bot/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_ci/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_data-streaming/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/nl/categories/cat_posts/</loc>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_python-bot-instagram/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_python-control-version/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_python-decorators/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_python-django-test-wizard/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/cat_react/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/ci/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/data-streaming/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/faust/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/formik/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/gitlab/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/python/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/react/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/categories/redux/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/pages/about-me/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/pages/about-me/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/pages/search/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/pages/search/" />
  </url>
  <url>
-  <loc>https://marcosschroh.github.io/nl/posts/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/autobumping-with-gitlab/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/autobumping-with-gitlab/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/dutch/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:05:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/lets-help-version-controls/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/pyinstamation/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/dutch/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-06-07T14:04:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/lets-help-version-controls/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/async-errors-in-react-with-formik/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/autobumping-with-gitlab/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/autobumping-with-gitlab/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/cookiecutter-faust/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/creating-your-own-framework-with-react/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/lets-help-version-controls/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/lets-help-version-controls/" />
  </url>
  <url>
-  <loc>https://marcosschroh.github.io/nl/posts/nl/nl/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:08:00Z</lastmod>
- </url>
- <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/pyinstamation/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/pyinstamation/" />
  </url>
  <url>
+  <loc>https://marcosschroh.github.io/nl/posts/nl/schema-registry-client/</loc>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/schema-registry-client/" />
+ </url>
+ <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/static-class-and-abstract-decorators/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/nl/posts/nl/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-06-07T14:07:00Z</lastmod>
+  <lastmod>2019-06-10T13:51:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://marcosschroh.github.io/posts/testing-a-form-wizard-in-django/" />
  </url>
  <url>
-  <loc>https://marcosschroh.github.io/nl/posts/pyinstamation/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/nl/posts/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-06-07T13:40:00Z</lastmod>
- </url>
- <url>
   <loc>https://marcosschroh.github.io/pages/about-me/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/pages/search/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/autobumping-with-gitlab/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T13:10:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="nl" href="https://marcosschroh.github.io/nl/posts/nl/cookiecutter-faust/" />
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/posts/dutch/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:05:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/lets-help-version-controls/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/posts/nl/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T14:08:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/pyinstamation/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://marcosschroh.github.io/posts/schema-registry-client/</loc>
+  <lastmod>2019-09-24T17:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://marcosschroh.github.io/posts/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-05-01T22:02:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/2017/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/2018/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/2019/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/archive.html</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/bot/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_ci/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_data-streaming/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-bot-instagram/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-control-version/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-decorators/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_python-django-test-wizard/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/cat_react/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/ci/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/data-streaming/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/faust/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/formik/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/gitlab/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/python/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/react/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/categories/redux/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/pages/about-me/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/pages/search/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/async-errors-in-react-with-formik/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/autobumping-with-gitlab/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/cookiecutter-faust/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/creating-your-own-framework-with-react/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/lets-help-version-controls/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/pyinstamation/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/static-class-and-abstract-decorators/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://marcosschroh.github.io/translations/nl/posts/testing-a-form-wizard-in-django/</loc>
-  <lastmod>2019-06-07T13:41:00Z</lastmod>
+  <lastmod>2019-06-10T13:47:00Z</lastmod>
  </url>
 </urlset>
