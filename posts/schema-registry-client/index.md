@@ -2,7 +2,7 @@
 .. title: Python Schema Registry Client
 .. slug: schema-registry-client
 .. date: 2019-09-24 19:32:55 UTC+02:00
-.. tags: python,faust,data streaming, avro schemas
+.. tags: python,data streaming, avro
 .. category: data streaming
 .. link: 
 .. description: 

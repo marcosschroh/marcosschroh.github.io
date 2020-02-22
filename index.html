@@ -9,15 +9,14 @@
 <link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (nl)" href="nl/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://marcosschroh.github.io/">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-1263458186804128",
     enable_page_level_ads: true
   });
-</script><link rel="prefetch" href="posts/schema-registry-client/" type="text/html">
+</script><link rel="prefetch" href="posts/dataclasses-avroschema/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -61,15 +60,7 @@ navbar-dark bg-dark
     </form>
 
 
-            <ul class="navbar-nav navbar-right">
-<li>
-            </li>
-<li class="nav-item"><a href="https://marcosschroh.github.io/nl/" rel="alternate" hreflang="nl" class="nav-link">Nederlands</a></li>
-
-                
-                    
-                
-            </ul>
+            <ul class="navbar-nav navbar-right"></ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -85,7 +76,81 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/schema-registry-client/" class="u-url">Python Schema Registry Client</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/dataclasses-avroschema/" class="u-url">Dataclasses Avroschema</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Marcos Schroh
+            </span></p>
+            <p class="dateline">
+            <a href="posts/dataclasses-avroschema/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-02-22T14:33:09+01:00" itemprop="datePublished" title="2020-02-22 14:33">2020-02-22 14:33</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="posts/dataclasses-avroschema/#disqus_thread" data-disqus-identifier="cache/posts/dataclasses-avroschema.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>If you are immerse in the data streaming world, probably you had faced the serialization problem. There are different techniques/frameworks to achieve this, for example <a href="https://thrift.apache.org/">Thrift</a>, <a href="https://developers.google.com/protocol-buffers">Protocol Buffers</a> or <a href="https://avro.apache.org/docs/current/">Apache Avro</a>.</p>
+<p>Personally, I am using Avro serialization and I always had to came up with avro schemas based on desiered payload keeping in mind fields specification and attributes. This is not a heavy task for simple uses cases, but when we have complex types, data relationships (nested schemas) or custom types the process gets a bit complicated. I asked myself, what if we can generate the avro schemas based on a python class? Most of the time the desired payload that we want get after deserialization is based on a Python class. The ending results was:</p>
+<p><a href="https://github.com/marcosschroh/dataclasses-avroschema">Dataclasses Avro Schema</a>, <em>Generate Avro Schemas from a Python class</em> 😀</p>
+<p>Let's see an example. Suppose that we want an avro schema that represents a User:</p>
+<pre class="code literal-block"><span></span><span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"record"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"User"</span><span class="p">,</span>
+    <span class="s2">"fields"</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"has_pets"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"boolean"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"money"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"doc"</span><span class="p">:</span> <span class="s2">"User(name: str, age: int, has_pets: bool, money: float)"</span>
+<span class="p">}</span>
+</pre>
+
+
+<p>Instead of remember all fields specifications, we can write the python class to get the schema:</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">dataclasses_avroschema.schema_generator</span> <span class="kn">import</span> <span class="n">SchemaGenerator</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">age</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">has_pets</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">money</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="n">SchemaGenerator</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">avro_schema</span><span class="p">()</span>
+
+<span class="p">{</span>
+  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"record"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"User"</span><span class="p">,</span>
+  <span class="s2">"fields"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"has_pets"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"boolean"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"money"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"doc"</span><span class="p">:</span> <span class="s2">"User(name: str, age: int, has_pets: bool, money: float)"</span>
+<span class="p">}</span><span class="s1">'</span>
+</pre>
+
+
+<p>Super simple and straighforward. We have all this <strong>features</strong>:</p>
+<ul>
+<li>Primitive types: int, long, float, boolean, string and null support</li>
+<li>Complex types: enum, array, map, fixed, unions and records support</li>
+<li>Logical Types: date, time, datetime, uuid support</li>
+<li>Schema relations (oneToOne, oneToMany)</li>
+<li>Recursive Schemas</li>
+<li>Generate Avro Schemas from <a href="https://faust.readthedocs.io/en/latest/reference/faust.models.record.html">faust.Record</a>
+</li>
+</ul>
+<p>So, if you need an avro schema, give a chance to <a href="https://github.com/marcosschroh/dataclasses-avroschema">dataclasses-avroschema</a> 😉</p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/schema-registry-client/" class="u-url">Python Schema Registry Client</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Marcos Schroh
@@ -1489,7 +1554,7 @@ If you have inheritance and you want to overwrite a method always decorate it wi
 
         
        <script>var disqus_shortname="marcosschroh-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2019 <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2020 <a href="mailto:schrohm@gmail.com">Marcos Schroh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
 </div>
