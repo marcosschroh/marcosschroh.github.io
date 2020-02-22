@@ -3,7 +3,7 @@
 .. slug: pyinstamation
 .. date: 2017-12-14 14:29:19 UTC+01:00
 .. tags: python, bot
-.. category: python, bot, instagram
+.. category: bot
 .. link: 
 .. description: 
 .. type: text

@@ -2,8 +2,8 @@
 .. title: Testing a Form Wizard in Django
 .. slug: testing-a-form-wizard-in-django
 .. date: 2017-11-30 10:08:43 UTC+01:00
-.. tags: python
-.. category: python, django, test, wizard
+.. tags: python, wizard, django, testing
+.. category: django
 .. link: 
 .. description: 
 .. type: text

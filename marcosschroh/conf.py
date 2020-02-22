@@ -95,7 +95,7 @@ DEFAULT_LANG = "en"
 TRANSLATIONS = {
     DEFAULT_LANG: "",
     # Example for another language:
-    "nl": "./nl",
+    # "nl": "./nl",
 }
 
 # What will translated input files be named like?

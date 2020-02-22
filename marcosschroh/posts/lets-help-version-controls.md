@@ -3,7 +3,7 @@
 .. slug: lets-help-version-controls
 .. date: 2019-04-14 17:01:16 UTC+02:00
 .. tags: python
-.. category: python, control version
+.. category: control version
 .. link: 
 .. description: 
 .. type: text
