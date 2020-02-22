@@ -1,5 +1,5 @@
 <!--
-.. title: Dataclasses Avroschema
+.. title: Dataclasses Avro Schema
 .. slug: dataclasses-avroschema
 .. date: 2020-02-22 14:33:09 UTC+01:00
 .. tags: python, avro, data streaming
@@ -11,7 +11,7 @@
 
 If you are immerse in the data streaming world, probably you had faced the serialization problem. There are different techniques/frameworks to achieve this, for example [Thrift](https://thrift.apache.org/), [Protocol Buffers](https://developers.google.com/protocol-buffers) or [Apache Avro](https://avro.apache.org/docs/current/).
 
-Personally, I am using Avro serialization and I always had to came up with avro schemas based on desiered payload keeping in mind fields specification and attributes. This is not a heavy task for simple uses cases, but when we have complex types, data relationships (nested schemas) or custom types the process gets a bit complicated. I asked myself, what if we can generate the avro schemas based on a python class? Most of the time the desired payload that we want get after deserialization is based on a Python class. The ending results was:
+Personally, I am using Avro serialization and I always had to came up with avro schemas based on desired payload keeping in mind fields specification and attributes. This is not a heavy task for simple uses cases, but when we have complex types, data relationships (nested schemas) or custom types the process gets a bit complicated. I asked myself, what if we can generate the avro schemas based on a python class? Most of the time the desired payload that we want get after deserialization is based on a Python class. The ending results was:
 
 [Dataclasses Avro Schema](https://github.com/marcosschroh/dataclasses-avroschema), *Generate Avro Schemas from a Python class* 😀
 
@@ -57,7 +57,7 @@ SchemaGenerator(User).avro_schema()
 }'
 ```
 
-Super simple and straighforward. We have all this **features**:
+Super simple and straightforward. We have all this **features**:
 
 * Primitive types: int, long, float, boolean, string and null support
 * Complex types: enum, array, map, fixed, unions and records support

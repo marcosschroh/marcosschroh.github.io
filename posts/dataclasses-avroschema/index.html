@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dataclasses Avroschema | Marcos Schroh</title>
+<title>Dataclasses Avro Schema | Marcos Schroh</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
@@ -18,7 +18,7 @@
 </script><meta name="author" content="Marcos Schroh">
 <link rel="prev" href="../schema-registry-client/" title="Python Schema Registry Client" type="text/html">
 <meta property="og:site_name" content="Marcos Schroh">
-<meta property="og:title" content="Dataclasses Avroschema">
+<meta property="og:title" content="Dataclasses Avro Schema">
 <meta property="og:url" content="https://marcosschroh.github.io/posts/dataclasses-avroschema/">
 <meta property="og:description" content="If you are immerse in the data streaming world, probably you had faced the serialization problem. There are different techniques/frameworks to achieve this, for example Thrift, Protocol Buffers or Apa">
 <meta property="og:type" content="article">
@@ -86,7 +86,7 @@ navbar-dark bg-dark
         <!--Body content-->
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Dataclasses Avroschema</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Dataclasses Avro Schema</a></h1>
 
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
@@ -111,7 +111,7 @@ navbar-dark bg-dark
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
 <p>If you are immerse in the data streaming world, probably you had faced the serialization problem. There are different techniques/frameworks to achieve this, for example <a href="https://thrift.apache.org/">Thrift</a>, <a href="https://developers.google.com/protocol-buffers">Protocol Buffers</a> or <a href="https://avro.apache.org/docs/current/">Apache Avro</a>.</p>
-<p>Personally, I am using Avro serialization and I always had to came up with avro schemas based on desiered payload keeping in mind fields specification and attributes. This is not a heavy task for simple uses cases, but when we have complex types, data relationships (nested schemas) or custom types the process gets a bit complicated. I asked myself, what if we can generate the avro schemas based on a python class? Most of the time the desired payload that we want get after deserialization is based on a Python class. The ending results was:</p>
+<p>Personally, I am using Avro serialization and I always had to came up with avro schemas based on desired payload keeping in mind fields specification and attributes. This is not a heavy task for simple uses cases, but when we have complex types, data relationships (nested schemas) or custom types the process gets a bit complicated. I asked myself, what if we can generate the avro schemas based on a python class? Most of the time the desired payload that we want get after deserialization is based on a Python class. The ending results was:</p>
 <p><a href="https://github.com/marcosschroh/dataclasses-avroschema">Dataclasses Avro Schema</a>, <em>Generate Avro Schemas from a Python class</em> 😀</p>
 <p>Let's see an example. Suppose that we want an avro schema that represents a User:</p>
 <pre class="code literal-block"><span></span><span class="p">{</span>
@@ -153,7 +153,7 @@ navbar-dark bg-dark
 </pre>
 
 
-<p>Super simple and straighforward. We have all this <strong>features</strong>:</p>
+<p>Super simple and straightforward. We have all this <strong>features</strong>:</p>
 <ul>
 <li>Primitive types: int, long, float, boolean, string and null support</li>
 <li>Complex types: enum, array, map, fixed, unions and records support</li>
@@ -182,7 +182,7 @@ navbar-dark bg-dark
         <script>
         var disqus_shortname ="marcosschroh-github-io",
             disqus_url="https://marcosschroh.github.io/posts/dataclasses-avroschema/",
-        disqus_title="Dataclasses Avroschema",
+        disqus_title="Dataclasses Avro Schema",
         disqus_identifier="cache/posts/dataclasses-avroschema.html",
         disqus_config = function () {
             this.language = "en";
