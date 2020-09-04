@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/avro.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/bot.xml</loc>
@@ -27,7 +27,7 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_data-streaming.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/cat_django.xml</loc>
@@ -47,7 +47,7 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/data-streaming.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/decorators.xml</loc>
@@ -71,7 +71,7 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/python.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/categories/react.xml</loc>
@@ -91,10 +91,10 @@
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/rss.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://marcosschroh.github.io/sitemap.xml</loc>
-  <lastmod>2020-02-22T14:54:00Z</lastmod>
+  <lastmod>2020-09-04T15:49:00Z</lastmod>
  </sitemap>
 </sitemapindex>
